@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # temp2
 ss
 =======
@@ -34,6 +34,3 @@ npm run test:e2e
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
->>>>>>> 7efba6af136da2cb002b540aab6f6564349bd1e1
