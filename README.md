@@ -1,9 +1,3 @@
-
-# temp2
-ss
-=======
-# frontend
-
 ## Project setup
 ```
 npm install
