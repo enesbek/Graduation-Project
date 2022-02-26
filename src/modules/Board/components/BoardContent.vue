@@ -13,12 +13,35 @@
           <span class="">Date: {{task.date}} &emsp;<i class="fas fa-paperclip ml-10 mr-1"></i>{{task.attachment}}</span>
          
         </draggable>
-        &emsp;<button class="addButton ml-10 mt-3 text-white rounded pt-3 pb-3 pl-10 pr-10">Add New Task</button>
+        &emsp;<button class="addButton ml-10 mt-3 text-white rounded pt-3 pb-3 pl-10 pr-10" data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:click="submitSectionName(sections)">Add New Task</button>
+        <!-- Add Task Modal Start -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <label for="exampleInputEmail1" class="form-label">New Task</label>
+                <input type="text" class="form-control" v-model="newTask.taskName">
+                <label for="exampleInputEmail1" class="form-label">Date</label>
+                <input type="text" class="form-control" v-model="newTask.date">
+                <label for="exampleInputEmail1" class="form-label">Tag</label>
+                <input type="text" class="form-control" v-model="newTask.tags[0]">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Add Task</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Task Modal Finish -->
       </draggable>
     </div>
-    <div>
-      
-    </div>
+
+    
   </div>
 </template>
 <script>
@@ -30,6 +53,7 @@ export default {
   },
   data() {
     return {
+      newTask:{sectionName: "",taskName: "", tags: [], date: "", attachment: 0},
       isModalVisible: false,
       enabled: true,
       sectionData: [
@@ -68,13 +92,17 @@ export default {
     }
   },
   methods: {
-      showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      }
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    submitSectionName(sections){
+      this.newTask.sectionName = sections.name
+      sections.tasks.push(this.newTask)
     }
+  }
 }
 </script>
 
