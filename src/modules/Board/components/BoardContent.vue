@@ -13,13 +13,13 @@
           <span class="">Date: {{task.date}} &emsp;<i class="fas fa-paperclip ml-10 mr-1"></i>{{task.attachment}}</span>
          
         </draggable>
-        &emsp;<button class="addButton ml-10 mt-3 text-white rounded pt-3 pb-3 pl-10 pr-10" data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:click="submitSectionName(sections)">Add New Task</button>
+        &emsp;<button class="addButton ml-10 mt-3 text-white rounded pt-3 pb-3 pl-10 pr-10" data-bs-toggle="modal" data-bs-target="#addTaskModal" v-on:click="submitSectionName(sections)">Add New Task</button>
         <!-- Add Task Modal Start -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
+                <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
