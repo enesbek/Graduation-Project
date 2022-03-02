@@ -4,9 +4,7 @@
     <div class="menu">
       <router-link to="/dashboard" class="items"><button><i class="fas fa-home"></i>&ensp;Dashboard</button></router-link><hr>
       <router-link to="/projects" class="items"><button><fa icon="poll-h" />&ensp;Projects</button></router-link><hr>
-      <router-link to="/dashboard" class="items"><button><i class="fas fa-bell"></i>&ensp;Notifications</button></router-link><hr>
-      <router-link to="/dashboard" class="items"><button><i class="fas fa-calendar-week"></i>&ensp;Agenda</button></router-link><hr>
-      <router-link to="/dashboard" class="items"><button> <i class="fas fa-tasks"></i>&ensp;My Tasks</button></router-link>
+      <router-link to="/dashboard" class="items"><button><fa icon="plus" />&ensp;Create New Project</button></router-link><hr>
     </div>
     
   </div>

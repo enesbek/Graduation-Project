@@ -1,12 +1,24 @@
 <template>
   <auth>
-    <form class="form-signin">
+    <div class="form-signin">
       <h1 class="h3 mb-3 fw-normal">Register</h1>
       <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name" 
-              v-model="v$.user.fullName.$model">
-      <label for="floatingInput">Full Name</label>
-      <small v-if="v$.user.fullName.required.$invalid && v$.user.fullName.$error" class="text-red-500">Please Enter Full Name<br></small>
+      <input type="text" class="form-control" id="floatingInput" placeholder="First Name" 
+              v-model="v$.user.firstName.$model">
+      <label for="floatingInput">First Name</label>
+      <small v-if="v$.user.firstName.required.$invalid && v$.user.firstName.$error" class="text-red-500">Please Enter First Name<br></small>
+      </div>
+      <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Last Name" 
+              v-model="v$.user.lastName.$model">
+      <label for="floatingInput">Last Name</label>
+      <small v-if="v$.user.lastName.required.$invalid && v$.user.lastName.$error" class="text-red-500">Please Enter Last Name<br></small>
+      </div>
+      <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Username" 
+              v-model="v$.user.username.$model">
+      <label for="floatingInput">User Name</label>
+      <small v-if="v$.user.username.required.$invalid && v$.user.username.$error" class="text-red-500">Please Enter Username<br></small>
       </div>
       <div class="form-floating">
       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" 
@@ -30,12 +42,12 @@
       <small v-if="v$.user.passwordConfirmation.sameAs.$invalid && v$.user.passwordConfirmation.$error" class="text-red-500">Password Are NOT Same!<br></small>
       </div>
 
-      <router-link to="/login" class="text-white no-underline">
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-      </router-link>
+      <!--<router-link to="/login" class="text-white no-underline">-->
+        <button class="w-100 btn btn-lg btn-primary" v-on:click="postRegister">Register</button>
+      <!--</router-link>-->
       
       <p class="mt-5 mb-3 text-muted">&copy; Tüm hakları saklıdır.</p>
-    </form>
+    </div>
   </auth>
 </template>
 
@@ -43,6 +55,7 @@
 import Auth from '../components/Auth.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, sameAs } from '@vuelidate/validators'
+import AuthService from '../../../services/auth.service'
 
 export default {
   name: 'Register',
@@ -55,7 +68,9 @@ export default {
   data() {
     return{
       user: {
-        fullName: null,
+        firstName: null,
+        lastName: null,
+        username: null,
         email: null,
         password: null,
         passwordConfirmation: null,
@@ -65,7 +80,9 @@ export default {
   validations() {
     return {
       user: {
-        fullName: { required },
+        firstName: { required },
+        lastName: { required },
+        username: { required }, 
         email: { required, email},
         password: { required, 
                     valid: function(value) {
@@ -80,6 +97,11 @@ export default {
                                 sameAs: sameAs(this.user.password)
         }, 
       }
+    }
+  },
+  methods: {
+    postRegister() {
+      AuthService.register(this.user)
     }
   }
 }

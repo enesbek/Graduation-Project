@@ -1,44 +1,37 @@
 <template>
   <div class="main">
-    <menuSide class="menuSide"/>
-    <page class="page"/>
+    <Menu class="menu"/>
   </div>
 </template>
 
 <script>
-import MenuSide from '../components/MenuSide.vue'
-import Page from '../components/Page.vue'
+import Menu from '../components/Menu.vue'
 
 export default {
   name: 'DashBoard',
   components: {
-    MenuSide,
-    Page,
+    Menu,
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scpoed>
+<style scoped>
 .main{
+  margin: 0;
+  padding: 0;
   height: 100vh;
   display: grid;
   grid-template-columns: auto 1fr;
-  background: url("https://images.wallpaperscraft.com/image/single/stars_sky_space_car_113629_1920x1080.jpg");
+  background: url("https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80");
   background-repeat: none;
   background-size: cover;
 }
 
-.menuSide{
+.menu{
   background-color: #187f86;
   margin: 0;
   width: 20rem;
   opacity: 0.8;
-}
-
-.page{
-  margin: 0;
-  width: 100%;
-  
 }
 </style>

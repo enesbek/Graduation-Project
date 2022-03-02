@@ -4,6 +4,7 @@ import DashBoard from '../modules/Dashboard/views/DashBoard.vue'
 import Board from '../modules/Board/views/Boards.vue'
 import Login from '../modules/Home/views/Login.vue'
 import Register from '../modules/Home/views/Register.vue'
+import Projects from '../modules/Projects/views/Projects.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/projects',
+    name: 'Projects',
+    component: Projects
   }
 ]
 
