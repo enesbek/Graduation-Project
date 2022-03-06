@@ -33,7 +33,6 @@ export default {
   background-color: #187f86;
   margin: 0;
   width: 20rem;
-  opacity: 0.8;
 }
 
 .page{

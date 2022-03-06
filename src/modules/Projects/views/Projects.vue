@@ -1,16 +1,19 @@
 <template>
   <div class="main">
     <Menu class="menu"/>
+    <ProjectMain class="project-main"/>
   </div>
 </template>
 
 <script>
 import Menu from '../components/Menu.vue'
+import ProjectMain from '../components/ProjectMain.vue'
 
 export default {
   name: 'DashBoard',
   components: {
     Menu,
+    ProjectMain,
   }
 }
 </script>
@@ -23,7 +26,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: auto 1fr;
-  background: url("https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80");
+  background: url("https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-repeat: none;
   background-size: cover;
 }
