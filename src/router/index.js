@@ -5,7 +5,7 @@ import DashBoardPage from '../modules/Dashboard/components/DashboardPage.vue'
 import Board from '../modules/Board/views/Boards.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import Projects from '../modules/Projects/views/Projects.vue'
+import Projects from '../views/Projects.vue'
 
 const routes = [
   {

@@ -1,18 +1,15 @@
 <template>
   <div class="main">
-    <Menu class="menu"/>
     <ProjectMain class="project-main"/>
   </div>
 </template>
 
 <script>
-import Menu from '../components/Menu.vue'
-import ProjectMain from '../components/ProjectMain.vue'
+import ProjectMain from '../components/Projects/ProjectMain.vue'
 
 export default {
   name: 'DashBoard',
   components: {
-    Menu,
     ProjectMain,
   }
 }
