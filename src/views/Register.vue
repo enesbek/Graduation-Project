@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import Auth from '../components/Auth.vue'
+import Auth from '../components/Home/Auth.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, sameAs } from '@vuelidate/validators'
-import AuthService from '../../../services/auth.service'
+import AuthService from '../services/auth.service'
 
 export default {
   name: 'Register',

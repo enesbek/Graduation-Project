@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Auth from '../components/Auth'
+import Auth from '../components/Home/Auth.vue'
 export default {
   name: "Login",
   components: {Auth}
