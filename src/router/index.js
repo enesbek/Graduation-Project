@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import DashBoard from '../modules/Dashboard/DashBoard.vue'
+import DashBoard from '../views/DashBoard.vue'
 import DashBoardPage from '../modules/Dashboard/components/DashboardPage.vue'
 import Board from '../views/Boards.vue'
 import Login from '../views/Login.vue'

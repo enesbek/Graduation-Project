@@ -112,7 +112,7 @@ export default {
   padding: 0;
 }
 .my-container{
-  height: 94vh;
+  height: 100vh;
   background: url("https://wallpaperaccess.com/full/84303.jpg");
   background-repeat: none;
   background-size: cover;

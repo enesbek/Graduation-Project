@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Sidebar from '../src/modules/Dashboard/components/Sidebar/SidebarMenu.vue'
-import { sidebarWidth } from '../src/modules/Dashboard/components/Sidebar/state'
+import Sidebar from './components/Sidebar/SidebarMenu.vue'
+import { sidebarWidth } from './components/Sidebar/state'
 import store from './store'
 export default {
   name: 'App',

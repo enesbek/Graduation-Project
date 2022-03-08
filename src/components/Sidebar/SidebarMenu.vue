@@ -8,7 +8,7 @@
     </div>
 
     <hr>
-    <SidebarLink to="/dashboardpage" icon="fas fa-home" class="text-xl m-1">Dashboard</SidebarLink><hr>
+    <SidebarLink to="/dashboard" icon="fas fa-home" class="text-xl m-1">Dashboard</SidebarLink><hr>
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">Projects</SidebarLink><hr>
     <SidebarLink to="/board" icon="fas fa-clipboard" class="text-xl m-2">Boards</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">Agenda</SidebarLink><hr>
