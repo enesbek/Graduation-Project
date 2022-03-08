@@ -17,6 +17,11 @@ export default {
     HomeHeader,
     HomeContent,
     HomeFooter 
+  },
+  setup() {
+    return{
+      
+    }
   }
 }
 </script>
