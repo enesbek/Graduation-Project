@@ -1,21 +1,21 @@
 <template>
-  <div class="page">
+  <div class="dashboard-container">
     <div class="project-field">
-      <p class="project-title text-white"><i class="fas fa-poll-h"></i> PROJECTS</p>
-      <div class="projects">
-        <div class="project" v-for="project in projects" :key="project.id">
+      <router-link to="/projects" class="project-title no-underline"><i class="fas fa-poll-h"></i> PROJECTS</router-link>
+      <router-link to="/projects" class="projects no-underline">
+        <div class="project" v-for="project in projects" :key="project.id" >
           <p>{{ project.ProjectName }}</p>
           <p>{{ project.ProjectDescription }}</p>
           <p clas="project-dates">{{ project.EndDate }}</p>
         </div>
-      </div>
+      </router-link>
     </div>
     <div class="board-field">
-      <p class="board-title text-white"><i class="fas fa-clipboard"></i> BOARDS</p>
+      <router-link to="/board" class="board-title no-underline"><i class="fas fa-clipboard"></i> BOARDS</router-link>
       <div class="boards">
         <div class="board" v-for="board in boards" :key="board.id">
           <p>{{ board.BoardName }}</p>
-          <router-link to="/board" tag="button" class="router text-white m-1">Go To Board</router-link>
+          <router-link to="/board" tag="button" class="router text-white m-1 no-underline">Go To Board</router-link>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
 </script>
 
 
-<style lang="postcss">
+<style scoped>
   .project-field{
     margin: 12rem;
     margin-top: 8rem;

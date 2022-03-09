@@ -23,7 +23,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: auto 1fr;
-  background: url("https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background: url("https://images.wallpaperscraft.com/image/single/starry_sky_night_trees_121201_1920x1080.jpg");
   background-repeat: none;
   background-size: cover;
 }

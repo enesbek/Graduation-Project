@@ -113,7 +113,7 @@ export default {
 }
 .my-container{
   height: 100vh;
-  background: url("https://wallpaperaccess.com/full/84303.jpg");
+  background: url("https://images.wallpaperscraft.com/image/single/starry_sky_night_trees_121201_1920x1080.jpg");
   background-repeat: none;
   background-size: cover;
 }

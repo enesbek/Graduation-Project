@@ -1,20 +1,20 @@
 <template>
   <div class="sidebar" :style="{ width: sidebarWidth }">
-    <div class="text-xl mt-3 mb-4">
+    <div class="text-base mt-3 mb-4">
       <span v-if="collapsed">
         <div>PMS</div>
       </span>
-      <span v-else>Project Management System</span>
+      <span v-else>PROJECT MANAGEMENT SYSTEM</span>
     </div>
 
     <hr>
-    <SidebarLink to="/dashboard" icon="fas fa-home" class="text-xl m-1">Dashboard</SidebarLink><hr>
-    <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">Projects</SidebarLink><hr>
-    <SidebarLink to="/board" icon="fas fa-clipboard" class="text-xl m-2">Boards</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">Agenda</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-bell" class="text-xl m-2">Notifications</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">Tasks</SidebarLink><hr>
-    <SidebarLink to="/profile" icon="fas fa-user" class="text-xl m-2">Profile</SidebarLink>
+    <SidebarLink to="/dashboard" icon="fas fa-home" class="text-xl m-1">DASHBOARD</SidebarLink><hr>
+    <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
+    <SidebarLink to="/board" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
+    <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
+    <SidebarLink to="/dashboard" icon="fas fa-bell" class="text-xl m-2">NOTIFICATIONS</SidebarLink><hr>
+    <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
+    <SidebarLink to="/dashboard" icon="fas fa-user" class="text-xl m-2">PROFILE</SidebarLink>
 
     <span class="collapse-icon" :class="{ 'rotate-180': collapsed}" @click="toggleSidebar">
       <i class="fas fa-angle-double-left"></i>

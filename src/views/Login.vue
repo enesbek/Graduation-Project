@@ -11,7 +11,7 @@
       <label for="floatingPassword">Password</label>
       </div>
 
-      <router-link to="/dashboard"><button class="w-100 btn btn-lg btn-primary" type="submit"
+      <router-link to="/dashboard"><button class="w-100 btn btn-lg btn-primary" 
         v-on:click="$store.commit('changeSidebarState')">Login</button></router-link>
       <p class="mt-5 mb-3 text-muted">&copy; Tüm hakları saklıdır.</p>
     </form>
