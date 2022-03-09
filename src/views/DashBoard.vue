@@ -6,7 +6,7 @@
         <div class="project" v-for="project in projects" :key="project.id" >
           <p>{{ project.ProjectName }}</p>
           <p>{{ project.ProjectDescription }}</p>
-          <p clas="project-dates">{{ project.EndDate }}</p>
+          <p clas="project-dates">End: {{ project.EndDate }}</p>
         </div>
       </router-link>
     </div>
@@ -30,16 +30,16 @@ export default {
     return {
       projects:[
         {
-          ProjectName: "Project 2",
-          ProjectDescription: "This is a sample Project",
-          StartDate: "03.01.2021", 
-          EndDate: "05.02.2021",
+          ProjectName: "Web Project",
+          ProjectDescription: "Build Full Stack Project",
+          StartDate: "2022-03-10", 
+          EndDate: "2022-03-30",
         },
         {
-          ProjectName: "Project 3",
-          ProjectDescription: "This is a sample Project",
-          StartDate: "03.01.2021", 
-          EndDate: "20.02.2021",
+          ProjectName: "IOS Project",
+          ProjectDescription: "Build Mobile App for IOS",
+          StartDate: "2022-01-02", 
+          EndDate: "2022-04-01",
         },
 
       ],

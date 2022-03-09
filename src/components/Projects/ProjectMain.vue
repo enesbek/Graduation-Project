@@ -1,11 +1,42 @@
 <template>
   <div class="page">
     <div class="project-field">
-      <p class="project-title text-black"><i class="fas fa-poll-h"></i> PROJECTS</p>
+      <button class="create-btn text-white" 
+              data-bs-toggle="modal" 
+              data-bs-target="#addProjectModal">CREATE NEW PROJECTS <i class="fas fa-plus"></i></button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addProjectModalLabel">Create New Project</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <label for="exampleInputEmail1" class="form-label">Project Name</label>
+              <input type="text" class="form-control" v-model="newProject.ProjectName">
+              <label for="exampleInputEmail1" class="form-label">Project Description</label>
+              <input type="text" class="form-control" v-model="newProject.ProjectDescription">
+              <label for="exampleInputEmail1" class="form-label">Start Date</label>
+              <input type="date" class="form-control" v-model="newProject.StartDate">
+              <label for="exampleInputEmail1" class="form-label">End Date</label>
+              <input type="date" class="form-control" v-model="newProject.EndDate">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="addProject">Create Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <p class="project-title text-white"><i class="fas fa-poll-h"></i> ALL PROJECTS</p>
       <div class="projects">
         <div class="project" v-for="project in projects" :key="project.id">
           <p class="text-center text-xl">{{ project.ProjectName }}</p>
-          <p>{{ project.ProjectDescription }}</p>
+          <div>{{ project.ProjectDescription }}</div>
           <div class="project-dates">
             <p class="start-date">Start: {{ project.StartDate }}</p>
             <p class="end-date">End: {{ project.EndDate }}</p>
@@ -23,18 +54,24 @@ export default {
   name: 'MainPage',
   data() {
     return {
+      newProject:{
+        ProjectName: "",
+        ProjectDescription: "",
+        StartDate: "", 
+        EndDate: "",
+      },
       projects:[
         {
-          ProjectName: "Project 2",
-          ProjectDescription: "This is a sample Project",
-          StartDate: "03.01.2021", 
-          EndDate: "05.02.2021",
+          ProjectName: "Web Project",
+          ProjectDescription: "Build Full Stack Project",
+          StartDate: "2022-03-10", 
+          EndDate: "2022-03-30",
         },
         {
-          ProjectName: "Project 3",
-          ProjectDescription: "This is a sample Project",
-          StartDate: "03.01.2021", 
-          EndDate: "20.02.2021",
+          ProjectName: "IOS Project",
+          ProjectDescription: "Build Mobile App for IOS",
+          StartDate: "2022-01-02", 
+          EndDate: "2022-04-01",
         },
 
       ],
@@ -51,6 +88,12 @@ export default {
       ],
     }
   },
+
+  methods:{
+    addProject() {
+      this.projects.push(this.newProject)
+    }
+  }
 }
 </script>
 
@@ -85,5 +128,9 @@ export default {
   .end-date{
     margin-top: -1rem;
     margin-bottom: 0;
+  }
+  .create-btn{
+    margin-bottom: 2em;
+    @apply text-xl;
   }
 </style>
