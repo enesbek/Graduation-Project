@@ -34,13 +34,36 @@
       <!-- Modal -->
       <p class="project-title text-white"><i class="fas fa-poll-h"></i> ALL PROJECTS</p>
       <div class="projects">
-        <div class="project" v-for="project in projects" :key="project.id">
+        <div class="project" v-for="project in projects" :key="project.id" data-bs-toggle="modal" 
+              data-bs-target="#ProjectModal">
           <p class="text-center text-xl">{{ project.ProjectName }}</p>
           <div>{{ project.ProjectDescription }}</div>
           <div class="project-dates">
             <p class="start-date">Start: {{ project.StartDate }}</p>
             <p class="end-date">End: {{ project.EndDate }}</p>
           </div>
+          <!-- -->
+          <div class="modal fade text-black" id="ProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="ProjectModalLabel">{{ project.ProjectName }}</h5>
+                  <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">Add User <fa icon="plus"/></button>
+                </div>
+                <div class="modal-body">
+                  <label for="exampleInputEmail1" class="label text-black">{{ project.ProjectDescription }}</label>
+                  <hr/>
+                  <label for="exampleInputEmail1" class="label text-black">Start: {{ project.StartDate }}</label><hr>
+                  <label for="exampleInputEmail1" class="label text-black">End: {{ project.EndDate }}</label>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -->
         </div>
       </div>
     </div>
