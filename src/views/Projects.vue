@@ -1,17 +1,16 @@
 <template>
   <div class="main">
-    <ProjectMain class="project-main"/>
+    <ProjectMain class="project-main" />
   </div>
 </template>
 
 <script>
 import ProjectMain from '../components/Projects/ProjectMain.vue'
-
 export default {
   name: 'DashBoard',
   components: {
     ProjectMain,
-  }
+  },
 }
 </script>
 
@@ -23,9 +22,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: auto 1fr;
-  background: url("https://images.wallpaperscraft.com/image/single/starry_sky_night_trees_121201_1920x1080.jpg");
-  background-repeat: none;
-  background-size: cover;
+  background-color: gray;
 }
 
 .menu{
