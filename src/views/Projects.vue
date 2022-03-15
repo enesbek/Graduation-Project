@@ -1,15 +1,15 @@
 <template>
   <div class="main">
-    <ProjectMain class="project-main" />
+    <Content class="project-main" />
   </div>
 </template>
 
 <script>
-import ProjectMain from '../components/Projects/ProjectsMain.vue'
+import Content from '../components/Projects/Content.vue'
 export default {
   name: 'DashBoard',
   components: {
-    ProjectMain,
+    Content,
   },
 }
 </script>
