@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ProjectMain from '../components/Projects/ProjectMain.vue'
+import ProjectMain from '../components/Projects/ProjectsMain.vue'
 export default {
   name: 'DashBoard',
   components: {
@@ -22,7 +22,6 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: auto 1fr;
-  background-color: gray;
 }
 
 .menu{

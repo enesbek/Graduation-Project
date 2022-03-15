@@ -24,25 +24,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'MainPage',
   data() {
     return {
-      projects:[
-        {
-          ProjectName: "Web Project",
-          ProjectDescription: "Build Full Stack Project",
-          StartDate: "2022-03-10", 
-          EndDate: "2022-03-30",
-        },
-        {
-          ProjectName: "IOS Project",
-          ProjectDescription: "Build Mobile App for IOS",
-          StartDate: "2022-01-02", 
-          EndDate: "2022-04-01",
-        },
-
-      ],
+      projects:[],
       boards:[
         {
           BoardName: "Searching Team Board",
@@ -56,6 +44,13 @@ export default {
       ],
     }
   },
+  mounted(){
+    this.$store.dispatch('loadProjects')
+  },
+  computed: mapState([
+      'projects'
+  ]),
+  
 }
 </script>
 
