@@ -2,12 +2,13 @@
   <div>
     <div class="project-top">
       <div class="project-info flex">
-        <span class="project-icon text-4xl flex-initial m-2">{{ project.projectName[0] }}</span>
+        <span class="project-icon text-4xl flex-initial m-2 text-white">{{ project.projectName[0] }}</span>
         <div class="flex-initial ml-2">
           <div class="text-xl font-semibold mt-2 mb-2">{{ project.projectName }}</div>
           <div> {{ project.projectDescription }}</div>
           <button class="edit-btn mt-3 pl-2 pr-2"> <i class="fa-solid fa-pen"></i>  Edit Project</button>
         </div>
+        <div></div>
       </div>
       <div class="tabs flex">
         <button class="flex-initial pl-4 pr-4 pt-2 pb-2 mx-1 mt-1 tabs-btn" 
@@ -67,14 +68,14 @@ export default {
 }
 .project-info {
   margin-left: 35%;
-  width: 0%;
+  width: 35%;
   margin-bottom: 7vh;
 }
 .project-icon{
   padding: 2rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  background-color: #16858d;
+  background-image: linear-gradient(to bottom, rgba(3, 77, 94), rgba(22, 133, 141));
 }
 .tabs{
   margin-left: 35%;

@@ -47,7 +47,7 @@
 
 <script>
 import { mapState } from "vuex";
-
+import router from '../../router';
 export default {
   data() {
     return {
@@ -77,7 +77,8 @@ export default {
   computed: mapState(["projects"]),
   methods: {
     gotoProject(project) {
-      this.$store.dispatch("routeProject", project)
+      this.$store.state.routingProject = project
+      router.push('project')
     },
   },
 };
