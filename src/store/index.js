@@ -7,7 +7,8 @@ export default createStore({
     accessToken: '',
     dashboardOpen: false,
     projects: [],
-    newProject: {}
+    newProject: {},
+    routingProject: null,
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -18,9 +19,16 @@ export default createStore({
     },
     CREATE_Project(state, newProject) {
       state.newProject = newProject
+    },
+    SET_RoutingProject(state, project) {
+      state.routingProject = project
     }
   },
   actions: {
+    routeProject(store, project) {
+      this.commit('SET_RoutingProject', project)
+      router.push('project')
+    },
     changeSidebarState({ commit }) {
       commit('changeSidebarState')
     },
@@ -34,7 +42,6 @@ export default createStore({
       .then(response => response.data)
       .then(projects => {
         commit('SET_Projects', projects)
-        
       })
     },
     createProject(store, newProject) {
@@ -54,9 +61,8 @@ export default createStore({
         }
       )
       .then(response => {
-        if(response.status == 200){
-          router.push('project');
-        }
+        this.state.routingProject = response.data
+        router.push('project');
       });
     }
   },
@@ -67,5 +73,6 @@ export default createStore({
     isDashboardOpen: state => state.dashboardOpen,
     projects: state => state.projects,
     newProject: state => state.newProject,
+    getRoutingProject: state => state.routingProject
   }
 })

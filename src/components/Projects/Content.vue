@@ -94,7 +94,7 @@ export default {
 }
 .bottomPage{
   width: 100vw;
-  padding-bottom: 10rem;
+  padding-bottom: 100rem;
   background-color: rgb(200, 200, 200);
   padding-top: 1rem;
 }

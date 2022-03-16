@@ -2,33 +2,26 @@
   <div class="projects">
     <div class="project mb-2" v-for="project in projects" :key="project.id">
       <div class="flex">
-        <div class="project-name flex-initial h-10 pl-2 pt-1">
-          <router-link
-            to="/project"
-            class="
-              text-black
-              no-underline
-              pl-2
-              pr-2
-              text-xl
-              tracking-wide
-              font-semibold
-            "
-          >
-            <span class="project-icon text-xl flex-initial">{{
-              project.projectName[0]
-            }}</span>
-            {{ project.projectName }}
-          </router-link>
+        <div class="project-name" @click="gotoProject(project)">
+          <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
+          {{ project.projectName }} 
         </div>
         <button
           class="flex-initial w-32 ml-4 project-btns"
-          @click="printResult"
+          @click="gotoProject"
         >
           Boards(3)
         </button>
-        <button class="flex-initial w-32 ml-4 project-btns">Members(8)</button>
-        <button class="flex-initial w-32 ml-4 project-btns">
+        <button
+          class="flex-initial w-32 ml-4 project-btns"
+          @click="gotoProject"
+        >
+          Members(8)
+        </button>
+        <button
+          class="flex-initial w-32 ml-4 project-btns"
+          @click="gotoProject"
+        >
           <i class="fa-solid fa-gear"></i> Settings
         </button>
       </div>
@@ -53,7 +46,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -75,14 +69,17 @@ export default {
             "https://embedwistia-a.akamaihd.net/deliveries/d5ae8190f0aa7dfbe0b01f336f29d44094b967b5.webp?image_crop_resized=1280x720",
         },
       ],
-    }
+    };
   },
-  mounted(){
-    this.$store.dispatch('loadProjects')
+  mounted() {
+    this.$store.dispatch("loadProjects");
   },
-  computed: mapState([
-    'projects'
-  ]),
+  computed: mapState(["projects"]),
+  methods: {
+    gotoProject(project) {
+      this.$store.dispatch("routeProject", project)
+    },
+  },
 };
 </script>
 
@@ -93,24 +90,26 @@ export default {
 .project {
   height: 100%;
 }
-.project-name{
+.project-name {
   width: 40vw;
+  cursor: pointer;
+  @apply flex-initial h-10 pl-2 pt-1 text-xl tracking-wide font-semibold;
 }
-.project-btns{
+.project-btns {
   background-color: rgb(225, 225, 225);
   border-radius: 5px;
 }
-.project-icon{
+.project-icon {
   background-color: #16858d;
   padding: 3px 8px;
 }
-.assigned-project{
+.assigned-project {
   margin-top: 1rem;
   margin-left: 10rem;
   width: 65vw;
   background-color: rgb(200, 200, 200);
 }
-.bottomPage{
+.bottomPage {
   width: 100vw;
   height: 100%;
   background-color: rgb(200, 200, 200);
@@ -124,18 +123,18 @@ export default {
 }
 .boards-area {
 }
-.board{
+.board {
   margin: 1rem;
   width: 270px;
   height: 130px;
 }
-.board-inner{
+.board-inner {
   height: 130px;
   background-repeat: none;
   background-size: cover;
   border-radius: 5px;
 }
-.create-board{
+.create-board {
   background-color: rgb(225, 225, 225);
   border-radius: 5px;
 }

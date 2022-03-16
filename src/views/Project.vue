@@ -2,10 +2,10 @@
   <div>
     <div class="project-top">
       <div class="project-info flex">
-        <span class="project-icon text-4xl flex-initial m-2">P</span>
+        <span class="project-icon text-4xl flex-initial m-2">{{ project.projectName[0] }}</span>
         <div class="flex-initial ml-2">
-          <div class="text-xl font-semibold mt-2 mb-2">Project Name</div>
-          <div>Project Description</div>
+          <div class="text-xl font-semibold mt-2 mb-2">{{ project.projectName }}</div>
+          <div> {{ project.projectDescription }}</div>
           <button class="edit-btn mt-3 pl-2 pr-2"> <i class="fa-solid fa-pen"></i>  Edit Project</button>
         </div>
       </div>
@@ -30,6 +30,7 @@
 import Boards from '../components/Project/Boards.vue'
 import Members from '../components/Project/Members.vue'
 import Settings from '../components/Project/Settings.vue'
+
 export default {
   data(){
     return {
@@ -43,9 +44,15 @@ export default {
   },
   methods:{
     changeTab(index) {
+      console.log(this.$store.state.routingProject)
       this.selectedTab = [false, false, false]
       this.selectedTab[index] = true
     }
+  },
+  computed: {
+    project(){
+      return this.$store.state.routingProject
+    } 
   }
 };
 </script>
@@ -60,7 +67,7 @@ export default {
 }
 .project-info {
   margin-left: 35%;
-  width: 30%;
+  width: 0%;
   margin-bottom: 7vh;
 }
 .project-icon{
