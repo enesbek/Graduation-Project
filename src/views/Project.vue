@@ -31,7 +31,7 @@
 import Boards from '../components/Project/Boards.vue'
 import Members from '../components/Project/Members.vue'
 import Settings from '../components/Project/Settings.vue'
-
+import store from '../store'
 export default {
   data(){
     return {
@@ -52,6 +52,7 @@ export default {
   },
   computed: {
     project(){
+      store.commit('changeSidebarState');
       return this.$store.state.routingProject
     } 
   }
