@@ -25,9 +25,9 @@
               <span class="text-sm">You can give details about the Project</span><br>
             </div>
             <div class="ml-6 mb-10">
-              <span class="text-sm font-semibold">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</span><br>
+              <span class="text-sm font-semibold">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</span><br>
               <input type="date" class="border-2 border-gray-600 rounded" v-model="newProject.startDate">
-              <input type="date" class="border-2 border-gray-600 rounded ml-2" v-model="newProject.endDate">
+              <input type="date" class="border-2 border-gray-600 rounded ml-4" v-model="newProject.endDate">
             </div>
             <button class="rounded bg-gray-300 px-6 py-2 w-3/12 ml-28 mb-3 " @click="createNewProject">Create</button>  
           </div>
