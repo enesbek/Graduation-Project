@@ -10,7 +10,7 @@
     <hr>
     <SidebarLink to="/dashboard" icon="fas fa-home" class="text-xl m-1">DASHBOARD</SidebarLink><hr>
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
-    <SidebarLink to="/board" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
+    <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-bell" class="text-xl m-2">NOTIFICATIONS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
@@ -61,6 +61,7 @@ export default {
 
   display: flex; 
   flex-direction: column;
+
 }
 .collapse-icon{
   position: absolute;

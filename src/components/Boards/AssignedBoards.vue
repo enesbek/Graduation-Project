@@ -1,6 +1,8 @@
 <template>
   <div class="assigned-boards">
-    Assigned Boards
+    <div class="title">
+      Assigned Boards
+    </div>
     <div class="content"></div>
     <div class="create-board text-xl font-semibold">
       Create New Board
@@ -19,6 +21,10 @@ export default {
 .assigned-boards{
   height: 90%;
 }
+.title{
+  width: 100;
+  text-align: center;
+}
 .content{
   height: 75%;
 }
@@ -26,13 +32,13 @@ export default {
   width: 80%;
   margin: auto;
   bottom: 0;
-  height: 10rem;
+  height: 8rem;
   @apply bg-white text-center;
   text-align: center;
   padding-top: 7%;
 }
 .create-board:hover{
-  background-color: #177c81;
+  background-color: #034d5e;
   @apply text-white text-xl;
   cursor: pointer;
 }

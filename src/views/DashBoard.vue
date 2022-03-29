@@ -18,6 +18,6 @@ export default {
 }
 .content{
   height: 100vh;
-  width: 10rem;
+  width: 100rem;
 }
 </style>

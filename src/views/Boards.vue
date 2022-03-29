@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen">
-    <ProjectsBoards class="projects-boards bg-gray-300 ml-10 mt-5"/>
-    <YourBoards class="your-boards bg-gray-300 ml-10 mt-5"/>
-    <AssignedBoards class="assigned-boards bg-gray-300 ml-10 mt-5"/>
+    <ProjectsBoards class="projects-boards bg-gray-200 ml-10 mt-4"/>
+    <YourBoards class="your-boards bg-gray-320 ml-10 mt-4"/>
+    <AssignedBoards class="assigned-boards bg-gray-320 ml-10 mt-4"/>
   </div>
 </template>
 
@@ -26,18 +26,15 @@ export default {
   padding: 0;
 }
 .projects-boards{
-  width: 30%;
-  height: 90vh;
+  width: 29%;
   float: left;
 }
 .your-boards{
-  width: 30%;
-  height: 90vh;
+  width: 29%;
   float: left;
 }
 .assigned-boards{
-  width: 30%;
-  height: 90vh;
+  width: 29%;
   float: left;
 }
 </style>
