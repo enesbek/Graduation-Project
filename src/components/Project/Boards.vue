@@ -13,8 +13,10 @@
           <div class="p-2">{{ board.name }}</div>
         </div>
       </div>
-      <div class="flex-iitial board p-12 pl-14 create-board">
-        <p>Create New Board</p> 
+      <div class="flex-iitial board create-board">
+        <div class="board-inner font-semibold text-xl">
+          <div class="font-normal text-lg">Create New Board</div>
+        </div> 
       </div>
     </div>
     <div class="boards-title mt-10">
@@ -83,8 +85,8 @@ export default {
 <style scoped>
 .boards {
   margin: auto;
-  width: 70%;
-  margin-top: 5em;
+  width: 80%;
+  margin-top: 2em;
   height: 50vh;
 }
 .boards-area {
@@ -98,10 +100,11 @@ export default {
   height: 130px;
   background-repeat: none;
   background-size: cover;
-  border-radius: 5px;
+  @apply rounded;
 }
 .create-board{
   background-color: rgb(225, 225, 225);
-  border-radius: 5px;
+  @apply text-center rounded;
+  padding-top: 45px;
 }
 </style>

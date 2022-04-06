@@ -1,6 +1,6 @@
 <template>
   <div class="project-boards">
-    <div class="title font-bold text-2xl mt-2">Project's Boards</div>
+    <div class="title font-bold text-2xl mt-2 mb-2">Project's Boards</div>
     <div class="boards-content">
       <div class="boards-projects">
         <div
@@ -11,15 +11,15 @@
           <div>
             <div class="font-semibold pl-4 pt-2 text-xl">{{ project.projectName }}</div>
             <div class="boards-area col-span-1">
-              <div class="board" v-for="board in boards" :key="board.id">
+              <div class="board" v-for="board in boards" :key="board.id" @click="gotoBoard">
                 <div
                   class="board-inner font-semibold text-lg"
                   :style="{
-                    background: 'url(' + board.image + ')',
+                    background: 'url(' + image2 + ')',
                     'background-size': 'cover',
                   }"
                 >
-                  <div class="p-2 text-white">{{ board.name }}</div>
+                  <div class="p-2 text-white">Search</div>
                 </div>
               </div>
               <div class="create-board text-xl font-semibold">
@@ -43,6 +43,8 @@ export default {
   data() {
     return {
       project: [],
+      image1: "https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg",
+      image2: "https://external-preview.redd.it/S3CqF19hBz9Yp9H-B7mTSBICv406vOYSSdah-B1dHzI.jpg?auto=webp&s=e5f5b18c31b87a04b9d9a59227e65e88ad245181",
       boards: [
         {
           name: "Android",
@@ -57,9 +59,8 @@ export default {
   },
   computed: mapState(["projects"]),
   methods: {
-    gotoProject(project) {
-      this.$store.state.routingProject = project;
-      router.push("project");
+    gotoBoard() {
+      router.push('board')
     },
   },
 };

@@ -10,6 +10,7 @@ export default createStore({
     newProject: {},
     routingProject: null,
     newBoard: {},
+    routingBoard: null,
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -66,19 +67,20 @@ export default createStore({
         }
       )
       .then(response => {
-        //this.state.routingProject = response.data
+        this.state.routingProject = response.data
         router.push('project');
         console.log(response.data)
       });
     },
     createBoard(store, newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
+      console.log(newBoard)
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
-          "boardName": newBoard.boardName,
-          "boardDescription": newBoard.boardDescription,
+          "project_id": 1,
+          "board_name": newBoard.boardName,
+          "description": newBoard.boardDiscription,
           "startDate": newBoard.startDate,
           "endDate": newBoard.endDate,
-          "isFinished": false
         }, 
         {
           headers: {
@@ -87,8 +89,12 @@ export default createStore({
         }
       )
       .then(response => {
-        this.state.routingBoard = response.data
-        router.push('boards');
+        console.log(response)
+        console.log(newBoard)
+        if(response.status == 201){
+          console.log(response.data)
+          router.push('board');
+        }
       });
     }
   },

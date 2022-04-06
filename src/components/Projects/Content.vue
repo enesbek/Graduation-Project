@@ -33,7 +33,7 @@
           </div>
           <div class="create-modal-image rounded">
             <button class="close-modal-btn text-xl" @click="toggleCreateModal = false"><i class="fa-solid fa-xmark"></i></button>
-            <img class="mt-10" src="https://www.unitektime.com/gallery/Project-Management-2-ts1616813781.png"/>
+            <img class="mt-10" src="@/assets/projects/create-modal.jpg"/>
           </div>
         </div>
       </div>

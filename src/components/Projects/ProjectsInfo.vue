@@ -56,7 +56,7 @@ export default {
         {
           name: "Listing",
           image:
-            "https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg",
+            "../../../assets/board-background/background-1.jpg",
         },
         {
           name: "Homepage",
