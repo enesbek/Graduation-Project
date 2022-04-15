@@ -3,20 +3,27 @@
     <div class="boards-title">
       <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
         <fa icon="clipboard"></fa> Boards
-        
       </p>
-      
     </div>
     <div class="boards-area flex">
-      <div class="flex-intial board" v-for="board in boards" :key="board.id">
-        <div class="board-inner font-semibold text-xl" :style="{'background': 'url(' + board.image + ')', 'background-size': 'cover'}" >
-          <div class="p-2">{{ board.name }}</div>
+      <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
+        <div
+          class="board-inner font-semibold text-xl"
+          :style="{
+            background: 'url(https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg)',
+            'background-size': 'cover',
+          }"
+        >
+          <div class="p-2">{{ board.board_name }}</div>
         </div>
       </div>
-      <div class="flex-iitial board create-board" @click="toggleCreateModal = !toggleCreateModal">
+      <div
+        class="flex-iitial board create-board"
+        @click="toggleCreateModal = !toggleCreateModal"
+      >
         <div class="board-inner font-semibold text-xl">
           <div class="font-normal text-lg">Create New Board</div>
-        </div> 
+        </div>
       </div>
     </div>
     <!-- Modal Start-->
@@ -33,10 +40,7 @@
             </button>
             <hr class="mt-1" />
           </div>
-          <img
-            class="modal-img"
-            src="../../assets/board/create-modal.png"
-          />
+          <img class="modal-img" src="../../assets/board/create-modal.png" />
           <div class="ml-6 mt-2">
             <span class="text-sm font-semibold">Board Title</span><br />
             <input
@@ -79,7 +83,7 @@
           </div>
           <button
             class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12"
-            @click="createNewBoard"
+            @click="createNewProjectBoard"
           >
             Create
           </button>
@@ -92,12 +96,11 @@
     ></div>
 
     <!-- Modal Finish-->
-
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -109,28 +112,19 @@ export default {
         endDate: null,
         isFinished: false,
       },
-      boards: [
-        {
-          name: "Listing",
-          image:
-            "https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg",
-        },
-        {
-          name: "Homepage",
-          image:
-            "https://external-preview.redd.it/S3CqF19hBz9Yp9H-B7mTSBICv406vOYSSdah-B1dHzI.jpg?auto=webp&s=e5f5b18c31b87a04b9d9a59227e65e88ad245181",
-        },
-        {
-          name: "Market Place",
-          image:
-            "https://embedwistia-a.akamaihd.net/deliveries/d5ae8190f0aa7dfbe0b01f336f29d44094b967b5.webp?image_crop_resized=1280x720",
-        },
-      ],
+      boards: [],
     };
   },
-  methods:{
-    ...mapActions(['printinfo'])
-  }
+  methods: {
+    createNewProjectBoard() {
+      this.toggleCreateModal = false;
+      this.$store.dispatch("createProjectBoard", this.newBoard);
+    },
+  },
+  mounted() {
+    this.$store.dispatch("loadProjectBoards");
+  },
+  computed: mapState(["projectBoards"]),
 };
 </script>
 
@@ -143,18 +137,18 @@ export default {
 }
 .boards-area {
 }
-.board{
+.board {
   margin: 1rem;
   width: 270px;
   height: 130px;
 }
-.board-inner{
+.board-inner {
   height: 130px;
   background-repeat: none;
   background-size: cover;
   @apply rounded;
 }
-.create-board{
+.create-board {
   background-color: rgb(225, 225, 225);
   @apply text-center rounded;
   padding-top: 45px;

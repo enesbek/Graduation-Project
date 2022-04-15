@@ -11,6 +11,7 @@ export default createStore({
     routingProject: null,
     newBoard: {},
     routingBoard: null,
+    projectBoards: [],
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -31,7 +32,10 @@ export default createStore({
     DELETE_PROJECT(state) {
       var index = state.projects.findIndex(p => p.id == state.routingProject.id);
       state.projects.splice(index, 1);
-    }
+    },
+    SET_PROJECT_BOARDS(state, boards) {
+      state.projectBoards = boards
+    },
   },
   actions: {
     routeProject(store, project) {
@@ -117,9 +121,9 @@ export default createStore({
       )
 
     },
-    createProjectBoard(state, newBoard) {
+    createProjectBoard({state}, newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(newBoard)
+      
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
           "project_id": state.routingProject.id,
           "board_name": newBoard.boardName,
@@ -138,6 +142,19 @@ export default createStore({
           console.log(response.data)
         }
       });
+    },
+    loadProjectBoards({commit}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Project/boards/'+ this.state.routingProject.id, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        commit('SET_PROJECT_BOARDS', response.data)
+        console.log(response.data)
+        console.log(this.state.projectBoards)
+      })
     },
   },
   modules: {
