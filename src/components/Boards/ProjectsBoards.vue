@@ -3,8 +3,7 @@
     <div class="title font-bold text-2xl mt-2 mb-2">Project's Boards</div>
     <div class="boards-content">
       <div class="boards-projects">
-        <div
-          class="project col-span-1"
+        <div class="project col-span-1"
           v-for="project in projects"
           :key="project.id"
         >

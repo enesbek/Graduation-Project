@@ -32,7 +32,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .home-header{
-  height: 7%;
+  height: 70px;
   background: linear-gradient(to right, rgb(3, 109, 133) , rgb(1, 45, 54));
   
 }

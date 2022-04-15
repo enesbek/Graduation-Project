@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="project-field mb-10">
+    <div class="project-field">
       <div class="project-title font-semibold text-2xl tracking-wider mb-4">
         YOUR PROJECTS 
         <button class="create-project-btn text-2xl font-semibold ml-5"
@@ -89,15 +89,17 @@ export default {
 
 <style scoped>
 .project-field {
-  margin-top: 8rem;
-  margin-left: 10rem;
-  width: 65vw;
+  width: 85%;
+  height: 50%;
+  margin-left: 50px;
+  padding-top: 10px;
 }
 .bottomPage{
-  width: 100vw;
-  padding-bottom: 100rem;
+  height: 50%;
+  width: calc(100vw - 300px);
   background-color: rgb(200, 200, 200);
   padding-top: 1rem;
+  overflow: auto;
 }
 .create-modal-image{
   width: 60rem;

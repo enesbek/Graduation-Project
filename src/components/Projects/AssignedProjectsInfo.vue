@@ -74,9 +74,8 @@ export default {
 
 <style scoped>
 .assigned-project {
-  margin-top: 1rem;
-  margin-left: 10rem;
-  width: 65vw;
+  width: calc(100vw - 300px);
+  padding-left: 80px;
   background-color: rgb(200, 200, 200);
 }
 .project-title {

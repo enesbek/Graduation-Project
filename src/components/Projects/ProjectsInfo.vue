@@ -4,26 +4,9 @@
       <div class="flex">
         <div class="project-name" @click="gotoProject(project)">
           <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
-          {{ project.projectName }} 
+          {{ project.projectName }}
         </div>
-        <button
-          class="flex-initial w-32 ml-4 project-btns"
-          @click="gotoProject"
-        >
-          Boards(3)
-        </button>
-        <button
-          class="flex-initial w-32 ml-4 project-btns"
-          @click="gotoProject"
-        >
-          Members(8)
-        </button>
-        <button
-          class="flex-initial w-32 ml-4 project-btns"
-          @click="gotoProject"
-        >
-          <i class="fa-solid fa-gear"></i> Settings
-        </button>
+        
       </div>
       <div class="boards-area flex">
         <div class="flex-intial board" v-for="board in boards" :key="board.id">
@@ -36,9 +19,6 @@
           >
             <div class="p-2">{{ board.name }}</div>
           </div>
-        </div>
-        <div class="flex-iitial board p-12 pl-14 create-board">
-          <p>Create New Board</p>
         </div>
       </div>
     </div>
@@ -56,7 +36,7 @@ export default {
         {
           name: "Listing",
           image:
-            "../../../assets/board-background/background-1.jpg",
+           "https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg",
         },
         {
           name: "Homepage",
@@ -86,15 +66,17 @@ export default {
 
 <style scoped>
 .projects {
-  @apply grid grid-cols-1;
+  height: 80%;
+  @apply grid grid-cols-2 overflow-y-auto;
 }
 .project {
   height: 100%;
+  @apply p-2 m-2;
 }
 .project-name {
   width: 40vw;
   cursor: pointer;
-  @apply flex-initial h-10 pl-2 pt-1 text-xl tracking-wide font-semibold;
+  @apply flex-initial h-10 pl-2 pt-1 text-xl tracking-wide font-semibold bg-gray-300;
 }
 .project-btns {
   background-color: rgb(225, 225, 225);

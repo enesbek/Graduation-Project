@@ -8,6 +8,7 @@
           <div> {{ project.projectDescription }}</div>
           <button class="edit-btn mt-2 pl-2 pr-2"> <i class="fa-solid fa-pen"></i>  Edit Project</button>
         </div>
+        {{myproject}}
         <div></div>
       </div>
       <div class="tabs flex">
@@ -45,7 +46,6 @@ export default {
   },
   methods:{
     changeTab(index) {
-      console.log(this.$store.state.routingProject)
       this.selectedTab = [false, false, false]
       this.selectedTab[index] = true
     }
@@ -54,7 +54,7 @@ export default {
     project(){
       store.commit('changeSidebarState');
       return this.$store.state.routingProject
-    } 
+    },
   }
 };
 </script>

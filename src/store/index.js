@@ -27,6 +27,10 @@ export default createStore({
     },
     CREATE_Board(state, newBoard){
       state.newBoard = newBoard
+    },
+    DELETE_PROJECT(state) {
+      var index = state.projects.findIndex(p => p.id == state.routingProject.id);
+      state.projects.splice(index, 1);
     }
   },
   actions: {
@@ -46,13 +50,11 @@ export default createStore({
       })
       .then(response => response.data)
       .then(projects => {
-        console.log(user.token)
         commit('SET_Projects', projects)
       })
     },
     createProject(store, newProject) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(user.token)
       axios.post(process.env.VUE_APP_API_URL + 'Project', {
           "projectName": newProject.projectName,
           "projectDescription": newProject.projectDescription,
@@ -96,7 +98,47 @@ export default createStore({
           router.push('board');
         }
       });
-    }
+    },
+    deleteProject({state}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.delete(process.env.VUE_APP_API_URL + 'Project/' + state.routingProject.id, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+          if(response.status == 200){
+            this.loadProjects
+            setTimeout(function(){
+              router.push('projects')
+            }, 1000);
+          }
+        }
+      )
+
+    },
+    createProjectBoard(state, newBoard) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      console.log(newBoard)
+      axios.post(process.env.VUE_APP_API_URL + 'Board', {
+          "project_id": state.routingProject.id,
+          "board_name": newBoard.boardName,
+          "description": newBoard.boardDiscription,
+          "startDate": newBoard.startDate,
+          "endDate": newBoard.endDate,
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(response => {
+        if(response.status == 201){
+          console.log(response.data)
+        }
+      });
+    },
   },
   modules: {
   },
