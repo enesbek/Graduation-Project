@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import { mapActions } from 'vuex'
 import ProjectsInfo from './ProjectsInfo.vue'
 import AssignedProjectsInfo from './AssignedProjectsInfo.vue'
@@ -72,8 +71,6 @@ export default {
   },
   setup() {
     store.commit('changeSidebarState');
-    const modalActive = ref(true);
-    return { modalActive };
   },
   methods: {
     ...mapActions(['createProject']),

@@ -1,5 +1,6 @@
 <template>
-  <div class="my-container m-0 flex">
+  <div class="board-container">
+    <div class="my-container m-0 flex">
     <div v-for="sections in sectionData" :key="sections.id">
       <draggable class="section mt-5 ml-7 mb-10 p-3 text-sm bg-gray-200 w-80 rounded" group="sections">
         <h3 class="text-xl p-2 rounded">{{sections.name}}</h3>
@@ -8,7 +9,7 @@
              group="tasks"
         >
         
-        <span v-for="tag in task.tags" :key="tag.name" class="tags p-1 mr-2 rounded text-white">{{ tag }}</span><br><br>
+        <span v-for="tag in task.tags" :key="tag.name" class="tags p-1 mr-2 rounded text-white" >{{ tag }}</span><br><br>
           {{task.taskName}}<br><br>
           <span class="">Date: {{task.date}} &emsp;<i class="fas fa-paperclip ml-10 mr-1"></i>{{task.attachment}}</span>
          
@@ -43,10 +44,11 @@
 
     
   </div>
+  </div>
 </template>
+
 <script>
 import { VueDraggableNext } from 'vue-draggable-next'
-
 export default {
   components: {
     draggable: VueDraggableNext,
@@ -106,27 +108,48 @@ export default {
 }
 </script>
 
-<style>
-*{
-  margin: 0;
-  padding: 0;
+<style scoped>
+.board-container{
+  height: calc(100vh - 50px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgb(255, 230, 198);
+  overflow: auto;
 }
 .my-container{
-  height: 100vh;
-  background: url("https://images.wallpaperscraft.com/image/single/starry_sky_night_trees_121201_1920x1080.jpg");
-  background-repeat: none;
-  background-size: cover;
+  
 }
-
 .section{
   border-top: 5px solid rgb(44, 184, 102);
 }
-
 .addButton{
   background-color: rgb(68, 219, 131);
 }
-
 .tags{
   background-color: rgb(49, 196, 98);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  @apply mb-2;
+  opacity: 0.5;  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0.2;   
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  opacity: 0.2;  
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  opacity: 0.2;  
 }
 </style>
