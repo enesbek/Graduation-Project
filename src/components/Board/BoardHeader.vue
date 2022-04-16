@@ -24,14 +24,13 @@ export default {
   align-items: center;
   @apply flex flex-nowrap text-sm font-semibold;
   margin: 0 auto;
-  
 }
 .header-btn{
-  @apply mx-4 font-semibold;
+  @apply font-semibold;
   margin: 0 auto;
 }
 .header-btn:hover{
   background-color: rgb(177, 177, 177);
-  @apply rounded px-2 py-1;
+  @apply rounded px-8 py-1;
 }
 </style>
