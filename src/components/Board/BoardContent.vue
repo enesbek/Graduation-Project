@@ -4,22 +4,7 @@
       <div v-for="sections in sectionData" :key="sections.id">
         <draggable class="sections" group="sections">
           <h3 class="text-base pt-1 px-3 rounded">{{ sections.name }}</h3>
-          <draggable
-            class="task"
-            v-for="task in sections.tasks"
-            :key="task.name"
-            group="tasks"
-          >
-            <span v-for="tag in task.tags" :key="tag.name" class="tags">
-              {{ tag }}
-            </span>
-            <div class="task-name">{{ task.taskName }}</div>
-            <div>
-              <i class="fa-solid fa-align-justify ml-2 mr-4"></i> 
-              <i class="fas fa-paperclip mr-4"></i>
-              <i class="fa-solid fa-list-check"></i>
-            </div>
-          </draggable>
+          <Task />
           &emsp;
           <button
             class="addButton"
@@ -30,11 +15,12 @@
             Add New Task
           </button>
           <!-- Add Task Modal Start -->
-          
+
           <!-- Add Task Modal Finish -->
         </draggable>
       </div>
-      <div class="sections">Add anotasdasher section
+      <div class="sections">
+        Add anotasdasher section
         <div class="w-48 p-3 m-3"></div>
       </div>
     </div>
@@ -43,9 +29,11 @@
 
 <script>
 import { VueDraggableNext } from "vue-draggable-next";
+import Task from "./Task.vue";
 export default {
   components: {
     draggable: VueDraggableNext,
+    Task,
   },
   data() {
     return {
@@ -61,88 +49,18 @@ export default {
       sectionData: [
         {
           name: "Backlog",
-          tasks: [
-            {
-              taskName: "Build Feature 1",
-              tags: ["App", "Android"],
-              date: "21.01.2022",
-              attachment: 1,
-            },
-            {
-              taskName: "Test the feature 1",
-              tags: ["Web"],
-              date: "15.01.2022",
-              attachment: 2,
-            },
-          ],
         },
         {
           name: "In Progress",
-          tasks: [
-            {
-              taskName: "Commit feature 1",
-              tags: ["App", "Web"],
-              date: "12.02.2022",
-              attachment: 3,
-            },
-          ],
         },
         {
           name: "Test",
-          tasks: [
-            {
-              taskName: "Put some sample data",
-              tags: ["App", "IOS", "Android"],
-              date: "14.03.2022",
-              attachment: 2,
-            },
-            {
-              taskName: "Send notification to users",
-              tags: ["App", "Web", "Security"],
-              date: "15.02.2022",
-              attachment: 5,
-            },
-            {
-              taskName: "Gather post project",
-              tags: ["QA"],
-              date: "12.03.2022",
-              attachment: 1,
-            },
-            {
-              taskName: "Set up landing page",
-              tags: ["App", "Web"],
-              date: "11.02.2022",
-              attachment: 3,
-            },
-          ],
         },
         {
           name: "Done",
-          tasks: [
-            {
-              taskName: "Deploy feature 1",
-              tags: ["App", "QA", "DW"],
-              date: "01.02.2022",
-              attachment: 4,
-            },
-            {
-              taskName: "Build the demo app",
-              tags: ["Security", "Web"],
-              date: "22.02.2022",
-              attachment: 1,
-            },
-          ],
         },
         {
           name: "Deployment",
-          tasks: [
-            {
-              taskName: "Update internal process",
-              tags: ["Technical"],
-              date: "21.01.2022",
-              attachment: 2,
-            },
-          ],
         },
       ],
     };
@@ -183,9 +101,11 @@ export default {
 }
 .tags {
   background-color: rgb(44, 89, 200);
-  @apply text-xs p-1 mr-2 rounded text-white font-semibold;
+  @apply px-1 pb-1 mr-1 rounded text-white font-bold;
+  font-size: 13px;
+  letter-spacing: 0.5px;
 }
-.task-name{
+.task-name {
   @apply mt-2 mb-2;
 }
 

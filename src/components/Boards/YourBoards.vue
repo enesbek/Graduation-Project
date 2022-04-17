@@ -148,7 +148,6 @@ export default {
 .title {
   width: 100;
   text-align: center;
-  margin-bottom:
   @apply font-semibold;
 }
 .board {
