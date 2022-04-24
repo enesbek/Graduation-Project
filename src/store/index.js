@@ -26,6 +26,9 @@ export default createStore({
     SET_RoutingProject(state, project) {
       state.routingProject = project
     },
+    SET_RoutingBoard(state, board) {
+      state.routingBoard = board
+    },
     CREATE_Board(state, newBoard){
       state.newBoard = newBoard
     },
@@ -38,10 +41,6 @@ export default createStore({
     },
   },
   actions: {
-    routeProject(store, project) {
-      this.commit('SET_RoutingProject', project)
-      router.push('project')
-    },
     changeSidebarState({ commit }) {
       commit('changeSidebarState')
     },
@@ -139,21 +138,19 @@ export default createStore({
       )
       .then(response => {
         if(response.status == 201){
-          console.log(response.data)
+          router.push('projects')
         }
       });
     },
     loadProjectBoards({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.get(process.env.VUE_APP_API_URL + 'Project/boards/'+ this.state.routingProject.id, {
+      axios.get(process.env.VUE_APP_API_URL + 'Project/' + this.state.routingProject.id + '/boards', {
         headers: {
           Authorization: 'Bearer '+user.token
         }
       })
       .then(response => {
         commit('SET_PROJECT_BOARDS', response.data)
-        console.log(response.data)
-        console.log(this.state.projectBoards)
       })
     },
   },

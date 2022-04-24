@@ -18,7 +18,7 @@
                     'background-size': 'cover',
                   }"
                 >
-                  <div class="p-2 text-white">Search</div>
+                  <div class="p-2 text-white">Board1</div>
                 </div>
               </div>
               <div class="create-board text-xl font-semibold">
@@ -73,7 +73,6 @@ export default {
 .title {
   width: 100;
   text-align: center;
-  margin-bottom:
   @apply font-semibold;
 }
 .boards-content {

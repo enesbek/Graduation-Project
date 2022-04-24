@@ -11,8 +11,10 @@ class AuthService {
     .then(response => {
       if(response.status == 200){
         localStorage.setItem('user', JSON.stringify(response.data))
-        router.push('dashboard')
-        store.commit('changeSidebarState')
+        setTimeout(() => {
+          router.push('projects')
+          store.commit('changeSidebarState')
+        }, "1000")
       }
     });
   }

@@ -13,6 +13,7 @@
             background: 'url(https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg)',
             'background-size': 'cover',
           }"
+          @click="gotoBoard"
         >
           <div class="p-2">{{ board.board_name }}</div>
         </div>
@@ -101,6 +102,7 @@
 
 <script>
 import { mapState } from "vuex";
+import router from "../../router";
 export default {
   data() {
     return {
@@ -120,6 +122,10 @@ export default {
       this.toggleCreateModal = false;
       this.$store.dispatch("createProjectBoard", this.newBoard);
     },
+    gotoBoard(board){
+      this.$store.state.routingBoard = board
+      router.push('board')
+    }
   },
   mounted() {
     this.$store.dispatch("loadProjectBoards");

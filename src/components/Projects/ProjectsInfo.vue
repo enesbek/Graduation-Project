@@ -104,15 +104,14 @@ export default {
   margin-top: 5em;
   height: 50vh;
 }
-.boards-area {
-}
 .board {
-  margin: 1rem;
+  margin-right: 10px;
+  margin-top: 15px;
   width: 270px;
-  height: 130px;
+  height: 90px;
 }
 .board-inner {
-  height: 130px;
+  height: 90px;
   background-repeat: none;
   background-size: cover;
   border-radius: 5px;

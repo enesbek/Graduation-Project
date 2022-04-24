@@ -17,12 +17,12 @@
             <div class="ml-6">
               <span class="text-sm font-semibold">Project Name</span><br>
               <input class="border-2 border-gray-600 rounded" v-model="newProject.projectName"><br>
-              <span class="text-sm">This can be name of your company, team or organization</span><br>
+              <span class="text-sm opacity-75">This can be name of your company, team or organization</span><br>
             </div>
             <div class="ml-6 mt-4 mb-2">
               <span class="text-sm font-semibold">Project Description</span><br>
               <textarea class="border-2 border-gray-600 rounded w-64 h-24" v-model="newProject.projectDescription"></textarea><br>
-              <span class="text-sm">You can give details about the Project</span><br>
+              <span class="text-sm opacity-75">You can give details about the Project</span><br>
             </div>
             <div class="ml-6 mb-10">
               <span class="text-sm font-semibold">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</span><br>

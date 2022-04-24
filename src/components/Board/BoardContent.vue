@@ -3,7 +3,7 @@
     <div class="my-container flex">
       <div v-for="sections in sectionData" :key="sections.id">
         <draggable class="sections" group="sections">
-          <h3 class="text-base pt-1 px-3 rounded">{{ sections.name }}</h3>
+          <h3 class="text-base pt-1 px-3 rounded">{{ sections.name }} {{board.name}}</h3>
           <Task />
           &emsp;
           <button
@@ -77,6 +77,11 @@ export default {
       sections.tasks.push(this.newTask);
     },
   },
+  computed: {
+    board(){
+      return this.$store.state.routingBoard
+    },
+  }
 };
 </script>
 

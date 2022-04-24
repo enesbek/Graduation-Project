@@ -1,7 +1,7 @@
 <template>
   <div class="board-header">
-    <div class="header-btn"><button class="font-semibold">Project Name</button></div><div class="text-3xl">I</div> 
-    <div class="header-btn"><button class="font-semibold">Board Name</button></div><div class="text-3xl">I</div>
+    <div class="header-btn"><button class="font-semibold">Web</button></div><div class="text-3xl">I</div> 
+    <div class="header-btn"><button class="font-semibold">Board1</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Users</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Share</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Settings</button></div>
