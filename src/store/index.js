@@ -12,6 +12,7 @@ export default createStore({
     newBoard: {},
     routingBoard: null,
     projectBoards: [],
+    sections: [],
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -32,12 +33,11 @@ export default createStore({
     CREATE_Board(state, newBoard){
       state.newBoard = newBoard
     },
-    DELETE_PROJECT(state) {
-      var index = state.projects.findIndex(p => p.id == state.routingProject.id);
-      state.projects.splice(index, 1);
-    },
     SET_PROJECT_BOARDS(state, boards) {
       state.projectBoards = boards
+    },
+    SET_SECTIONS(state, sections) {
+      state.sections = sections
     },
   },
   actions: {
@@ -74,10 +74,9 @@ export default createStore({
       .then(response => {
         this.state.routingProject = response.data
         router.push('project');
-        console.log(response.data)
       });
     },
-    createBoard(store, newBoard) {
+    createBoard(newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
       console.log(newBoard)
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
@@ -94,10 +93,7 @@ export default createStore({
         }
       )
       .then(response => {
-        console.log(response)
-        console.log(newBoard)
         if(response.status == 201){
-          console.log(response.data)
           router.push('board');
         }
       });
@@ -110,7 +106,7 @@ export default createStore({
         }
       })
       .then(response => {
-          if(response.status == 200){
+          if(response.status == 204){
             this.loadProjects
             setTimeout(function(){
               router.push('projects')
@@ -146,13 +142,25 @@ export default createStore({
       let user = JSON.parse(localStorage.getItem('user'));
       axios.get(process.env.VUE_APP_API_URL + 'Project/' + this.state.routingProject.id + '/boards', {
         headers: {
-          Authorization: 'Bearer '+user.token
+          Authorization: 'Bearer '+ user.token
         }
       })
       .then(response => {
         commit('SET_PROJECT_BOARDS', response.data)
       })
     },
+    loadSections({commit}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Board/' + this.state.routingBoard.id, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        commit('SET_SECTIONS', response.data.sections)
+      })
+    },
+
   },
   modules: {
   },

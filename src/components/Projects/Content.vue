@@ -42,16 +42,19 @@
       <ProjectsInfo />
     </div>
     <div class="bottomPage">
+      <div class="project-title font-semibold text-2xl tracking-wider mb-4">
+        ASSIGNED PROJECTS 
+      </div>
       <AssignedProjectsInfo />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import ProjectsInfo from './ProjectsInfo.vue'
 import AssignedProjectsInfo from './AssignedProjectsInfo.vue'
 import store from '../../store'
+import { mapActions } from 'vuex';
 export default {
   components: {
     ProjectsInfo,
@@ -61,7 +64,7 @@ export default {
     return {
       newProject:{
         projectName: null,
-        projectDiscription: null,
+        projectDescription: null,
         startDate: null,
         endDate: null,
         isFinished: false,

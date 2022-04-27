@@ -13,7 +13,7 @@
             background: 'url(https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg)',
             'background-size': 'cover',
           }"
-          @click="gotoBoard"
+          @click="gotoBoard(board)"
         >
           <div class="p-2">{{ board.board_name }}</div>
         </div>
@@ -124,6 +124,7 @@ export default {
     },
     gotoBoard(board){
       this.$store.state.routingBoard = board
+      console.log(board)
       router.push('board')
     }
   },

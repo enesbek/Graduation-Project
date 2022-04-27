@@ -1,9 +1,9 @@
 <template>
   <div class="board-container">
     <div class="my-container flex">
-      <div v-for="sections in sectionData" :key="sections.id">
+      <div v-for="section in sections" :key="section.id">
         <draggable class="sections" group="sections">
-          <h3 class="text-base pt-1 px-3 rounded">{{ sections.name }} {{board.name}}</h3>
+          <h3 class="text-base pt-1 px-3 rounded">{{section.sectionName}}</h3>
           <Task />
           &emsp;
           <button
@@ -78,9 +78,10 @@ export default {
     },
   },
   computed: {
-    board(){
-      return this.$store.state.routingBoard
-    },
+    sections(){
+      this.$store.dispatch("loadSections");
+      return this.$store.state.sections
+    }
   }
 };
 </script>

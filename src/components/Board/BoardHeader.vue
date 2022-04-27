@@ -1,7 +1,7 @@
 <template>
   <div class="board-header">
-    <div class="header-btn"><button class="font-semibold">Web</button></div><div class="text-3xl">I</div> 
-    <div class="header-btn"><button class="font-semibold">Board1</button></div><div class="text-3xl">I</div>
+    <div class="header-btn"><button class="font-semibold">{{project.projectName}}</button></div><div class="text-3xl">I</div> 
+    <div class="header-btn"><button class="font-semibold">{{board.board_name}}</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Users</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Share</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold">Settings</button></div>
@@ -12,6 +12,14 @@
 export default {
   name: 'Board',
   components: {
+  },
+  computed: {
+    board(){
+      return this.$store.state.routingBoard
+    },
+    project(){
+      return this.$store.state.routingProject
+    },
   }
 }
 </script>
