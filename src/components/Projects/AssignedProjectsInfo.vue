@@ -1,6 +1,6 @@
 <template>
   <div class="projects">
-    <div class="project mb-2" v-for="project in projects" :key="project.id">
+    <div class="project mb-2" v-for="project in assignedProjects" :key="project.id">
       <div class="flex">
         <div class="project-name" @click="gotoProject(project)">
           <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
@@ -31,22 +31,21 @@ import router from '../../router';
 export default {
   data() {
     return {
-      project: [],
       boards: [
         {
           name: "Listing",
           image:
-           "https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg",
+           "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",
         },
         {
           name: "Homepage",
           image:
-            "https://external-preview.redd.it/S3CqF19hBz9Yp9H-B7mTSBICv406vOYSSdah-B1dHzI.jpg?auto=webp&s=e5f5b18c31b87a04b9d9a59227e65e88ad245181",
+            "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",
         },
         {
           name: "Market Place",
           image:
-            "https://embedwistia-a.akamaihd.net/deliveries/d5ae8190f0aa7dfbe0b01f336f29d44094b967b5.webp?image_crop_resized=1280x720",
+            "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",
         },
       ],
     };
@@ -66,8 +65,7 @@ export default {
 
 <style scoped>
 .projects {
-  height: 80%;
-  @apply grid grid-cols-2 overflow-y-auto;
+  @apply grid grid-cols-1;
 }
 .project {
   height: 100%;
@@ -76,7 +74,7 @@ export default {
 .project-name {
   width: 40vw;
   cursor: pointer;
-  @apply flex-initial h-10 pl-2 pt-1 text-xl tracking-wide font-semibold bg-gray-300;
+  @apply flex-initial h-10 pl-2 pt-1 text-xl tracking-wide font-semibold;
 }
 .project-btns {
   background-color: rgb(225, 225, 225);
@@ -107,7 +105,7 @@ export default {
 .board {
   margin-right: 10px;
   margin-top: 15px;
-  width: 270px;
+  width: 200px;
   height: 90px;
 }
 .board-inner {
@@ -117,7 +115,10 @@ export default {
   border-radius: 5px;
 }
 .create-board {
+  height: 90px;
+  border-radius: 5px;
   background-color: rgb(225, 225, 225);
   border-radius: 5px;
+  @apply font-semibold text-xl;
 }
 </style>

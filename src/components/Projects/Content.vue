@@ -89,17 +89,16 @@ export default {
 
 <style scoped>
 .project-field {
-  width: 85%;
-  height: 50%;
-  margin-left: 50px;
-  padding-top: 10px;
+  width: 60vw;
+  margin-left: 10em;
+  padding-top: 3em;
 }
 .bottomPage{
-  height: 50%;
-  width: calc(100vw - 300px);
+  width: 100%;
   background-color: rgb(200, 200, 200);
-  padding-top: 1rem;
-  overflow: auto;
+  padding-left: 10em;
+  padding-top: 3em;
+  padding-bottom: 50px;
 }
 .create-modal-image{
   width: 60rem;

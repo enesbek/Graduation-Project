@@ -7,6 +7,7 @@ export default createStore({
     accessToken: '',
     dashboardOpen: false,
     projects: [],
+    assignedProjects: [],
     newProject: {},
     routingProject: null,
     newBoard: {},
@@ -20,6 +21,9 @@ export default createStore({
     },
     SET_Projects(state, projects) {
       state.projects = projects
+    },
+    SET_ASSIGNED_PROJECTS(state, assignedProjects) {
+      state.assignedProjects = assignedProjects
     },
     CREATE_Project(state, newProject) {
       state.newProject = newProject
@@ -54,6 +58,19 @@ export default createStore({
       .then(response => response.data)
       .then(projects => {
         commit('SET_Projects', projects)
+      })
+    },
+    loadAssignedProjects({commit}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Project/assigned', {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => response.data)
+      .then(assignedProjects => {
+        console.log(assignedProjects)
+        commit('SET_ASSIGNED_PROJECTS', assignedProjects)
       })
     },
     createProject(store, newProject) {
