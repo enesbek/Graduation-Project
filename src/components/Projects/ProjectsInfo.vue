@@ -11,7 +11,7 @@
         <div class="board" v-for="board in project.boards" :key="board.id">
           <div class="board-inner font-semibold text-xl"
             :style="{
-                background: 'url(' + boards[1].image + ')',
+                background: 'url(' + boardsimage[1].image + ')',
                 'background-size': 'cover',
               }">
             <div class="p-2 text-lg">{{ board.board_name }}</div>
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       project: [],
-      boards: [
+      boardsimage: [
         {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",},
         {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",},
         {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",},

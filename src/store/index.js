@@ -192,7 +192,27 @@ export default createStore({
         commit('SET_SECTIONS', response.data.sections)
       })
     },
-
+    updateProject({state}, path, value) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.patch(process.env.VUE_APP_API_URL + 'Project/' + state.routingProject.id, 
+          [
+            {
+              "path": path,
+              "op": "replace",
+              "value": value
+            },
+          ],
+          {
+            headers: {
+              Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(response => {
+        console.log(response)
+        router.push('projects')
+      });
+    },
   },
   modules: {
   },

@@ -9,15 +9,15 @@
         
       </div>
       <div class="boards-area flex">
-        <div class="flex-intial board" v-for="board in boards" :key="board.id">
+        <div class="flex-intial board" v-for="board in project.boards" :key="board.id">
           <div
             class="board-inner font-semibold text-xl"
             :style="{
-              background: 'url(' + board.image + ')',
+              background: 'url(' + boardsimage[1].image + ')',
               'background-size': 'cover',
             }"
           >
-            <div class="p-2">{{ board.name }}</div>
+            <div class="p-2">{{ board.board_name }}</div>
           </div>
         </div>
       </div>
@@ -31,22 +31,10 @@ import router from '../../router';
 export default {
   data() {
     return {
-      boards: [
-        {
-          name: "Listing",
-          image:
-           "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",
-        },
-        {
-          name: "Homepage",
-          image:
-            "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",
-        },
-        {
-          name: "Market Place",
-          image:
-            "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",
-        },
+      boardsimage: [
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",},
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",},
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",},
       ],
     };
   },

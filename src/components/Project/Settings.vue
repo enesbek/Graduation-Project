@@ -1,5 +1,22 @@
 <template>
-  <div class="delete-area">
+  <div class="update-area">
+    <input class="input-area" v-model="update_name" />
+    <button class="update-btn" @click="updateName">
+      Update Project Name</button
+    ><br />
+    <input class="input-area mt-4" v-model="update_description" />
+    <button class="update-btn" @click="updateDescription">
+      Update Project Description</button
+    ><br />
+    <input type="date" class="input-area mt-4 w-48" v-model="update_start_date" />
+    <button class="update-btn" @click="updateStartDate">
+      Update Project Start Date
+    </button>
+    <br/>
+    <input type="date" class="input-area mt-4 w-48" v-model="update_end_date" />
+    <button class="update-btn" @click="updateEndDate">
+      Update Project End Date
+    </button>
     <div class="delete-btn" @click="toggleDeleteModal = !toggleDeleteModal">
       Delete Project
     </div>
@@ -50,6 +67,10 @@ export default {
       toggleDeleteModal: false,
       toggleConfirmModal: false,
       deleteText: null,
+      update_name: "",
+      update_description: "",
+      update_start_date: "",
+      update_end_date: "",
     };
   },
   methods: {
@@ -60,18 +81,37 @@ export default {
         this.$store.dispatch("deleteProject");
       }
     },
+    updateName() {
+      this.$store.dispatch("updateProject", "projectName", this.update_name);
+    },
+    updateDescription() {
+      this.$store.dispatch("updateProject", "projectDescription",this.update_description);
+    },
+    updateStartDate() {
+      this.$store.dispatch("updateProject", "projectStartDate", this.update_start_date);
+    },
+    updateEndDate() {
+      this.$store.dispatch("updateProject", "projectEndDate",this.update_end_date);
+    },
   },
 };
 </script>
 
 <style scoped>
-.delete-area {
+.update-area {
+  margin-left: 20vw;
   margin-top: 50px;
-  height: 60px;
-  display: flex;
   justify-content: center;
 }
+.input-area {
+  @apply border-2 border-black rounded p-1;
+}
+.update-btn {
+  @apply bg-blue-600 text-white px-2 py-1 rounded ml-2 w-64;
+}
 .delete-btn {
+  margin-top: 60px;
+  margin-left: 150px;
   width: 200px;
   height: 40px;
   cursor: pointer;
@@ -93,7 +133,8 @@ export default {
 }
 .modal-title {
   background-color: rgb(146, 169, 189);
-  @apply p-2 font-semibold pl-4;
+  @apply p-2 font-semibold pl-4 text-lg;
+  width: 240px;
 }
 .modal-type {
   @apply pt-2 pl-4;
