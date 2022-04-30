@@ -57,7 +57,7 @@ export default {
   methods: {
     gotoProject(project) {
       this.$store.state.routingAssignedProject = project
-      router.push('project')
+      router.push('assignedproject')
     },
   },
 };

@@ -7,7 +7,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Projects from '../views/Projects.vue'
 import Project from '../views/Project.vue'
-
+import AssignedProject from '../views/AssignedProject.vue'
 const routes = [
   {
     path: '/',
@@ -48,6 +48,11 @@ const routes = [
     path: '/project',
     name: 'Project',
     component: Project
+  },
+  {
+    path: '/assignedproject',
+    name: 'AssignedProject',
+    component: AssignedProject
   }
 ]
 

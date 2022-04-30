@@ -24,10 +24,11 @@
               <textarea class="border-2 border-gray-600 rounded w-64 h-24" v-model="newProject.projectDescription"></textarea><br>
               <span class="text-sm opacity-75">You can give details about the Project</span><br>
             </div>
-            <div class="ml-6 mb-10">
-              <span class="text-sm font-semibold">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</span><br>
+            <div class="ml-6 mb-2">
+              <span class="text-sm font-semibold">Start Date*&emsp;&emsp;&emsp;&emsp;&emsp;End Date*</span><br>
               <input type="date" class="border-2 border-gray-600 rounded" v-model="newProject.startDate">
               <input type="date" class="border-2 border-gray-600 rounded ml-4" v-model="newProject.endDate">
+              <p class="mt-2 italic text-sm">Dates are optional</p>
             </div>
             <button class="rounded bg-gray-300 px-6 py-2 w-3/12 ml-28 mb-3 " @click="createNewProject">Create</button>  
           </div>
@@ -62,6 +63,7 @@ export default {
   },
   data() {
     return {
+      text1: "<-Optional->",
       newProject:{
         projectName: null,
         projectDescription: null,

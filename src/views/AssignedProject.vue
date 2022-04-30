@@ -1,0 +1,102 @@
+<template>
+  <div>
+    <div class="project-top flex flex-col">
+      <div class="project-info flex">
+        <span class="project-icon text-4xl flex-initial m-2 text-white">{{ project.projectName[0] }}</span>
+        <div class="flex-initial ml-2">
+          <div class="text-xl font-semibold mt-4">{{ project.projectName }}</div>
+          <div> {{ project.projectDescription }}</div>
+        </div>
+      </div>
+      <div class="tabs flex">
+        <button class="tabs-btn" 
+          v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards(3)</button>
+        <button class="tabs-btn"
+          v-on:click="changeTab(1)"><i class="fa-solid fa-users"></i> Members(8)</button>
+        <button class="tabs-btn"
+          v-on:click="changeTab(2)"><i class="fa-solid fa-gear"></i> Settings</button>
+      </div>
+    </div>
+    <div>
+      <Boards v-show="selectedTab[0]"/>
+      <Members v-show="selectedTab[1]"/>
+      <Settings v-show="selectedTab[2]"/>
+    </div>
+  </div>
+</template>
+
+<script>
+import Boards from '../components/AssignedProject/Boards.vue'
+import Members from '../components/AssignedProject/Members.vue'
+import Settings from '../components/AssignedProject/Settings.vue'
+import store from '../store'
+export default {
+  data(){
+    return {
+      selectedTab: [true, false, false],
+    }
+  },
+  components:{
+    Boards,
+    Members,
+    Settings
+  },
+  methods:{
+    changeTab(index) {
+      this.selectedTab = [false, false, false]
+      this.selectedTab[index] = true
+    }
+  },
+  computed: {
+    project(){
+      store.commit('changeSidebarState');
+      return this.$store.state.routingAssignedProject
+    },
+  }
+};
+</script>
+
+<style scoped>
+.project-top {
+  background-color: rgb(225, 225, 225);
+  height: 30vh;
+  margin-top: 0;
+  padding-top: 2rem;
+  position: relative;
+}
+.project-info {
+  margin-left: 35%;
+  width: 35%;
+  @apply rounded;
+}
+.project-icon{
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-image: linear-gradient(to bottom, rgba(22, 133, 141), rgba(43, 226, 240));
+  @apply rounded font-bold text-6xl;
+}
+.tabs{
+  margin-left: 30%;
+  margin-bottom: 0;
+  width: 40%;
+  position: absolute;
+  bottom: 0;
+}
+.tabs-btn{
+  background-color: rgb(201, 201, 201);
+  @apply pl-4 pr-4 pt-2 pb-2 mx-1 mt-1 rounded;
+}
+.tabs-btn:hover{
+  background-color: white;
+}
+.edit-btn{
+  background-color: rgb(201, 201, 201);
+  border-radius: 3px;
+  height: 30px;
+  width: 140px;
+}
+.edit-btn:hover{
+  background-color: white;
+}
+</style>

@@ -3,27 +3,18 @@
     <div class="project mb-2" v-for="project in projects" :key="project.id">
       <div class="flex">
         <div class="project-name" @click="gotoProject(project)">
-          <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
+          <span class="project-icon">{{ project.projectName[0] }}</span>
           {{ project.projectName }}
-          
         </div>
-
       </div>
       <div class="boards-area flex">
-        <div class="flex-intial board" v-for="board in boards" :key="board.id">
-          <div
-            class="board-inner font-semibold text-xl"
+        <div class="board" v-for="board in project.boards" :key="board.id">
+          <div class="board-inner font-semibold text-xl"
             :style="{
-              background: 'url(' + board.image + ')',
-              'background-size': 'cover',
-            }"
-          >
-            <div class="p-2 text-lg">{{ board.name }}</div>
-          </div>
-        </div>
-        <div class="flex-intial board">
-          <div class="create-board">
-            <div class="p-2 text-lg">Create New Board</div>
+                background: 'url(' + boards[1].image + ')',
+                'background-size': 'cover',
+              }">
+            <div class="p-2 text-lg">{{ board.board_name }}</div>
           </div>
         </div>
       </div>
@@ -33,38 +24,26 @@
 
 <script>
 import { mapState } from "vuex";
-import router from '../../router';
+import router from "../../router";
 export default {
   data() {
     return {
       project: [],
       boards: [
-        {
-          name: "Listing",
-          image:
-           "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",
-        },
-        {
-          name: "Homepage",
-          image:
-            "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",
-        },
-        {
-          name: "Market Place",
-          image:
-            "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",
-        },
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/funny-background-drawing-backgrounds-cartoon-1-5c9b97d1c4d88.png",},
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",},
+        {image: "https://storage.pixteller.com/designs/designs-images/2019-03-27/04/business-background-backgrounds-business-1-5c9b8f72752bc.png",},
       ],
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("loadProjects");
   },
   computed: mapState(["projects"]),
   methods: {
     gotoProject(project) {
-      this.$store.state.routingProject = project
-      router.push('project')
+      this.$store.state.routingProject = project;
+      router.push("project");
     },
   },
 };
@@ -90,6 +69,7 @@ export default {
 .project-icon {
   background-color: #16858d;
   padding: 3px 8px;
+  @apply text-xl flex-initial;
 }
 .assigned-project {
   margin-top: 1rem;
@@ -114,6 +94,7 @@ export default {
   margin-top: 15px;
   width: 200px;
   height: 90px;
+  @apply flex-initial;
 }
 .board-inner {
   height: 90px;

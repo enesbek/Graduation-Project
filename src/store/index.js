@@ -10,9 +10,11 @@ export default createStore({
     assignedProjects: [],
     newProject: {},
     routingProject: null,
+    routingAssignedProject: null,
     newBoard: {},
     routingBoard: null,
     projectBoards: [],
+    assignedProjectBoards: [],
     sections: [],
   },  
   mutations: {
@@ -31,6 +33,9 @@ export default createStore({
     SET_RoutingProject(state, project) {
       state.routingProject = project
     },
+    SET_RoutingAssignedProject(state, project) {
+      state.assignedProjects = project
+    },
     SET_RoutingBoard(state, board) {
       state.routingBoard = board
     },
@@ -39,6 +44,9 @@ export default createStore({
     },
     SET_PROJECT_BOARDS(state, boards) {
       state.projectBoards = boards
+    },
+    SET_ASSIGNED_PROJECT_BOARDS(state, boards) {
+      state.assignedProjectBoards = boards
     },
     SET_SECTIONS(state, sections) {
       state.sections = sections
@@ -55,9 +63,8 @@ export default createStore({
           Authorization: 'Bearer '+user.token
         }
       })
-      .then(response => response.data)
-      .then(projects => {
-        commit('SET_Projects', projects)
+      .then(response => {
+        commit('SET_Projects', response.data)
       })
     },
     loadAssignedProjects({commit}) {
@@ -69,7 +76,6 @@ export default createStore({
       })
       .then(response => response.data)
       .then(assignedProjects => {
-        console.log(assignedProjects)
         commit('SET_ASSIGNED_PROJECTS', assignedProjects)
       })
     },
@@ -95,7 +101,6 @@ export default createStore({
     },
     createBoard(newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(newBoard)
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
           "project_id": 1,
           "board_name": newBoard.boardName,
@@ -131,7 +136,6 @@ export default createStore({
           }
         }
       )
-
     },
     createProjectBoard({state}, newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -139,7 +143,7 @@ export default createStore({
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
           "project_id": state.routingProject.id,
           "board_name": newBoard.boardName,
-          "description": newBoard.boardDiscription,
+          "description": newBoard.boardDescription,
           "startDate": newBoard.startDate,
           "endDate": newBoard.endDate,
         }, 
@@ -166,6 +170,17 @@ export default createStore({
         commit('SET_PROJECT_BOARDS', response.data)
       })
     },
+    loadAssignedProjectBoards({commit}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Project/' + this.state.routingAssignedProject.id + '/boards', {
+        headers: {
+          Authorization: 'Bearer '+ user.token
+        }
+      })
+      .then(response => {
+        commit('SET_ASSIGNED_PROJECT_BOARDS', response.data)
+      })
+    },
     loadSections({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
       axios.get(process.env.VUE_APP_API_URL + 'Board/' + this.state.routingBoard.id, {
@@ -185,7 +200,6 @@ export default createStore({
     isAuthenticated: state => state.accessToken != '',
     isDashboardOpen: state => state.dashboardOpen,
     projects: state => state.projects,
-    newProject: state => state.newProject,
-    getRoutingProject: state => state.routingProject
+    getRoutingProject: state => state.routingProject,
   }
 })
