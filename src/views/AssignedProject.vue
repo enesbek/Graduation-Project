@@ -12,22 +12,18 @@
         <button class="tabs-btn" 
           v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards(3)</button>
         <button class="tabs-btn"
-          v-on:click="changeTab(1)"><i class="fa-solid fa-users"></i> Members(8)</button>
-        <button class="tabs-btn"
-          v-on:click="changeTab(2)"><i class="fa-solid fa-gear"></i> Settings</button>
+          v-on:click="changeTab(1)"><i class="fa-solid fa-gear"></i> Settings</button>
       </div>
     </div>
     <div>
       <Boards v-show="selectedTab[0]"/>
-      <Members v-show="selectedTab[1]"/>
-      <Settings v-show="selectedTab[2]"/>
+      <Settings v-show="selectedTab[1]"/>
     </div>
   </div>
 </template>
 
 <script>
 import Boards from '../components/AssignedProject/Boards.vue'
-import Members from '../components/AssignedProject/Members.vue'
 import Settings from '../components/AssignedProject/Settings.vue'
 import store from '../store'
 export default {
@@ -38,12 +34,11 @@ export default {
   },
   components:{
     Boards,
-    Members,
     Settings
   },
   methods:{
     changeTab(index) {
-      this.selectedTab = [false, false, false]
+      this.selectedTab = [false, false]
       this.selectedTab[index] = true
     }
   },
@@ -77,7 +72,7 @@ export default {
   @apply rounded font-bold text-6xl;
 }
 .tabs{
-  margin-left: 30%;
+  margin-left: 40%;
   margin-bottom: 0;
   width: 40%;
   position: absolute;

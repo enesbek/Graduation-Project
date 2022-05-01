@@ -1,30 +1,30 @@
 <template>
-  <div class="delete-area">
-    <div class="delete-btn" @click="toggleDeleteModal = !toggleDeleteModal">
-      Delete Project
+  <div class="leave-area">
+    <div class="leave-btn" @click="toggleleaveModal = !toggleleaveModal">
+      Leave Project
     </div>
     <!-- Modal -->
     <div
-      v-if="toggleDeleteModal"
+      v-if="toggleleaveModal"
       class="fixed inset-0 flex justify-center items-center z-50"
     >
-      <div class="delete-modal relative mx-auto max-w-4xl">
+      <div class="leave-modal relative mx-auto max-w-4xl">
         <div class="bg-white w-full shadow-2xl max-w-2xl rounded">
           <div class="modal-title">Are you absolutely sure?</div>
           <p class="modal-type">
-            Please type <span class="font-semibold italic">delete</span> to
+            Please type <span class="font-semibold italic">leave</span> to
             confirm.
           </p>
-          <input class="modal-input" v-model="deleteText" /><br />
-          <button class="modal-btn" @click="deleteProject1">Delete</button>
-          <button class="modal-btn-close" @click="toggleDeleteModal = false">
+          <input class="modal-input" v-model="leaveText" /><br />
+          <button class="modal-btn" @click="leaveProject1">Leave</button>
+          <button class="modal-btn-close" @click="toggleleaveModal = false">
             Close
           </button>
         </div>
       </div>
     </div>
     <div
-      v-if="toggleDeleteModal"
+      v-if="toggleleaveModal"
       class="absolute z-40 inset-0 opacity-25 bg-black"
     ></div>
 
@@ -47,17 +47,17 @@
 export default {
   data() {
     return {
-      toggleDeleteModal: false,
+      toggleleaveModal: false,
       toggleConfirmModal: false,
-      deleteText: null,
+      leaveText: null,
     };
   },
   methods: {
-    deleteProject1() {
-      if (this.deleteText == "delete") {
-        this.toggleDeleteModal = false;
+    leaveProject1() {
+      if (this.leaveText == "leave") {
+        this.toggleleaveModal = false;
         this.toggleConfirmModal = true;
-        this.$store.dispatch("deleteProject");
+        this.$store.dispatch("leaveProject");
       }
     },
   },
@@ -65,13 +65,13 @@ export default {
 </script>
 
 <style scoped>
-.delete-area {
+.leave-area {
   margin-top: 50px;
   height: 60px;
   display: flex;
   justify-content: center;
 }
-.delete-btn {
+.leave-btn {
   width: 200px;
   height: 40px;
   cursor: pointer;
@@ -81,7 +81,7 @@ export default {
   @apply text-white font-semibold text-lg rounded;
   line-height: 40px;
 }
-.delete-modal {
+.leave-modal {
   display: flex;
   justify-content: center;
   width: 240px;
@@ -93,7 +93,8 @@ export default {
 }
 .modal-title {
   background-color: rgb(146, 169, 189);
-  @apply p-2 font-semibold pl-4;
+  @apply p-2 font-semibold pl-4 text-lg;
+  width: 240px;
 }
 .modal-type {
   @apply pt-2 pl-4;

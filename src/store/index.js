@@ -213,6 +213,25 @@ export default createStore({
         router.push('projects')
       });
     },
+    addUserToProject({state}, userId) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let params = new URLSearchParams({
+        project_id: state.routingProject.id,
+        user_id: userId
+      }).toString();
+      let url = process.env.VUE_APP_API_URL + 'Project/assignproject?' + params
+      console.log(user.token)
+      axios.post(url, 
+          {
+            headers: {
+              Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(response => {
+        console.log(response)
+      });
+    },
   },
   modules: {
   },
