@@ -12,9 +12,11 @@
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-bell" class="text-xl m-2">NOTIFICATIONS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-user" class="text-xl m-2">PROFILE</SidebarLink>
+    <div class="text-xl m-2"><i class="fas fa-user icon-user"/>PROFILE</div>
+    <div>
+      Logout
+    </div>
 
     <span class="collapse-icon" :class="{ 'rotate-180': collapsed}" @click="toggleSidebar">
       <i class="fas fa-angle-double-left"></i>
@@ -76,5 +78,11 @@ export default {
 .rotate-180 {
   transform: rotate(180deg);
   transition: 0.2s linear;
+}
+.icon-user{
+  flex-shrink: 0;
+  width: 25px;
+  padding: 0.4em;
+  margin-right: 20px;
 }
 </style>
