@@ -172,7 +172,7 @@ export default {
   margin-bottom: 0;
 }
 .modal-close-btn {
-  @apply text-xl pr-3;
+  @apply text-xl;
   float: right;
 }
 .modal-img {

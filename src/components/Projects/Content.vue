@@ -63,7 +63,6 @@ export default {
   },
   data() {
     return {
-      text1: "<-Optional->",
       newProject:{
         projectName: null,
         projectDescription: null,
