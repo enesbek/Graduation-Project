@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <span v-if="isOpenSidebar">
+      <span v-if="dashboardOpen">
         <Sidebar/>
         <div :style="{ 'margin-left' : sidebarWidth}">
           <router-view />
@@ -17,11 +17,9 @@
 <script>
 import Sidebar from './components/Sidebar/SidebarMenu.vue'
 import { sidebarWidth } from './components/Sidebar/state'
-import store from './store'
+import { mapState } from "vuex";
 export default {
   name: 'App',
-  data: () => ({
-  }),
   components: {
     Sidebar,
   },
@@ -30,11 +28,7 @@ export default {
       sidebarWidth,
     }
   },
-  computed: {
-    isOpenSidebar() {
-      return store.getters.isDashboardOpen
-    }
-  }
+  computed: mapState(["dashboardOpen"]),
 }
 </script>
 <style>

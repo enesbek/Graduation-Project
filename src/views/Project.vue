@@ -13,9 +13,9 @@
       </div>
       <div class="tabs flex">
         <button class="tabs-btn" 
-          v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards(3)</button>
+          v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards</button>
         <button class="tabs-btn"
-          v-on:click="changeTab(1)"><i class="fa-solid fa-users"></i> Members(8)</button>
+          v-on:click="changeTab(1)"><i class="fa-solid fa-users"></i> Members</button>
         <button class="tabs-btn"
           v-on:click="changeTab(2)"><i class="fa-solid fa-gear"></i> Settings</button>
       </div>

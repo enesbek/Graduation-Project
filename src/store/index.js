@@ -16,10 +16,16 @@ export default createStore({
     projectBoards: [],
     assignedProjectBoards: [],
     sections: [],
+    user: null,
+    notifications: null,
   },  
   mutations: {
     changeSidebarState: (state) => {
       return state.dashboardOpen = true
+    },
+    changeSidebarStateLogout(state) {
+      state.dashboardOpen = false
+      router.push('/');
     },
     SET_Projects(state, projects) {
       state.projects = projects
@@ -51,10 +57,39 @@ export default createStore({
     SET_SECTIONS(state, sections) {
       state.sections = sections
     },
+    SET_USER(state, user){
+      state.user = user
+    },
+    SET_NOTIFICATIONS(state, notifications) {
+      state.notifications = notifications
+    }
   },
   actions: {
     changeSidebarState({ commit }) {
       commit('changeSidebarState')
+    },
+    changeSidebarStateLogout({commit}) {
+      commit('changeSidebarStateLogout')
+    },
+    loadUser({commit}){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'User', {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        commit('SET_USER', response.data)
+      })
+      axios.get(process.env.VUE_APP_API_URL + 'User/notification', {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        commit('SET_NOTIFICATIONS', response.data)
+      })
     },
     loadProjects({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -230,6 +265,21 @@ export default createStore({
       )
       .then(response => {
         console.log(response)
+      });
+    },
+    acceptNotification(notification){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'User/notification/' + notification.id + "/accept", 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(response => {
+        if(response.status == 200){
+          router.push('projects')
+        }
       });
     },
   },

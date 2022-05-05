@@ -1,0 +1,102 @@
+.sidebar {
+  color: white;
+  background-color: var(--sidebar-bg-color);
+
+  float: left;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1em;
+
+  transition: 0.3s linear;
+
+  display: flex;
+  flex-direction: column;
+}
+.collapse-icon {
+  position: absolute;
+  bottom: 0;
+  padding: 1em;
+  padding-left: 0.5em;
+  width: 0rem;
+  color: white;
+  font-size: 2em;
+  transition: 0.2s linear;
+}
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: 0.2s linear;
+}
+.icon-user {
+  flex-shrink: 0;
+  width: 25px;
+  padding: 0.4em;
+  margin-right: 20px;
+}
+.profileMenuBtn {
+  cursor: pointer;
+  @apply text-xl m-2;
+}
+.profileMenu {
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  color: black;
+  margin-left: 150px;
+  @apply rounded border-2;
+}
+.user-info {
+  margin-left: 10px;
+  margin-top: 10px;
+  @apply flex;
+}
+.user-icon {
+  background-color: #16858d;
+  width: 50px;
+  height: 50px;
+  @apply rounded-full text-3xl text-center text-white font-semibold p-1;
+}
+.profile-menu-inner {
+  @apply flex;
+}
+.profile-settings {
+  background-color: blue;
+  width: 100px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  @apply rounded p-2 text-center text-white;
+}
+.profile-notifications {
+  background-color: gray;
+  width: 150px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  @apply rounded p-2 text-center text-white;
+}
+.profile-logout {
+  background-color: red;
+  width: 100px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  @apply rounded p-2 text-center text-white;
+}
+
+.notifications-modal {
+  min-height: 150px;
+  width: 300px;
+}
+.modal-title {
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+.modal-close-btns {
+  @apply text-lg mr-4;
+  float: right;
+}
