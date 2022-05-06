@@ -61,7 +61,12 @@
           </div>
           <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
-              user {{ notification.action_type }}ED you to {{ notification.target_type }}
+              The user "{{ notification.sender_user.userName }}" 
+              wants to assigned you to the {{ notification.target_type }} 
+              "{{ notification.project.projectName }}"
+
+              <hr/>
+              Project Description: {{ notification.project.projectDescription }}  <br/>
               <div class="notification-btns">
                 <div class="notification-accept" @click="acceptNotification(notification)">Accept</div>
                 <div class="notification-deny" @click="denyNotification(notification)">Deny</div>
@@ -106,7 +111,8 @@ export default {
       }, 1000);
     },
     acceptNotification(notification) {
-      console.log(notification)
+      this.$store.dispatch("acceptNotification", notification.id);
+      this.$forceUpdate();
     }
   },
   created() {
@@ -215,7 +221,7 @@ export default {
 
 .notifications-modal {
   min-height: 150px;
-  width: 300px;
+  width: 320px;
   @apply text-black border-2 rounded;
 }
 .modal-title {
@@ -229,20 +235,20 @@ export default {
   float: right;
 }
 .notifications-card{
-  width: 280px;
-  height: 100px;
+  width: 300px;
+  height: 180px;
   margin-left: 10px;
   margin-bottom: 10px;
   background-color: rgb(234, 234, 234);
-  @apply p-2 text-center rounded;
+  @apply p-2 rounded;
 }
 .notification-btns{
-  @apply flex mt-6;
+  @apply flex mt-4 text-center;
 }
 .notification-accept{
   width: 100px;
   cursor: pointer;
-  margin-left: 20px;
+  margin-left: 30px;
   background: rgb(35, 193, 35);
   @apply rounded text-white p-1;
 }

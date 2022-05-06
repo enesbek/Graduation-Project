@@ -87,7 +87,6 @@ export default createStore({
         }
       })
       .then(response => {
-        console.log(response.data)
         commit('SET_NOTIFICATIONS', response.data)
       })
     },
@@ -267,9 +266,10 @@ export default createStore({
         console.log(response)
       });
     },
-    acceptNotification(notification){
+    acceptNotification(store, payload){
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(process.env.VUE_APP_API_URL + 'User/notification/' + notification.id + "/accept", 
+      let url = process.env.VUE_APP_API_URL + 'User/notification/'+ payload + "/accept"
+      axios.get(process.env.VUE_APP_API_URL + 'User', 
         {
           headers: {
             Authorization: 'Bearer ' + user.token
@@ -277,9 +277,18 @@ export default createStore({
         }
       )
       .then(response => {
-        if(response.status == 200){
-          router.push('projects')
+        console.log(response)
+      });
+
+      axios.post(url, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
         }
+      )
+      .then(response => {
+        console.log(response)
       });
     },
   },
