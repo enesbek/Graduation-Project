@@ -242,8 +242,7 @@ export default createStore({
           }, 
         }
       )
-      .then(response => {
-        console.log(response)
+      .then(() => {
         router.push('projects')
       });
     },
@@ -254,7 +253,6 @@ export default createStore({
         user_id: userId
       }).toString();
       let url = process.env.VUE_APP_API_URL + 'Project/assignproject?' + params
-      console.log(user.token)
       axios.post(url, 
           {
             headers: {
@@ -269,17 +267,6 @@ export default createStore({
     acceptNotification(store, payload){
       let user = JSON.parse(localStorage.getItem('user'));
       let url = process.env.VUE_APP_API_URL + 'User/notification/'+ payload + "/accept"
-      axios.get(process.env.VUE_APP_API_URL + 'User', 
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.token
-          }, 
-        }
-      )
-      .then(response => {
-        console.log(response)
-      });
-
       axios.post(url, 
         {
           headers: {
@@ -291,6 +278,31 @@ export default createStore({
         console.log(response)
       });
     },
+    createNewSection({state}, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let url = process.env.VUE_APP_API_URL + 'Section'
+      axios.post(url, {
+          "sectionName": payload,
+          "board_id": state.routingBoard.id,
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+    },
+    deleteSection(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let url = process.env.VUE_APP_API_URL + 'Section/' + payload
+      axios.delete(url, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+    }
   },
   modules: {
   },

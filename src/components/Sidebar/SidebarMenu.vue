@@ -13,7 +13,12 @@
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
-    <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>PROFILE</div>
+    <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>
+      <span v-if="collapsed">
+        <div></div>
+      </span>
+      <span v-else>PROFILE</span>
+    </div>
     <div v-if="openMenu" class="profileMenu">
       <div class="user-info">
         <div class="user-icon">
@@ -32,7 +37,7 @@
         <div class="profile-settings">
           Settings
         </div>
-        <div class="profile-notifications" @click="toggleCreateModal = !toggleCreateModal">
+        <div class="profile-notifications" @click="showNotificationModal">
           Notifications
         </div>
         <div class="profile-logout" @click="userLogout">
@@ -47,14 +52,14 @@
 
     <!-- Modal Start --> 
     <div
-      v-if="toggleCreateModal"
+      v-if="toggleNotificationModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
     >
       <div class="notifications-modal relative flex">
         <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
           <div class="modal-title text-lg">
             Notifications
-            <button class="modal-close-btns" @click="toggleCreateModal = false">
+            <button class="modal-close-btns" @click="toggleNotificationModal = false">
               <i class="fa-solid fa-xmark"></i>
             </button>
             <hr class="mt-1" />
@@ -66,7 +71,7 @@
               "{{ notification.project.projectName }}"
 
               <hr/>
-              Project Description: {{ notification.project.projectDescription }}  <br/>
+              Description: {{ notification.project.projectDescription }}  <br/>
               <div class="notification-btns">
                 <div class="notification-accept" @click="acceptNotification(notification)">Accept</div>
                 <div class="notification-deny" @click="denyNotification(notification)">Deny</div>
@@ -77,7 +82,7 @@
       </div>
     </div>
     <div
-      v-if="toggleCreateModal"
+      v-if="toggleNotificationModal"
       class="absolute z-40 inset-0 opacity-25 bg-black"
     ></div>
     <!-- Modal End -->
@@ -93,7 +98,7 @@ export default {
   data() {
     return {
       openMenu: false,
-      toggleCreateModal: false,
+      toggleNotificationModal: false,
     }
   },
   setup() {
@@ -104,6 +109,10 @@ export default {
   methods:{
     showProfileMenu(){
       this.openMenu = !this.openMenu
+    },
+    showNotificationModal(){
+      this.openMenu = false
+      this.toggleNotificationModal = !this.toggleNotificationModal
     },
     userLogout(){
       setTimeout(() => {
