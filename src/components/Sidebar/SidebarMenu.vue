@@ -13,7 +13,12 @@
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
-    <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>PROFILE</div>
+    <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>
+      <span v-if="collapsed">
+        <div></div>
+      </span>
+      <span v-else>PROFILE</span>
+    </div>
     <div v-if="openMenu" class="profileMenu">
       <div class="user-info">
         <div class="user-icon">
@@ -32,7 +37,7 @@
         <div class="profile-settings">
           Settings
         </div>
-        <div class="profile-notifications" @click="toggleCreateModal = !toggleCreateModal">
+        <div class="profile-notifications" @click="showNotificationModal">
           Notifications
         </div>
         <div class="profile-logout" @click="userLogout">
@@ -47,21 +52,26 @@
 
     <!-- Modal Start --> 
     <div
-      v-if="toggleCreateModal"
+      v-if="toggleNotificationModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
     >
       <div class="notifications-modal relative flex">
         <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
           <div class="modal-title text-lg">
             Notifications
-            <button class="modal-close-btns" @click="toggleCreateModal = false">
+            <button class="modal-close-btns" @click="toggleNotificationModal = false">
               <i class="fa-solid fa-xmark"></i>
             </button>
             <hr class="mt-1" />
           </div>
           <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
-              user {{ notification.action_type }}ED you to {{ notification.target_type }}
+              The user "{{ notification.sender_user.userName }}" 
+              wants to assigned you to the {{ notification.target_type }} 
+              "{{ notification.project.projectName }}"
+
+              <hr/>
+              Description: {{ notification.project.projectDescription }}  <br/>
               <div class="notification-btns">
                 <div class="notification-accept" @click="acceptNotification(notification)">Accept</div>
                 <div class="notification-deny" @click="denyNotification(notification)">Deny</div>
@@ -72,7 +82,7 @@
       </div>
     </div>
     <div
-      v-if="toggleCreateModal"
+      v-if="toggleNotificationModal"
       class="absolute z-40 inset-0 opacity-25 bg-black"
     ></div>
     <!-- Modal End -->
@@ -88,7 +98,7 @@ export default {
   data() {
     return {
       openMenu: false,
-      toggleCreateModal: false,
+      toggleNotificationModal: false,
     }
   },
   setup() {
@@ -100,13 +110,18 @@ export default {
     showProfileMenu(){
       this.openMenu = !this.openMenu
     },
+    showNotificationModal(){
+      this.openMenu = false
+      this.toggleNotificationModal = !this.toggleNotificationModal
+    },
     userLogout(){
       setTimeout(() => {
         this.$store.dispatch("changeSidebarStateLogout");
       }, 1000);
     },
     acceptNotification(notification) {
-      console.log(notification)
+      this.$store.dispatch("acceptNotification", notification.id);
+      this.$forceUpdate();
     }
   },
   created() {
@@ -215,7 +230,7 @@ export default {
 
 .notifications-modal {
   min-height: 150px;
-  width: 300px;
+  width: 320px;
   @apply text-black border-2 rounded;
 }
 .modal-title {
@@ -229,20 +244,20 @@ export default {
   float: right;
 }
 .notifications-card{
-  width: 280px;
-  height: 100px;
+  width: 300px;
+  height: 180px;
   margin-left: 10px;
   margin-bottom: 10px;
   background-color: rgb(234, 234, 234);
-  @apply p-2 text-center rounded;
+  @apply p-2 rounded;
 }
 .notification-btns{
-  @apply flex mt-6;
+  @apply flex mt-4 text-center;
 }
 .notification-accept{
   width: 100px;
   cursor: pointer;
-  margin-left: 20px;
+  margin-left: 30px;
   background: rgb(35, 193, 35);
   @apply rounded text-white p-1;
 }
