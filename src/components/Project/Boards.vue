@@ -10,7 +10,7 @@
         <div
           class="board-inner font-semibold text-xl"
           :style="{
-            background: 'url(https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg)',
+            background: 'url(https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png)',
             'background-size': 'cover',
           }"
           @click="gotoBoard(board)"
@@ -62,7 +62,7 @@
           </div>
           <div class="ml-6 mb-2">
             <span class="text-sm font-semibold"
-              >Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End
+              >Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End
               Date</span
             ><br />
             <input
@@ -76,12 +76,7 @@
               v-model="newBoard.endDate"
             />
           </div>
-          <div class="ml-6 mt-2">
-            <span class="text-sm font-semibold">Add people to board</span><br />
-            <input
-              class="modal-board-title border-2 border-gray-600 rounded pl-2 p-1"
-            /><br />
-          </div>
+          <p class="italic ml-6">*Dates are optional</p>
           <button
             class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12"
             @click="createNewProjectBoard"
@@ -101,7 +96,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from "../../router";
 export default {
   data() {
@@ -124,14 +118,20 @@ export default {
     },
     gotoBoard(board){
       this.$store.state.routingBoard = board
-      console.log(board)
       router.push('board')
     }
   },
   mounted() {
     this.$store.dispatch("loadProjectBoards");
   },
-  computed: mapState(["projectBoards"]),
+  computed: {
+    projectBoards() {
+      this.$store.dispatch("loadProjectBoards");
+      return this.$store.state.projectBoards
+    }
+  }
+  
+  //mapState(["projectBoards"]),
 };
 </script>
 
@@ -163,7 +163,7 @@ export default {
 }
 
 .create-modal {
-  height: 40rem;
+  height: 37rem;
 }
 .modal-title {
   width: 100%;

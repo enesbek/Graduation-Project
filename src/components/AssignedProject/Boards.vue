@@ -6,11 +6,11 @@
       </p>
     </div>
     <div class="boards-area flex">
-      <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
+      <div class="flex-intial board" v-for="board in assignedBoards" :key="board.id">
         <div
           class="board-inner font-semibold text-xl"
           :style="{
-            background: 'url(https://mixkit.co/wp-content/uploads/2020/01/trello-backgournd-1024x512.jpg)',
+            background: 'url(https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png)',
             'background-size': 'cover',
           }"
           @click="gotoBoard(board)"
@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from "../../router";
 export default {
   data() {
@@ -128,10 +127,17 @@ export default {
       router.push('board')
     }
   },
+  computed: {
+    assignedBoards() {
+      this.$store.dispatch("loadAssignedProjectBoards");
+      return this.$store.state.assignedProjectBoards
+    }
+  }
+  /*
   mounted() {
     this.$store.dispatch("loadAssignedProjectBoards");
   },
-  computed: mapState(["assignedProjectBoards"]),
+  computed: mapState(["assignedProjectBoards"]),*/
 };
 </script>
 

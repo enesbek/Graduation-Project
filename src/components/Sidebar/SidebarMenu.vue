@@ -67,7 +67,7 @@
           <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
               The user "{{ notification.sender_user.userName }}" 
-              wants to assigned you to the {{ notification.target_type }} 
+              wants to assign you to the {{ notification.target_type }} 
               "{{ notification.project.projectName }}"
 
               <hr/>
@@ -117,7 +117,7 @@ export default {
     userLogout(){
       setTimeout(() => {
         this.$store.dispatch("changeSidebarStateLogout");
-      }, 1000);
+      }, 500);
     },
     acceptNotification(notification) {
       this.$store.dispatch("acceptNotification", notification.id);

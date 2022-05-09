@@ -4,13 +4,15 @@
       <div class="project-info flex">
         <span class="project-icon text-4xl flex-initial m-2 text-white">{{ project.projectName[0] }}</span>
         <div class="flex-initial ml-2">
-          <div class="text-xl font-semibold mt-4">{{ project.projectName }}</div>
+          <div class="text-xl font-semibold mt-1">{{ project.projectName }}</div>
           <div> {{ project.projectDescription }}</div>
+          <div> Start: {{project.startDate[8]}}{{project.startDate[9]}}{{project.startDate[7]}}{{project.startDate[5]}}{{project.startDate[6]}}{{project.startDate[4]}}{{project.startDate[2]}}{{project.startDate[3]}}
+            <br />    End: &nbsp;{{project.endDate[8]}}{{project.endDate[9]}}{{project.endDate[7]}}{{project.endDate[5]}}{{project.endDate[6]}}{{project.endDate[4]}}{{project.endDate[2]}}{{project.endDate[3]}}</div>
         </div>
       </div>
       <div class="tabs flex">
         <button class="tabs-btn" 
-          v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards(3)</button>
+          v-on:click="changeTab(0)"><fa icon="clipboard"></fa> Boards</button>
         <button class="tabs-btn"
           v-on:click="changeTab(1)"><i class="fa-solid fa-gear"></i> Settings</button>
       </div>

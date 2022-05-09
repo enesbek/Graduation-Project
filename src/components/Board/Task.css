@@ -1,5 +1,5 @@
 .task-container {
-  @apply bg-white m-2 p-1 rounded-md;
+  @apply bg-white m-2 rounded-md;
 }
 
 .addButton {
@@ -187,4 +187,29 @@
   cursor: pointer;
   width: 10px;
   text-align: center;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+  @apply mb-2;
+  opacity: 0.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0.2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  opacity: 0.2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  opacity: 0.2;
 }

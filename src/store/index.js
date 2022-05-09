@@ -18,6 +18,17 @@ export default createStore({
     sections: [],
     user: null,
     notifications: null,
+    routingTaskId: null,
+    routingTask: null,
+    newTask:{
+      "section_id": null,
+      "jobTitle": null,
+      "jobDescription": "",
+      "project_id": null,
+      "tags": [
+        ""
+      ]
+    }
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -62,6 +73,15 @@ export default createStore({
     },
     SET_NOTIFICATIONS(state, notifications) {
       state.notifications = notifications
+    },
+    SET_ROUTING_TASK_ID(state, taskId){
+      state.routingTaskId = taskId
+    },
+    SET_ROUTING_TASK(state, task){
+      state.routingTask = task
+    },
+    SET_NEW_TASK_SECTION(state, id) {
+      state.newTask.section_id = id
     }
   },
   actions: {
@@ -187,11 +207,6 @@ export default createStore({
           }, 
         }
       )
-      .then(response => {
-        if(response.status == 201){
-          router.push('projects')
-        }
-      });
     },
     loadProjectBoards({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -302,6 +317,36 @@ export default createStore({
           }, 
         }
       )
+    },
+    routingTask({commit}, taskId) {
+      commit('SET_ROUTING_TASK_ID', taskId)
+    },
+    loadRoutingTask({commit}){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Job/' + this.state.routingTaskId, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        commit('SET_ROUTING_TASK', response.data)
+      })
+    },
+    createNewTask(store, newTask){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'Job', {
+          "section_id": this.state.newTask.section_id,
+          "jobTitle": newTask.jobTitle,
+          "jobDescription": newTask.jobDescription,
+          "project_id": this.state.routingProject.id,
+          "tags": newTask.tags
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
     }
   },
   modules: {
