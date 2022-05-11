@@ -28,7 +28,8 @@ export default createStore({
       "tags": [
         ""
       ]
-    }
+    },
+    showAssigned: false,
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -82,6 +83,9 @@ export default createStore({
     },
     SET_NEW_TASK_SECTION(state, id) {
       state.newTask.section_id = id
+    },
+    SET_SHOW_ASSIGNED_PROJECT(state, value) {
+      state.showAssigned = value
     }
   },
   actions: {
@@ -344,6 +348,39 @@ export default createStore({
           "project_id": this.state.routingProject.id,
           "tags": newTask.tags
         }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    showAssignedProject({commit}){
+      commit('SET_SHOW_ASSIGNED_PROJECT', true)
+    },
+    addNewTagToTask(store, newTag) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/tag', {
+          "job_id": this.state.routingTaskId,
+          "tagName": newTag
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    updateTask(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.patch(process.env.VUE_APP_API_URL + 'Job/' + this.state.routingTaskId, 
+        [
+          {
+            "path": payload[0],
+            "op": "replace",
+            "value": payload[1]
+          },
+        ], 
         {
           headers: {
             Authorization: 'Bearer ' + user.token

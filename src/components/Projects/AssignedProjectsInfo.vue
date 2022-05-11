@@ -1,6 +1,7 @@
 <template>
   <div class="projects">
     <div class="project mb-2" v-for="project in assignedProjects" :key="project.id">
+      <div  v-if="showAssigned">
       <div class="flex">
         <div class="project-name" @click="gotoProject(project)">
           <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
@@ -20,6 +21,7 @@
             <div class="p-2">{{ board.board_name }}</div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -41,7 +43,7 @@ export default {
   mounted() {
     this.$store.dispatch("loadAssignedProjects");
   },
-  computed: mapState(["assignedProjects"]),
+  computed: mapState(["assignedProjects", "showAssigned"]),
   methods: {
     gotoProject(project) {
       this.$store.state.routingAssignedProject = project

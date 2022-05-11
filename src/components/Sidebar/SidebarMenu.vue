@@ -12,7 +12,6 @@
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
     <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>
       <span v-if="collapsed">
         <div></div>
@@ -64,16 +63,16 @@
             </button>
             <hr class="mt-1" />
           </div>
-          <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
+          <div class="notifications-cards" v-for="notification in sampleNotification" :key="notification.id">
             <div class="notifications-card">
-              The user "{{ notification.sender_user.userName }}" 
+              The user "{{ notification.sender_user }}" 
               wants to assign you to the {{ notification.target_type }} 
-              "{{ notification.project.projectName }}"
+              "{{ notification.projectName }}"
 
               <hr/>
-              Description: {{ notification.project.projectDescription }}  <br/>
+              Description: {{ notification.projectDescription }}  <br/>
               <div class="notification-btns">
-                <div class="notification-accept" @click="acceptNotification(notification)">Accept</div>
+                <div class="notification-accept" @click="acceptNotification()">Accept</div>
                 <div class="notification-deny" @click="denyNotification(notification)">Deny</div>
               </div>
             </div>
@@ -99,7 +98,14 @@ export default {
     return {
       openMenu: false,
       toggleNotificationModal: false,
-      sampleNotification:[],
+      sampleNotification:[
+        {
+          sender_user: "enes",
+          target_type: "PROJECT",
+          projectName: "E-commerce",
+          projectDescription: "Sample project"
+        },
+      ],
     }
   },
   setup() {
@@ -120,9 +126,9 @@ export default {
         this.$store.dispatch("changeSidebarStateLogout");
       }, 500);
     },
-    acceptNotification(notification) {
-      this.$store.dispatch("acceptNotification", notification.id);
-      this.$forceUpdate();
+    acceptNotification() {
+      this.sampleNotification = []
+      this.$store.dispatch("showAssignedProject")
     }
   },
   created() {

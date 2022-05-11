@@ -65,15 +65,19 @@
 }
 
 .modal-add-tag {
-  height: 30px;
-  padding: 0;
-  font-size: 25px;
-  @apply rounded border-2 border-gray-500 px-2 font-bold;
+  @apply rounded border-2 border-gray-500 font-bold px-2;
   cursor: pointer;
+  height: 30px;
 }
 
 .modal-add-tag:hover {
   @apply bg-gray-500 text-white;
+}
+
+.modal-add-tag-input{
+  height: 30px;
+  width: 100px;
+  @apply rounded px-1 mr-2 border-2 border-black;
 }
 
 .modal-description-area {
@@ -135,7 +139,7 @@
 }
 
 .activities {
-  @apply mb-16 flex;
+  @apply mb-4 ml-10 flex;
 }
 
 .activity-avatar {
