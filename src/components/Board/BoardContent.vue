@@ -6,21 +6,21 @@
           <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }} 
             <i class="fa-solid fa-trash-can section-settings" @click="deleteSection(section)"></i>
           </h3>
-          <draggable v-if="!section.jobs.length" group="sections"></draggable>
-          <draggable v-for="task in section.jobs" :key="task.name" group="sections">
+          <draggable v-if="!section.jobs.length" group="tasks"></draggable>
+          <draggable animation="100" v-for="task in section.jobs" :key="task.name" group="tasks">
             <div @click="openTask(task.id)" class="task-container">
               <span v-for="tag in task.tags" :key="tag.name" class="tags">
-              {{ tag }}
+              {{ task }}
               </span>
               <div class="task-name">
                 {{ task.jobTitle }}
               </div>
-              <div>
+              <div class="italic font-normal">
                 {{task.startDate[8]}}{{task.startDate[9]}}{{task.startDate[7]}}{{task.startDate[5]}}{{task.startDate[6]}} /
                 {{task.endDate[8]}}{{task.endDate[9]}}{{task.endDate[7]}}{{task.endDate[5]}}{{task.endDate[6]}}
               </div>
             </div>
-          </draggable>,
+          </draggable>
           <button
             class="addButton"
             v-on:click="createNewTask(section.id)"
@@ -88,8 +88,9 @@ export default {
       this.createTaskStatus = !this.createTaskStatus;
       this.$store.commit("SET_NEW_TASK_SECTION", sectionId)
     },
-    openTaskCreateModal() {
-
+    changed(id, event){
+      console.log(id)
+      console.log(event)
     }
   },
   computed: {
@@ -113,10 +114,8 @@ export default {
 .sections {
   border-top: 5px solid rgb(44, 184, 102);
   width: 270px;
-  @apply mt-3 ml-3  text-sm bg-gray-200 rounded;
-}
-.task {
-  @apply bg-white m-2 p-1 rounded-md;
+  box-shadow: 1px 3px 2px 3px #888888;
+  @apply mt-3 ml-3 text-sm bg-gray-200 rounded;
 }
 .addButton {
   background-color: rgb(68, 219, 131);

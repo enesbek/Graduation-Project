@@ -99,6 +99,7 @@ export default {
     return {
       openMenu: false,
       toggleNotificationModal: false,
+      sampleNotification:[],
     }
   },
   setup() {
@@ -134,7 +135,7 @@ export default {
 <style>
 :root {
   --sidebar-bg-color: #034d5e;
-  --sidebar-item-hover: #16858d;
+  --sidebar-item-hover: #093e42;
   --sidebar-item-active: #177c81;
 }
 </style>
@@ -142,7 +143,7 @@ export default {
 <style scoped>
 .sidebar {
   color: white;
-  background-color: var(--sidebar-bg-color);
+  background-image: linear-gradient(#1c959c, #034d5e);
 
   float: left;
   position: fixed;
@@ -179,7 +180,7 @@ export default {
 }
 .profileMenuBtn {
   cursor: pointer;
-  @apply text-xl m-2;
+  @apply text-xl m-2 rounded;
 }
 .profileMenu {
   width: 400px;
@@ -188,6 +189,10 @@ export default {
   color: black;
   margin-left: 150px;
   @apply rounded border-2;
+}
+.profileMenuBtn:hover {
+  font-weight: 500;
+  background-color: var(--sidebar-item-hover);
 }
 .user-info {
   margin-left: 10px;

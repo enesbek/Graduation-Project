@@ -241,14 +241,15 @@ export default createStore({
         commit('SET_SECTIONS', response.data.sections)
       })
     },
-    updateProject({state}, path, value) {
+    updateProject({state}, payload) {
       let user = JSON.parse(localStorage.getItem('user'));
+      console.log(payload[0], payload[1])
       axios.patch(process.env.VUE_APP_API_URL + 'Project/' + state.routingProject.id, 
           [
             {
-              "path": path,
+              "path": payload[0],
               "op": "replace",
-              "value": value
+              "value": payload[1]
             },
           ],
           {
@@ -261,19 +262,21 @@ export default createStore({
         router.push('projects')
       });
     },
-    addUserToProject({state}, userId) {
+    addUserToProject({state}, user_id) {
       let user = JSON.parse(localStorage.getItem('user'));
-      let params = new URLSearchParams({
-        project_id: state.routingProject.id,
-        user_id: userId
-      }).toString();
-      let url = process.env.VUE_APP_API_URL + 'Project/assignproject?' + params
-      axios.post(url, 
-          {
-            headers: {
-              Authorization: 'Bearer ' + user.token
-          }, 
-        }
+      console.log(user_id)
+      let project_id = state.routingProject.id
+      axios.post(process.env.VUE_APP_API_URL + 'Project/assignproject', {
+        headers: {
+          Authorization: 'Bearer ' + user.token
+        }, 
+      },
+        {
+          params: {
+            project_id,
+            user_id
+          }
+        },
       )
       .then(response => {
         console.log(response)

@@ -19,11 +19,8 @@
           <div class="activity-avatar float-left">V</div>
         </div>
         <p class="tag-title">Labels</p>
-        <div v-if="task.tags">
-          Hello
-        </div>
         <div class="modal-tag-area" v-for="tag in task.tags" :key="tag.id">
-          <div class="modal-tags">{{ tag }}</div>
+          <div class="modal-tags">{{ tag.tagName }}</div>
           <div class="modal-add-tag">+</div>
         </div>
         <div class="modal-description-area">

@@ -1,5 +1,9 @@
 .task-container {
-  @apply bg-white m-2 rounded-md;
+  min-height: 70px;
+  width: 250px;
+  box-shadow: 1px 1px 1px 1px #888888;
+  font-weight: 500;
+  @apply bg-white m-2 p-1 rounded ;
 }
 
 .addButton {
@@ -12,10 +16,6 @@
   @apply px-1 pb-1 mr-1 rounded text-white font-bold;
   font-size: 13px;
   letter-spacing: 0.5px;
-}
-
-.task-name {
-  @apply mt-2 mb-2;
 }
 
 .task-modal {

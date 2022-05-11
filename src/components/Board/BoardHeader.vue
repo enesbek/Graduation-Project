@@ -31,6 +31,9 @@ export default {
     },
   },
   methods:{
+    deleteBoard(){
+      
+    }
   }
 }
 </script>
@@ -55,22 +58,20 @@ export default {
 }
 .board-settings-modal{
   background-color: white;
-  width: 300px;
-  height: 50px;
+  width: 90px;
+  height: 30px;
   margin-top: 50px;
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 110px;
   z-index: 10;
-  @apply rounded border-2;
+  @apply rounded;
 }
 .board-settings-delete{
   background-color: red;
   width: 90px;
   height: 30px;
   position: absolute;
-  bottom: 10px;
-  margin-left: 105px;
   cursor: pointer;
   @apply rounded text-white text-center font-bold tracking-wide;
 }
