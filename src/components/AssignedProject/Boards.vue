@@ -133,11 +133,6 @@ export default {
       return this.$store.state.assignedProjectBoards
     }
   }
-  /*
-  mounted() {
-    this.$store.dispatch("loadAssignedProjectBoards");
-  },
-  computed: mapState(["assignedProjectBoards"]),*/
 };
 </script>
 
@@ -154,6 +149,12 @@ export default {
   margin: 1rem;
   width: 270px;
   height: 130px;
+  box-shadow: 5px 10px 8px 10px #888888;
+  cursor: pointer;
+  @apply rounded;
+}
+.board:hover {
+  box-shadow: 10px 20px 16px 20px #888888;
 }
 .board-inner {
   height: 130px;

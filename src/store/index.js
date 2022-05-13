@@ -28,8 +28,7 @@ export default createStore({
       "tags": [
         ""
       ]
-    },
-    showAssigned: false,
+    }
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -84,9 +83,6 @@ export default createStore({
     SET_NEW_TASK_SECTION(state, id) {
       state.newTask.section_id = id
     },
-    SET_SHOW_ASSIGNED_PROJECT(state, value) {
-      state.showAssigned = value
-    }
   },
   actions: {
     changeSidebarState({ commit }) {
@@ -105,6 +101,9 @@ export default createStore({
       .then(response => {
         commit('SET_USER', response.data)
       })
+    },
+    loadNotifications({commit}){
+      let user = JSON.parse(localStorage.getItem('user'));
       axios.get(process.env.VUE_APP_API_URL + 'User/notification', {
         headers: {
           Authorization: 'Bearer '+user.token
@@ -266,30 +265,51 @@ export default createStore({
         router.push('projects')
       });
     },
-    addUserToProject({state}, user_id) {
+    addUserToProject(store, user_id) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(user_id)
-      let project_id = state.routingProject.id
-      axios.post(process.env.VUE_APP_API_URL + 'Project/assignproject', {
-        headers: {
-          Authorization: 'Bearer ' + user.token
-        }, 
-      },
+      let project_id = store.state.routingProject.id
+      axios.post(`http://localhost:5050/api/Project/assignproject?project_id=${project_id}&user_id=${user_id}`,
         {
           params: {
             project_id,
             user_id
           }
         },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
+    },
+    acceptNotification(store, payload){
+      let id = payload
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/User/notification/${id}/accept`, 
+        {
+          params: {
+            id,
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
       )
       .then(response => {
         console.log(response)
       });
     },
-    acceptNotification(store, payload){
+    denyNotification(store, payload) {
+      let id = payload
       let user = JSON.parse(localStorage.getItem('user'));
-      let url = process.env.VUE_APP_API_URL + 'User/notification/'+ payload + "/accept"
-      axios.post(url, 
+      axios.post(`http://localhost:5050/api/User/notification/${id}/deny`, 
+        {
+          params: {
+            id,
+          }
+        },
         {
           headers: {
             Authorization: 'Bearer ' + user.token
@@ -355,9 +375,6 @@ export default createStore({
         }
       );
     },
-    showAssignedProject({commit}){
-      commit('SET_SHOW_ASSIGNED_PROJECT', true)
-    },
     addNewTagToTask(store, newTag) {
       let user = JSON.parse(localStorage.getItem('user'));
       axios.post(process.env.VUE_APP_API_URL + 'JobUtil/tag', {
@@ -381,6 +398,32 @@ export default createStore({
             "value": payload[1]
           },
         ], 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    updateSections(value){
+      //let user = JSON.parse(localStorage.getItem('user'));
+      console.log(value[0] + "order" + value[1])
+        
+      /*axios.patch(process.env.VUE_APP_API_URL + 'Section/order?' + "order_no" , 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );*/
+    },
+    addNewCheckToTask(store, newCheck) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/checklist ', {
+          "job_id": this.state.routingTaskId,
+          "text": newCheck,
+          "isSelected": false
+        }, 
         {
           headers: {
             Authorization: 'Bearer ' + user.token

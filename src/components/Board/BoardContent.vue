@@ -1,12 +1,14 @@
 <template>
   <div class="board-container">
     <div class="my-container flex">
-      <div v-for="section in sections" :key="section.order_no">
+      <draggable v-model="sections" class="flex"> 
+      <div v-for="section in sections" :key="section.id">
         <div class="sections">
           <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }} 
             <i class="fa-solid fa-trash-can section-settings" @click="deleteSection(section)"></i>
           </h3>
           <draggable v-if="!section.jobs.length" group="tasks"></draggable>
+          
           <draggable animation="100" v-for="task in section.jobs" :key="task.name" group="tasks">
             <div @click="openTask(task.id)" class="task-container">
               <span v-for="tag in task.tags" :key="tag.name" class="tags">
@@ -29,6 +31,7 @@
           </button>
         </div>
       </div>
+      </draggable>
       <div class="sections h-32">
         <div class="text-center pt-2 font-semibold">
           New Section <br/>
@@ -48,7 +51,7 @@
 import { VueDraggableNext } from "vue-draggable-next";
 import Task from './Task.vue'
 import TaskCreateModal from './TaskCreateModal.vue'
-import _ from 'lodash';
+//import _ from 'lodash';
 export default {
   components: {
     draggable: VueDraggableNext,
@@ -88,15 +91,14 @@ export default {
       this.createTaskStatus = !this.createTaskStatus;
       this.$store.commit("SET_NEW_TASK_SECTION", sectionId)
     },
-    changed(id, event){
-      console.log(id)
-      console.log(event)
-    }
   },
   computed: {
-    sections(){
-      this.$store.dispatch("loadSections");
-      return  _.orderBy(this.$store.state.sections, 'order_no')
+    sections: {
+      get() {
+        this.$store.dispatch("loadSections");
+        return  this.$store.state.sections
+      },
+      
     },
   }
 };

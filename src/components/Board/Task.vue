@@ -51,6 +51,20 @@
           </div>
         </div>
         <div class="add-attachment">Add an attachment</div>-->
+        <div class="flex mb-4">
+          <i class="fa-solid fa-list-check ml-2 mr-1 mt-2"></i>
+          <div class="modal-description">Check List</div>
+        </div>
+        <div class="mb-4">
+          <div class="flex" v-for="checkItem in task.checkLists" :key="checkItem.id">
+            <div class="check-box" @click="checkChange"><i class="fa-solid fa-check " v-if="check"></i></div>
+            <div>{{ checkItem.text }}</div>
+          </div>
+          <div class="add-new-check-area">
+            <input v-if="newCheck" placeholder="Add an item" class="add-new-check-input" v-model="checkText"/>
+            <div class="add-new-check-btn" @click="addNewCheck">Add</div>
+          </div>
+        </div>
         <div class="modal-activity-area">
           <i class="fa-solid fa-chalkboard-user ml-2 mr-1 mt-2"></i>
           <div class="modal-description">Activity</div>
@@ -84,6 +98,9 @@ export default {
       toggleTaskModal: true,
       openAddTagInput: false,
       newTag: "",
+      check: false,
+      newCheck: false,
+      checkText: "",
     };
   },
   methods: {
@@ -102,7 +119,21 @@ export default {
     },
     onInputTaskDescription(e) {
       this.$store.dispatch("updateTask", ["jobDescription", e.target.innerText])
-    } 
+    },
+    checkChange() {
+      this.check = !this.check
+    },
+    addNewCheck(){
+      if(!this.newCheck){
+        this.newCheck = !this.newCheck
+      }
+      else{
+        this.newCheck = !this.newCheck
+        this.$store.dispatch("addNewCheckToTask", this.checkText)
+        this.checkText = ""
+      }
+      
+    }, 
   },
   computed: {
     task() {

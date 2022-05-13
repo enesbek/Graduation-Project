@@ -63,16 +63,19 @@
             </button>
             <hr class="mt-1" />
           </div>
-          <div class="notifications-cards" v-for="notification in sampleNotification" :key="notification.id">
+          <div v-if="notifications" class="text-center">
+            There is no notification here!
+          </div>
+          <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
-              The user "{{ notification.sender_user }}" 
+              The user "{{ notification.sender_user.userName }}" 
               wants to assign you to the {{ notification.target_type }} 
-              "{{ notification.projectName }}"
+              "{{ notification.project.projectName }}"
 
               <hr/>
-              Description: {{ notification.projectDescription }}  <br/>
+              Description: {{ notification.project.projectDescription }}  <br/>
               <div class="notification-btns">
-                <div class="notification-accept" @click="acceptNotification()">Accept</div>
+                <div class="notification-accept" @click="acceptNotification(notification)">Accept</div>
                 <div class="notification-deny" @click="denyNotification(notification)">Deny</div>
               </div>
             </div>
@@ -91,21 +94,12 @@
 <script>
 import { collapsed, toggleSidebar, sidebarWidth } from './state'
 import SidebarLink from './SidebarLink.vue'
-import { mapState } from "vuex";
 export default {
   components: { SidebarLink },
   data() {
     return {
       openMenu: false,
       toggleNotificationModal: false,
-      sampleNotification:[
-        {
-          sender_user: "enes",
-          target_type: "PROJECT",
-          projectName: "E-commerce",
-          projectDescription: "Sample project"
-        },
-      ],
     }
   },
   setup() {
@@ -126,15 +120,23 @@ export default {
         this.$store.dispatch("changeSidebarStateLogout");
       }, 500);
     },
-    acceptNotification() {
-      this.sampleNotification = []
-      this.$store.dispatch("showAssignedProject")
+    acceptNotification(notification) {
+      this.$store.dispatch("acceptNotification", notification.id);
+    },
+    denyNotification(notification) {
+      this.$store.dispatch("denyNotification", notification.id);
     }
   },
-  created() {
-    this.$store.dispatch("loadUser");
-  },
-  computed: mapState(["user", "notifications"]),
+  computed: {
+    user() {
+      this.$store.dispatch("loadUser");
+      return this.$store.state.user
+    },
+    notifications() {
+      this.$store.dispatch("loadNotifications");
+      return this.$store.state.notifications
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="members-container">
+    {{routingProject}}
     <h5 class="mt-6 text-lg">Add New People To The Project</h5>
     <div>
       <input class="input-area" v-model="addUser" /><br/>
@@ -20,6 +21,7 @@ export default {
   methods: {
     adduserToProj(){
       this.$store.dispatch("addUserToProject", this.addUser);
+      this.addUser = ""
     }
   },
   computed: mapState(["routingProject"]),

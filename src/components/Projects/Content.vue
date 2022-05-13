@@ -94,7 +94,7 @@ export default {
   margin-left: 10em;
   padding-top: 3em;
 }
-.bottomPage{
+.bottomPage{ 
   width: 100%;
   background-color: rgb(200, 200, 200);
   padding-left: 10em;

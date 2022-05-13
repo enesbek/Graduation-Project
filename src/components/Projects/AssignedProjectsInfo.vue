@@ -1,7 +1,6 @@
 <template>
   <div class="projects">
     <div class="project mb-2" v-for="project in assignedProjects" :key="project.id">
-      <div  v-if="showAssigned">
       <div class="flex">
         <div class="project-name" @click="gotoProject(project)">
           <span class="project-icon text-xl flex-initial">{{ project.projectName[0] }}</span>
@@ -22,13 +21,11 @@
           </div>
         </div>
       </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from '../../router';
 export default {
   data() {
@@ -40,10 +37,12 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.$store.dispatch("loadAssignedProjects");
+  computed: {
+    assignedProjects() {
+      this.$store.dispatch("loadAssignedProjects");
+      return this.$store.state.assignedProjects
+    }
   },
-  computed: mapState(["assignedProjects", "showAssigned"]),
   methods: {
     gotoProject(project) {
       this.$store.state.routingAssignedProject = project
@@ -97,6 +96,8 @@ export default {
   margin-top: 15px;
   width: 200px;
   height: 90px;
+  box-shadow: 3px 6px 5px 6px #888888;
+  @apply flex-initial rounded;
 }
 .board-inner {
   height: 90px;

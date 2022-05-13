@@ -59,7 +59,7 @@
 
 .modal-tags {
   @apply m-0 p-0 text-white mr-2 font-semibold rounded px-2 mb-4 pb-7 text-lg;
-  background-color: rgb(44, 89, 200);
+  background-color: orange;
   height: 20px;
   cursor: pointer;
 }
@@ -132,6 +132,30 @@
   background-color: rgb(220, 220, 220);
   @apply px-4 py-2 mb-8;
   cursor: pointer;
+}
+
+.check-box{
+  width: 20px;
+  height: 20px;
+  @apply border-2 border-gray-500 mr-2 rounded;
+  line-height: 10px;
+  cursor: pointer;
+  margin-left: 45px; 
+}
+
+.add-new-check-area{
+  margin-left: 45px; 
+  @apply mt-2;
+}
+
+.add-new-check-input{
+  width: 500px;
+  @apply border-2 border-gray-500 rounded px-1;
+}
+
+.add-new-check-btn{
+  width: 45px;
+  @apply rounded bg-blue-700 py-1 px-2 text-white mt-2;
 }
 
 .modal-activity-area {
