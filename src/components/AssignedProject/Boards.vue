@@ -2,7 +2,7 @@
   <div class="boards">
     <div class="boards-title">
       <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
-        <fa icon="clipboard"></fa> Boards
+        <fa icon="clipboard"></fa> Boards(1)
       </p>
     </div>
     <div class="boards-area flex">
