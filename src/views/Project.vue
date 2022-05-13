@@ -53,7 +53,8 @@ export default {
   computed: {
     project(){
       store.commit('changeSidebarState');
-      return this.$store.state.routingProject
+      this.$store.dispatch("loadProject");
+      return this.$store.state.project
     },
   }
 };

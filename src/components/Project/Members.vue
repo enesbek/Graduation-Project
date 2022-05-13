@@ -1,6 +1,6 @@
 <template>
   <div class="members-container">
-    {{routingProject}}
+    {{ project }}
     <h5 class="mt-6 text-lg">Add New People To The Project</h5>
     <div>
       <input class="input-area" v-model="addUser" /><br/>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -24,13 +23,16 @@ export default {
       this.addUser = ""
     }
   },
-  computed: mapState(["routingProject"]),
+  computed: {
+    project() {
+      return this.$store.state.project
+    }
+  },
 };
 </script>
 
 <style>
 .members-container {
-  
   margin: auto;
   text-align: center;
 }

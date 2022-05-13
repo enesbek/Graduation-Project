@@ -63,7 +63,7 @@
             </button>
             <hr class="mt-1" />
           </div>
-          <div v-if="notifications" class="text-center">
+          <div v-if="!notifications.length" class="text-center">
             There is no notification here!
           </div>
           <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">

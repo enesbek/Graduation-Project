@@ -7,6 +7,7 @@ export default createStore({
     accessToken: '',
     dashboardOpen: false,
     projects: [],
+    project: null,
     assignedProjects: [],
     newProject: {},
     routingProject: null,
@@ -28,7 +29,8 @@ export default createStore({
       "tags": [
         ""
       ]
-    }
+    },
+    sectionOderIndex: [],
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -40,6 +42,9 @@ export default createStore({
     },
     SET_Projects(state, projects) {
       state.projects = projects
+    },
+    SET_PROJECT(state, project) {
+      state.project = project
     },
     SET_ASSIGNED_PROJECTS(state, assignedProjects) {
       state.assignedProjects = assignedProjects
@@ -83,6 +88,9 @@ export default createStore({
     SET_NEW_TASK_SECTION(state, id) {
       state.newTask.section_id = id
     },
+    SET_SECTION_ORDER_INDEX(state, payload){
+      state.sectionOderIndex = payload
+    }
   },
   actions: {
     changeSidebarState({ commit }) {
@@ -100,6 +108,17 @@ export default createStore({
       })
       .then(response => {
         commit('SET_USER', response.data)
+      })
+    },
+    loadProject(store) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Project/' + store.state.routingProject.id, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        store.commit('SET_PROJECT', response.data)
       })
     },
     loadNotifications({commit}){
@@ -265,14 +284,14 @@ export default createStore({
         router.push('projects')
       });
     },
-    addUserToProject(store, user_id) {
+    addUserToProject(store, user_email) {
       let user = JSON.parse(localStorage.getItem('user'));
       let project_id = store.state.routingProject.id
-      axios.post(`http://localhost:5050/api/Project/assignproject?project_id=${project_id}&user_id=${user_id}`,
+      axios.post(`http://localhost:5050/api/Project/assignproject?project_id=${project_id}&user_email=${user_email}`,
         {
           params: {
             project_id,
-            user_id
+            user_email
           }
         },
         {
@@ -430,7 +449,25 @@ export default createStore({
           }, 
         }
       );
-    }
+    },
+    updateSectionOrder(store, payload) {
+      let order_no = store.state.sectionOderIndex[0]
+      let section_id = store.state.sectionOderIndex[1]
+      console.log(payload)
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/Section/order?order_no=${order_no}&section_id=${section_id}`, {
+          params: {
+            order_no,
+            section_id
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+    },
   },
   modules: {
   },
