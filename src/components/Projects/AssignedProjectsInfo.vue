@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from '../../router';
 export default {
   data() {
@@ -38,10 +37,12 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.$store.dispatch("loadAssignedProjects");
+  computed: {
+    assignedProjects() {
+      this.$store.dispatch("loadAssignedProjects");
+      return this.$store.state.assignedProjects
+    }
   },
-  computed: mapState(["assignedProjects"]),
   methods: {
     gotoProject(project) {
       this.$store.state.routingAssignedProject = project
@@ -95,6 +96,8 @@ export default {
   margin-top: 15px;
   width: 200px;
   height: 90px;
+  box-shadow: 3px 6px 5px 6px #888888;
+  @apply flex-initial rounded;
 }
 .board-inner {
   height: 90px;

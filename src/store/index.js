@@ -18,6 +18,17 @@ export default createStore({
     sections: [],
     user: null,
     notifications: null,
+    routingTaskId: null,
+    routingTask: null,
+    newTask:{
+      "section_id": null,
+      "jobTitle": null,
+      "jobDescription": "",
+      "project_id": null,
+      "tags": [
+        ""
+      ]
+    }
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -62,7 +73,16 @@ export default createStore({
     },
     SET_NOTIFICATIONS(state, notifications) {
       state.notifications = notifications
-    }
+    },
+    SET_ROUTING_TASK_ID(state, taskId){
+      state.routingTaskId = taskId
+    },
+    SET_ROUTING_TASK(state, task){
+      state.routingTask = task
+    },
+    SET_NEW_TASK_SECTION(state, id) {
+      state.newTask.section_id = id
+    },
   },
   actions: {
     changeSidebarState({ commit }) {
@@ -81,6 +101,9 @@ export default createStore({
       .then(response => {
         commit('SET_USER', response.data)
       })
+    },
+    loadNotifications({commit}){
+      let user = JSON.parse(localStorage.getItem('user'));
       axios.get(process.env.VUE_APP_API_URL + 'User/notification', {
         headers: {
           Authorization: 'Bearer '+user.token
@@ -187,11 +210,6 @@ export default createStore({
           }, 
         }
       )
-      .then(response => {
-        if(response.status == 201){
-          router.push('projects')
-        }
-      });
     },
     loadProjectBoards({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -226,14 +244,15 @@ export default createStore({
         commit('SET_SECTIONS', response.data.sections)
       })
     },
-    updateProject({state}, path, value) {
+    updateProject({state}, payload) {
       let user = JSON.parse(localStorage.getItem('user'));
+      console.log(payload[0], payload[1])
       axios.patch(process.env.VUE_APP_API_URL + 'Project/' + state.routingProject.id, 
           [
             {
-              "path": path,
+              "path": payload[0],
               "op": "replace",
-              "value": value
+              "value": payload[1]
             },
           ],
           {
@@ -246,17 +265,35 @@ export default createStore({
         router.push('projects')
       });
     },
-    addUserToProject({state}, userId) {
+    addUserToProject(store, user_id) {
       let user = JSON.parse(localStorage.getItem('user'));
-      let params = new URLSearchParams({
-        project_id: state.routingProject.id,
-        user_id: userId
-      }).toString();
-      let url = process.env.VUE_APP_API_URL + 'Project/assignproject?' + params
-      axios.post(url, 
-          {
-            headers: {
-              Authorization: 'Bearer ' + user.token
+      let project_id = store.state.routingProject.id
+      axios.post(`http://localhost:5050/api/Project/assignproject?project_id=${project_id}&user_id=${user_id}`,
+        {
+          params: {
+            project_id,
+            user_id
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
+    },
+    acceptNotification(store, payload){
+      let id = payload
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/User/notification/${id}/accept`, 
+        {
+          params: {
+            id,
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
           }, 
         }
       )
@@ -264,10 +301,15 @@ export default createStore({
         console.log(response)
       });
     },
-    acceptNotification(store, payload){
+    denyNotification(store, payload) {
+      let id = payload
       let user = JSON.parse(localStorage.getItem('user'));
-      let url = process.env.VUE_APP_API_URL + 'User/notification/'+ payload + "/accept"
-      axios.post(url, 
+      axios.post(`http://localhost:5050/api/User/notification/${id}/deny`, 
+        {
+          params: {
+            id,
+          }
+        },
         {
           headers: {
             Authorization: 'Bearer ' + user.token
@@ -302,6 +344,92 @@ export default createStore({
           }, 
         }
       )
+    },
+    routingTask({commit}, taskId) {
+      commit('SET_ROUTING_TASK_ID', taskId)
+    },
+    loadRoutingTask({commit}){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.get(process.env.VUE_APP_API_URL + 'Job/' + this.state.routingTaskId, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        commit('SET_ROUTING_TASK', response.data)
+      })
+    },
+    createNewTask(store, newTask){
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'Job', {
+          "section_id": this.state.newTask.section_id,
+          "jobTitle": newTask.jobTitle,
+          "jobDescription": newTask.jobDescription,
+          "project_id": this.state.routingProject.id,
+          "tags": newTask.tags
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    addNewTagToTask(store, newTag) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/tag', {
+          "job_id": this.state.routingTaskId,
+          "tagName": newTag
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    updateTask(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.patch(process.env.VUE_APP_API_URL + 'Job/' + this.state.routingTaskId, 
+        [
+          {
+            "path": payload[0],
+            "op": "replace",
+            "value": payload[1]
+          },
+        ], 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
+    },
+    updateSections(value){
+      //let user = JSON.parse(localStorage.getItem('user'));
+      console.log(value[0] + "order" + value[1])
+        
+      /*axios.patch(process.env.VUE_APP_API_URL + 'Section/order?' + "order_no" , 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );*/
+    },
+    addNewCheckToTask(store, newCheck) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/checklist ', {
+          "job_id": this.state.routingTaskId,
+          "text": newCheck,
+          "isSelected": false
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      );
     }
   },
   modules: {

@@ -1,5 +1,9 @@
 .task-container {
-  @apply bg-white m-2 p-1 rounded-md;
+  min-height: 70px;
+  width: 250px;
+  box-shadow: 1px 1px 1px 1px #888888;
+  font-weight: 500;
+  @apply bg-white m-2 p-1 rounded ;
 }
 
 .addButton {
@@ -12,10 +16,6 @@
   @apply px-1 pb-1 mr-1 rounded text-white font-bold;
   font-size: 13px;
   letter-spacing: 0.5px;
-}
-
-.task-name {
-  @apply mt-2 mb-2;
 }
 
 .task-modal {
@@ -59,21 +59,25 @@
 
 .modal-tags {
   @apply m-0 p-0 text-white mr-2 font-semibold rounded px-2 mb-4 pb-7 text-lg;
-  background-color: rgb(44, 89, 200);
+  background-color: orange;
   height: 20px;
   cursor: pointer;
 }
 
 .modal-add-tag {
-  height: 30px;
-  padding: 0;
-  font-size: 25px;
-  @apply rounded border-2 border-gray-500 px-2 font-bold;
+  @apply rounded border-2 border-gray-500 font-bold px-2;
   cursor: pointer;
+  height: 30px;
 }
 
 .modal-add-tag:hover {
   @apply bg-gray-500 text-white;
+}
+
+.modal-add-tag-input{
+  height: 30px;
+  width: 100px;
+  @apply rounded px-1 mr-2 border-2 border-black;
 }
 
 .modal-description-area {
@@ -130,12 +134,36 @@
   cursor: pointer;
 }
 
+.check-box{
+  width: 20px;
+  height: 20px;
+  @apply border-2 border-gray-500 mr-2 rounded;
+  line-height: 10px;
+  cursor: pointer;
+  margin-left: 45px; 
+}
+
+.add-new-check-area{
+  margin-left: 45px; 
+  @apply mt-2;
+}
+
+.add-new-check-input{
+  width: 500px;
+  @apply border-2 border-gray-500 rounded px-1;
+}
+
+.add-new-check-btn{
+  width: 45px;
+  @apply rounded bg-blue-700 py-1 px-2 text-white mt-2;
+}
+
 .modal-activity-area {
   @apply flex mb-6;
 }
 
 .activities {
-  @apply mb-16 flex;
+  @apply mb-4 ml-10 flex;
 }
 
 .activity-avatar {
@@ -187,4 +215,29 @@
   cursor: pointer;
   width: 10px;
   text-align: center;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+  @apply mb-2;
+  opacity: 0.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0.2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  opacity: 0.2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  opacity: 0.2;
 }

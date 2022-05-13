@@ -18,10 +18,8 @@ export default {
     HomeContent,
     HomeFooter 
   },
-  setup() {
-    return{
-      
-    }
+  mounted() {
+    this.$store.dispatch("changeSidebarStateLogout");
   }
 }
 </script>

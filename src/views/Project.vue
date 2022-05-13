@@ -6,9 +6,9 @@
         <div class="flex-initial ml-2">
           <div class="text-xl font-semibold mt-1">{{ project.projectName }}</div>
           <div> {{ project.projectDescription }}</div>
-          <button class="edit-btn mt-2 pl-2 pr-2"> <i class="fa-solid fa-pen"></i>  Edit Project</button>
+          <div class="italic text-sm"> Start: {{project.startDate[8]}}{{project.startDate[9]}}{{project.startDate[7]}}{{project.startDate[5]}}{{project.startDate[6]}}{{project.startDate[4]}}{{project.startDate[2]}}{{project.startDate[3]}}
+            <br />    End: &nbsp;{{project.endDate[8]}}{{project.endDate[9]}}{{project.endDate[7]}}{{project.endDate[5]}}{{project.endDate[6]}}{{project.endDate[4]}}{{project.endDate[2]}}{{project.endDate[3]}}</div>
         </div>
-        {{myproject}}
         <div></div>
       </div>
       <div class="tabs flex">

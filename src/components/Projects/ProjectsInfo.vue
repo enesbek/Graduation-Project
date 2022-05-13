@@ -94,8 +94,10 @@ export default {
   margin-top: 15px;
   width: 200px;
   height: 90px;
-  @apply flex-initial;
+  box-shadow: 3px 6px 5px 6px #888888;
+  @apply flex-initial rounded;
 }
+
 .board-inner {
   height: 90px;
   background-repeat: none;

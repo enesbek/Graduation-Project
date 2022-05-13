@@ -40,7 +40,7 @@
       </div>
       <div v-if="toggleCreateModal" class="absolute z-40 inset-0 opacity-25 bg-black"></div>
       <!--  -->
-      <ProjectsInfo />
+      <ProjectsInfo class="mb-2"/>
     </div>
     <div class="bottomPage">
       <div class="project-title font-semibold text-2xl tracking-wider mb-4">
@@ -94,7 +94,7 @@ export default {
   margin-left: 10em;
   padding-top: 3em;
 }
-.bottomPage{
+.bottomPage{ 
   width: 100%;
   background-color: rgb(200, 200, 200);
   padding-left: 10em;

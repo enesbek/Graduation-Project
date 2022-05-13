@@ -82,16 +82,16 @@ export default {
       }
     },
     updateName() {
-      this.$store.dispatch("updateProject", "projectName", this.update_name);
+      this.$store.dispatch("updateProject", ["projectName", this.update_name]);
     },
     updateDescription() {
-      this.$store.dispatch("updateProject", "projectDescription",this.update_description);
+      this.$store.dispatch("updateProject", ["projectDescription",this.update_description]);
     },
     updateStartDate() {
-      this.$store.dispatch("updateProject", "projectStartDate", this.update_start_date);
+      this.$store.dispatch("updateProject", ["projectStartDate", this.update_start_date]);
     },
     updateEndDate() {
-      this.$store.dispatch("updateProject", "projectEndDate",this.update_end_date);
+      this.$store.dispatch("updateProject", ["projectEndDate",this.update_end_date]);
     },
   },
 };

@@ -12,7 +12,6 @@
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
     <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-tasks" class="text-xl m-2">TASKS</SidebarLink><hr>
     <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>
       <span v-if="collapsed">
         <div></div>
@@ -64,10 +63,13 @@
             </button>
             <hr class="mt-1" />
           </div>
+          <div v-if="notifications" class="text-center">
+            There is no notification here!
+          </div>
           <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
               The user "{{ notification.sender_user.userName }}" 
-              wants to assigned you to the {{ notification.target_type }} 
+              wants to assign you to the {{ notification.target_type }} 
               "{{ notification.project.projectName }}"
 
               <hr/>
@@ -92,7 +94,6 @@
 <script>
 import { collapsed, toggleSidebar, sidebarWidth } from './state'
 import SidebarLink from './SidebarLink.vue'
-import { mapState } from "vuex";
 export default {
   components: { SidebarLink },
   data() {
@@ -117,24 +118,32 @@ export default {
     userLogout(){
       setTimeout(() => {
         this.$store.dispatch("changeSidebarStateLogout");
-      }, 1000);
+      }, 500);
     },
     acceptNotification(notification) {
       this.$store.dispatch("acceptNotification", notification.id);
-      this.$forceUpdate();
+    },
+    denyNotification(notification) {
+      this.$store.dispatch("denyNotification", notification.id);
     }
   },
-  created() {
-    this.$store.dispatch("loadUser");
-  },
-  computed: mapState(["user", "notifications"]),
+  computed: {
+    user() {
+      this.$store.dispatch("loadUser");
+      return this.$store.state.user
+    },
+    notifications() {
+      this.$store.dispatch("loadNotifications");
+      return this.$store.state.notifications
+    }
+  }
 }
 </script>
 
 <style>
 :root {
   --sidebar-bg-color: #034d5e;
-  --sidebar-item-hover: #16858d;
+  --sidebar-item-hover: #093e42;
   --sidebar-item-active: #177c81;
 }
 </style>
@@ -142,7 +151,7 @@ export default {
 <style scoped>
 .sidebar {
   color: white;
-  background-color: var(--sidebar-bg-color);
+  background-image: linear-gradient(#1c959c, #034d5e);
 
   float: left;
   position: fixed;
@@ -179,7 +188,7 @@ export default {
 }
 .profileMenuBtn {
   cursor: pointer;
-  @apply text-xl m-2;
+  @apply text-xl m-2 rounded;
 }
 .profileMenu {
   width: 400px;
@@ -188,6 +197,10 @@ export default {
   color: black;
   margin-left: 150px;
   @apply rounded border-2;
+}
+.profileMenuBtn:hover {
+  font-weight: 500;
+  background-color: var(--sidebar-item-hover);
 }
 .user-info {
   margin-left: 10px;
