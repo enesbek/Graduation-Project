@@ -213,6 +213,17 @@ export default createStore({
         }
       )
     },
+    leaveProject() {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.delete(process.env.VUE_APP_API_URL + 'Project/assigned/' + this.state.routingAssignedProject.id, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      router.push("projects")
+    },
     createProjectBoard({state}, newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
       
@@ -470,6 +481,22 @@ export default createStore({
     checkListToggle(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
       axios.post(`http://localhost:5050/api/JobUtil/togglechecklist/${id}`,{
+          params: {
+            id
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      ).then(response => {
+        console.log(response.status)
+      })
+    },
+    deleteTaskTag(store, id) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/JobUtil/untag/${id}`,{
           params: {
             id
           }

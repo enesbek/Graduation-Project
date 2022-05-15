@@ -28,7 +28,7 @@
     >
       <div class="add-new-member-modal relative mx-auto w-auto max-w-4xl flex">
         <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
-          <div class="modal-title text-lg">
+          <div class="text-lg">
             Add New Member
             <button class="add-new-member-modal-close-btn" @click="toggleAddMemberModal = false">
               <i class="fa-solid fa-xmark" mr-2></i>
@@ -118,12 +118,6 @@ export default {
 
 .add-new-member-modal {
   height: 13rem;
-}
-.modal-title {
-  width: 100%;
-  text-align: center;
-  margin-top: 6px;
-  margin-bottom: 0;
 }
 .add-new-member-modal-close-btn {
   @apply text-lg mr-2 ml-4;

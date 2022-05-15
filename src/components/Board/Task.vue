@@ -21,7 +21,7 @@
         </div>-->
         <p class="tag-title">Labels</p>
         <div class="modal-tag-area">
-          <div class="modal-tags" v-for="tag in task.tags" :key="tag.id">{{ tag.tagName }}</div>
+          <div class="modal-tags" v-for="tag in task.tags" :key="tag.id" @click="deleteTaskTag(tag)">{{ tag.tagName }}</div>
           <input class="modal-add-tag-input" v-if="openAddTagInput" v-model="newTag"/> 
           <div class="modal-add-tag" @click="addNewTag"><i class="fa-solid fa-plus"></i></div>
         </div>
@@ -57,7 +57,6 @@
         </div>
         <div class="mb-4">
           <div class="flex" v-for="checkItem in task.checkLists" :key="checkItem.id">
-            {{ checkItem }}
             <div class="check-box" @click="checkChange(checkItem.id)"><i class="fa-solid fa-check " v-if="checkItem.isSelected"></i></div>
             <div>{{ checkItem.text }}</div>
           </div>
@@ -114,6 +113,9 @@ export default {
         this.openAddTagInput = !this.openAddTagInput
         this.newTag = ""
       }
+    },
+    deleteTaskTag(tag) {
+      this.$store.dispatch("deleteTaskTag", tag.id)
     },
     onInputTaskTitle(e) {
       this.$store.dispatch("updateTask", ["jobTitle", e.target.innerText])

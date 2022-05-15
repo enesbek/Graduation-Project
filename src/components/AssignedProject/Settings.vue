@@ -57,7 +57,9 @@ export default {
       if (this.leaveText == "leave") {
         this.toggleleaveModal = false;
         this.toggleConfirmModal = true;
-        this.$store.dispatch("leaveProject");
+        setTimeout(() => {
+          this.$store.dispatch("leaveProject");
+        }, 1000);
       }
     },
   },

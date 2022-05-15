@@ -64,6 +64,10 @@
   cursor: pointer;
 }
 
+.modal-tags:hover {
+  opacity: 0.5;
+}
+
 .modal-add-tag {
   @apply rounded border-2 border-gray-500 font-bold px-2;
   cursor: pointer;
@@ -159,11 +163,11 @@
 }
 
 .modal-activity-area {
-  @apply flex mb-6;
+  @apply flex mb-2;
 }
 
 .activities {
-  @apply mb-4 ml-10 flex;
+  @apply mb-1 ml-10 flex;
 }
 
 .activity-avatar {
