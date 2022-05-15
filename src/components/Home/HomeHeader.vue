@@ -34,7 +34,6 @@ export default {
 .home-header{
   height: 70px;
   background: linear-gradient(to right, rgb(3, 109, 133) , rgb(1, 45, 54));
-  
 }
 .home-login{
   text-decoration: none;

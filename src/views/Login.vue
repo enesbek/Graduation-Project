@@ -1,6 +1,10 @@
 <template>
   <auth>
     <div class="form-signin">
+      <div class="flex">
+        <router-link to="/" class="home-route-btn">Home</router-link>
+       <router-link to="/register"  class="home-route-btn">Register</router-link>
+      </div>
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       <div class="form-floating">
       <input type="text" class="form-control" id="floatingInput" placeholder="name" v-model="user.username">
@@ -31,10 +35,11 @@
 <script>
 import Auth from '../components/Home/Auth.vue'
 import AuthService from '../services/auth.service'
-
 export default {
   name: "Login",
-  components: {Auth},
+  components: {
+    Auth,
+  },
   data() {
     return {
       toggleOpenModal: false,
@@ -54,6 +59,18 @@ export default {
 </script>
 
 <style scoped>
+.home-route-btn{
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  border: 2px solid rgb(79, 79, 79);
+  @apply rounded font-semibold mb-4 mr-4 ml-4 text-black;
+  text-decoration: none;
+}
+.home-route-btn:hover{
+  @apply text-white;
+  background-color: rgb(79, 79, 79);
+}
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;

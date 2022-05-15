@@ -28,14 +28,14 @@
     >
       <div class="add-new-member-modal relative mx-auto w-auto max-w-4xl flex">
         <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
-          <div class="text-lg">
+          <div class="text-lg font-semibold">
             Add New Member
             <button class="add-new-member-modal-close-btn" @click="toggleAddMemberModal = false">
               <i class="fa-solid fa-xmark" mr-2></i>
             </button>
             <hr class="mt-1" />
           </div>
-          <div>Email</div>
+          <div class="italic">Email</div>
           <input class="add-new-member-modal-input" v-model="addUser"/>
           <button
             class="add-new-member-modal-add-btn"

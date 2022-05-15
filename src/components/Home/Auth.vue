@@ -1,5 +1,5 @@
 <template>
-  <div class="content text-center">
+  <div class="auth-content text-center">
     <slot> </slot>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scpoed>
-  .content{
+  .auth-content{
     width: 100%;
     height: 100vh;
     display: flex;
