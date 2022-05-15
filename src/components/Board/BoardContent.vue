@@ -1,15 +1,16 @@
 <template>
   <div class="board-container">
     <div class="my-container flex">
-      <draggable v-model="sections" class="flex" @change="log"> 
+      <draggable animation="100" v-model="sections" class="flex" @change="log"> 
       <div v-for="section in sections" :key="section.id">
-        <div class="sections">
+        <div class="sections" >
           <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }} 
             <i class="fa-solid fa-trash-can section-settings" @click="deleteSection(section)"></i>
           </h3>
-          <draggable v-if="!section.jobs.length" group="tasks"></draggable>
+          <draggable v-if="!section.jobs.length" v-model="section.jobs" group="tasks" @change="log2"></draggable>
           
-          <draggable animation="100" v-for="task in section.jobs" :key="task.name" group="tasks">
+          <draggable v-model="section.jobs" animation="100" group="tasks" @change="log2">
+          <div v-for="task in section.jobs" :key="task.name">
             <div @click="openTask(task.id)" class="task-container">
               <span v-for="tag in task.tags" :key="tag.name" class="tags">
               {{ task }}
@@ -22,6 +23,7 @@
                 {{task.endDate[8]}}{{task.endDate[9]}}{{task.endDate[7]}}{{task.endDate[5]}}{{task.endDate[6]}}
               </div>
             </div>
+          </div>
           </draggable>
           <button
             class="addButton"
@@ -96,6 +98,9 @@ export default {
       let order_no = event.moved.newIndex + 1
       this.$store.commit("SET_SECTION_ORDER_INDEX", [order_no, section_id])
     },
+    log2(event) {
+      console.log(event)
+    },
   },
   computed: {
     sections: {
@@ -104,6 +109,7 @@ export default {
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {
+        console.log(value)
         setTimeout(() => {
           this.$store.dispatch("updateSectionOrder", value)
         }, 1);

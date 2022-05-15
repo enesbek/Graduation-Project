@@ -438,7 +438,7 @@ export default createStore({
     },
     addNewCheckToTask(store, newCheck) {
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/checklist ', {
+      axios.post(process.env.VUE_APP_API_URL + 'JobUtil/checklist', {
           "job_id": this.state.routingTaskId,
           "text": newCheck,
           "isSelected": false
@@ -450,10 +450,9 @@ export default createStore({
         }
       );
     },
-    updateSectionOrder(store, payload) {
+    updateSectionOrder(store) {
       let order_no = store.state.sectionOderIndex[0]
       let section_id = store.state.sectionOderIndex[1]
-      console.log(payload)
       let user = JSON.parse(localStorage.getItem('user'));
       axios.post(`http://localhost:5050/api/Section/order?order_no=${order_no}&section_id=${section_id}`, {
           params: {
@@ -468,6 +467,22 @@ export default createStore({
         }
       )
     },
+    checkListToggle(store, id) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/JobUtil/togglechecklist/${id}`,{
+          params: {
+            id
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      ).then(response => {
+        console.log(response.status)
+      })
+    }
   },
   modules: {
   },

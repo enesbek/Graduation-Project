@@ -130,8 +130,6 @@ export default {
       return this.$store.state.projectBoards
     }
   }
-  
-  //mapState(["projectBoards"]),
 };
 </script>
 
