@@ -66,7 +66,7 @@
           <div v-if="!notifications.length" class="text-center">
             There is no notification here!
           </div>
-          <div class="notifications-cards" v-for="notification in notifications" :key="notification.id">
+          <div v-else class="notifications-cards" v-for="notification in notifications" :key="notification.id">
             <div class="notifications-card">
               The user "{{ notification.sender_user.userName }}" 
               wants to assign you to the {{ notification.target_type }} 

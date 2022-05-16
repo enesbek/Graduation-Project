@@ -7,7 +7,6 @@
     <div class="header-btn"><button class="font-semibold" @click="toggleAddBoardMemberModal = !toggleAddBoardMemberModal">Share</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold" @click="openSettingsModal = !openSettingsModal">Settings</button></div>
   </div>
-  {{board}}
   <div
       v-if="toggleAddBoardMemberModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"

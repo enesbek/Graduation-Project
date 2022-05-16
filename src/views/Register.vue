@@ -7,25 +7,25 @@
       </div>
       <h1 class="h3 mb-3 fw-normal">Register</h1>
       <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="First Name" 
+      <input type="text" class="form-control" placeholder="First Name" 
               v-model="v$.user.firstName.$model">
       <label for="floatingInput">First Name</label>
       <small v-if="v$.user.firstName.required.$invalid && v$.user.firstName.$error" class="text-red-500">Please Enter First Name<br></small>
       </div>
       <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="Last Name" 
+      <input type="text" class="form-control" placeholder="Last Name" 
               v-model="v$.user.lastName.$model">
       <label for="floatingInput">Last Name</label>
       <small v-if="v$.user.lastName.required.$invalid && v$.user.lastName.$error" class="text-red-500">Please Enter Last Name<br></small>
       </div>
       <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="Username" 
+      <input type="text" class="form-control" placeholder="Username" 
               v-model="v$.user.username.$model">
       <label for="floatingInput">User Name</label>
       <small v-if="v$.user.username.required.$invalid && v$.user.username.$error" class="text-red-500">Please Enter Username<br></small>
       </div>
       <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" 
+      <input type="email" class="form-control" placeholder="name@example.com" 
               v-model="v$.user.email.$model">
       <label for="floatingInput">Email Address</label>
       <small v-if="v$.user.email.required.$invalid && v$.user.email.$error" class="text-red-500">Please Enter Emaill Address <br></small>

@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-main>
+  <div>
+    <div>
       <span v-if="dashboardOpen">
         <Sidebar/>
         <div :style="{ 'margin-left' : sidebarWidth}">
@@ -10,8 +10,8 @@
       <span v-else>
         <router-view />
       </span>
-    </v-main>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -276,7 +276,6 @@ export default createStore({
     },
     updateProject({state}, payload) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(payload[0], payload[1])
       axios.patch(process.env.VUE_APP_API_URL + 'Project/' + state.routingProject.id, 
           [
             {
@@ -509,6 +508,32 @@ export default createStore({
       ).then(response => {
         console.log(response.status)
       })
+    },
+    updateTaskOrder(store, payload) {
+      
+      let user = JSON.parse(localStorage.getItem('user'));
+      if(Object.keys(payload[0])[0] == 'moved'){
+        let order_no = (payload[0].moved.newIndex + 1)
+        let job_id = (payload[0].moved.element.id)
+        axios.post(`http://localhost:5050/api/JobUtil?order_no=${order_no}&job_id=${job_id}`, {
+            params: {
+              order_no,
+              job_id
+            }
+          },
+          {
+            headers: {
+              Authorization: 'Bearer ' + user.token
+            }, 
+          }
+        )
+      }
+      else{
+        console.log("section değişti")
+        console.log(payload[0])
+        console.log(payload[1])
+      }
+      
     }
   },
   modules: {

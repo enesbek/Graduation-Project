@@ -4,13 +4,12 @@
       <draggable animation="100" v-model="sections" class="flex" @change="log"> 
       <div v-for="section in sections" :key="section.id">
         <div class="sections" >
-          <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }} 
+          <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }}
             <i class="fa-solid fa-trash-can section-settings" @click="deleteSection(section)"></i>
           </h3>
-          <draggable v-if="!section.jobs.length" v-model="section.jobs" group="tasks" @change="log2"></draggable>
-          
+          <draggable v-if="!section.jobs.length" v-model="section.jobs" group="tasks"></draggable>
           <draggable v-model="section.jobs" animation="100" group="tasks" @change="log2">
-          <div v-for="task in section.jobs" :key="task.name">
+          <div v-for="task in section.jobs" :key="task.id">
             <div @click="openTask(task.id)" class="task-container">
               <span v-for="tag in task.tags" :key="tag.name" class="tags">
               {{ task }}
@@ -77,6 +76,10 @@ export default {
     };
   },
   methods: {
+    orderedSectionJobs(jobs){
+      console.log(jobs)
+      return  _.orderBy(jobs, "order_no")
+    },
     addNewSection() {
       this.$store.dispatch("createNewSection", this.newSection);
       this.newSection = ""  
@@ -98,9 +101,12 @@ export default {
       let order_no = event.moved.newIndex + 1
       this.$store.commit("SET_SECTION_ORDER_INDEX", [order_no, section_id])
     },
-    log2(event) {
-      console.log(event)
+    log2(event, section) {
+      this.$store.dispatch("updateTaskOrder", [event, section]);
     },
+    sectionTasks(section) {
+      return _.orderBy(section.jobs, "order_no")
+    }
   },
   computed: {
     sections: {
@@ -109,7 +115,6 @@ export default {
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {
-        console.log(value)
         setTimeout(() => {
           this.$store.dispatch("updateSectionOrder", value)
         }, 1);
