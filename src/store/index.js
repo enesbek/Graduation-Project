@@ -509,6 +509,24 @@ export default createStore({
         console.log(response.status)
       })
     },
+    addTeamToProject(store, payload) {
+      console.log(payload)
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`http://localhost:5050/api/Team`,
+        {
+          "teamName": payload[0],
+          "project_id": this.state.routingProject.id,
+          "user_ids": payload[1]
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      ).then(response => {
+        console.log(response.data)
+      })
+    },
     updateTaskOrder(store, payload) {
       
       let user = JSON.parse(localStorage.getItem('user'));

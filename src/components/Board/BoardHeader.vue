@@ -51,8 +51,6 @@ export default {
       addUser: "",
     }
   },
-  components: {
-  },
   computed: {
     board(){
       return this.$store.state.routingBoard
