@@ -128,7 +128,7 @@ export default {
 @import './Task.css';
 .board-container {
   height: calc(100vh - 50px);
-  background-image: url("https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png");
+  background-image: url("../../assets/board/board-background.png");
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;

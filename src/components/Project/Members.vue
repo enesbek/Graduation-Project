@@ -119,7 +119,7 @@
     >
       <div class="delete-modal relative mx-auto max-w-4xl">
         <div class="bg-white w-full shadow-2xl max-w-2xl rounded">
-          <div class="modal-title">Are you absolutely sure?</div>
+          <div class="team-confirm-modal-title">Are you absolutely sure?</div>
           <p class="modal-type">
             Please type <span class="font-semibold italic">delete</span> to
             confirm.
@@ -335,7 +335,7 @@ export default {
   justify-content: center;
   width: 250px;
 }
-.modal-title {
+.team-confirm-modal-title {
   background-color: rgb(146, 169, 189);
   @apply p-2 font-semibold pl-4 text-lg;
   width: 240px;

@@ -3,41 +3,120 @@
     <!--<div class="header-btn"><button class="font-semibold">{{project.projectName}}</button></div><div class="text-3xl">I</div>-->
      
     <div class="header-btn"><button class="font-semibold">{{board.board_name}}</button></div><div class="text-3xl">I</div>
-    <div class="header-btn"><button class="font-semibold">Users</button></div><div class="text-3xl">I</div>
+    <div class="header-btn"><button class="font-semibold" @click="toggleBoardMembersModal = !toggleBoardMembersModal">Users</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold" @click="toggleAddBoardMemberModal = !toggleAddBoardMemberModal">Share</button></div><div class="text-3xl">I</div>
     <div class="header-btn"><button class="font-semibold" @click="openSettingsModal = !openSettingsModal">Settings</button></div>
   </div>
-  <div
-      v-if="toggleAddBoardMemberModal"
-      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
-    >
-      <div class="add-new-member-modal relative mx-auto w-auto max-w-4xl flex text-center">
-        <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
-          <div class="text-lg font-semibold">
-            Add New Member
-            <button class="add-new-member-modal-close-btn" @click="toggleAddBoardMemberModal = false">
-              <i class="fa-solid fa-xmark" mr-2></i>
-            </button>
-            <hr class="mt-1" />
-          </div>
-          <div class="italic">Email</div>
-          <input class="add-new-member-modal-input" v-model="addUser"/>
-          <button
-            class="add-new-member-modal-add-btn"
-            @click="adduserToBoard"
-          >
-            Add
+  <!-- Add Board Members Modal-->
+  <div v-if="toggleAddBoardMemberModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
+    <div class="add-new-member-modal relative mx-auto w-auto max-w-4xl flex text-center">
+      <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
+        <div class="text-lg font-semibold">
+          Add New Member
+          <button class="add-new-member-modal-close-btn" @click="toggleAddBoardMemberModal = false">
+            <i class="fa-solid fa-xmark" mr-2></i>
           </button>
+          <hr class="mt-1" />
         </div>
+        <div class="italic">Email</div>
+        <input class="add-new-member-modal-input" v-model="addUser"/>
+        <button
+          class="add-new-member-modal-add-btn"
+          @click="adduserToBoard"
+        >
+          Add
+        </button>
       </div>
     </div>
-    <div
-      v-if="toggleAddBoardMemberModal"
-      class="absolute z-40 inset-0 opacity-25 bg-black"
-    ></div>
-  <div v-if="openSettingsModal" class="board-settings-modal">
-    <div></div>
-    <div class="board-settings-delete">DELETE</div>
+  </div>
+  <div v-if="toggleAddBoardMemberModal" class="absolute z-40 inset-0 opacity-25 bg-black">
+
+  </div>
+
+  <!-- Board Members Modal-->
+  <div v-if="toggleBoardMembersModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
+    <div class="board-members-modal relative mx-auto w-auto max-w-4xl flex text-center">
+      <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
+        <div class="text-lg font-semibold">
+          Members
+          <button class="board-members-modal-close-btn" @click="toggleBoardMembersModal = false">
+            <i class="fa-solid fa-xmark" mr-2></i>
+          </button>
+          <hr class="mt-1" />
+        </div>
+        <table id="board-members-table">
+          <tr>
+            <th>User Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+          </tr>
+          <tr v-for="user in board.boardHasUsers" :key="user.id">
+            <td>{{user.userName}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+          </tr>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-center cursor-pointer" @click="toggleAddMemberModal = !toggleAddMemberModal">
+                <i class="fa-solid fa-plus"></i>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div v-if="toggleBoardMembersModal" class="absolute z-40 inset-0 opacity-25 bg-black">
+    
+  </div>
+
+
+
+  <!-- Settings Modal --> 
+  <div
+    v-if="openSettingsModal"
+    class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+  >
+    <div class="board-settings-modal relative mx-auto w-auto max-w-4xl flex text-center">
+      <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
+        <div class="text-lg font-semibold">
+          Settings
+          <button class="board-settings-modal-close-btn" @click="openSettingsModal = false">
+            <i class="fa-solid fa-xmark" mr-2></i>
+          </button>
+          <hr class="mt-1" />
+        </div>
+
+        <div calss="board-settings-modal-update">
+          <input placeholder="Board Name" class="board-settings-modal-board-name"/><br>
+          <span class="mx-4 mt-2">
+            Start Date: <input type="date" class="board-settings-modal-dates"/>
+          </span><br>
+          <span class="mx-4 my-2" >
+            End Date: <input type="date" class="board-settings-modal-dates"/>
+          </span><br>
+        
+          <button
+            class="board-settings-modal-add-btn"
+            @click="adduserToBoard"
+          >
+            Update Board
+          </button>
+        </div>
+        
+
+        <button
+          class="board-settings-modal-add-btn"
+          @click="adduserToBoard"
+        >
+          DELETE BOARD
+        </button>
+      </div>
+    </div>
+  </div>
+  <div v-if="openSettingsModal" class="absolute z-40 inset-0 opacity-25 bg-black">
   </div>
 </template>
 
@@ -49,6 +128,7 @@ export default {
       openSettingsModal: false,
       toggleAddBoardMemberModal: false,
       addUser: "",
+      toggleBoardMembersModal: false,
     }
   },
   computed: {
@@ -60,8 +140,9 @@ export default {
     },
   },
   methods:{
+    // ToDo: Backend email ile çalışmıyor
     adduserToBoard(){
-      
+      this.$store.dispatch("addUserToBoard", this.addUser)
     },
     deleteBoard(){
       
@@ -88,27 +169,29 @@ export default {
   background-color: rgb(177, 177, 177);
   @apply rounded px-8 py-1;
 }
+
 .board-settings-modal{
-  background-color: white;
-  width: 90px;
-  height: 30px;
-  margin-top: 50px;
-  position: absolute;
-  top: 0;
-  right: 110px;
-  z-index: 10;
-  @apply rounded;
 }
-.board-settings-delete{
-  background-color: red;
-  width: 90px;
-  height: 30px;
-  position: absolute;
-  cursor: pointer;
-  @apply rounded text-white text-center font-bold tracking-wide;
+
+.board-settings-modal-update{
+  border: 1px solid black;
 }
-.board-settings-delete:hover{
-  @apply text-black
+
+.board-settings-modal-dates{
+  align-items: left;
+  border: 1px solid black;
+  @apply w-32 rounded px-1 mb-2;
+}
+
+.board-settings-modal-board-name{
+  border: 1px solid black;
+  width: 210px;
+  @apply rounded px-1 mx-8 my-2;
+}
+
+.board-settings-modal-close-btn {
+  @apply text-lg mr-2 ml-4;
+  float: right;
 }
 
 .add-new-member-modal {
@@ -130,4 +213,37 @@ export default {
   margin-bottom: 0; 
   @apply text-white font-semibold p-2 rounded px-4 my-4;
 }
+
+.board-members-modal-close-btn {
+  @apply text-lg mr-2 ml-4;
+  float: right;
+}
+
+#board-members-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 500px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#board-members-table td, #board-members-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#board-members-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#board-members-table tr:hover {background-color: #ddd;}
+
+#board-members-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
 </style>

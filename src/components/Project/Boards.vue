@@ -9,10 +9,7 @@
       <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
         <div
           class="board-inner font-semibold text-xl"
-          :style="{
-            background: 'url(https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png)',
-            'background-size': 'cover',
-          }"
+          
           @click="gotoBoard(board)"
         >
           <div class="p-2">{{ board.board_name }}</div>
@@ -155,7 +152,8 @@ export default {
 }
 .board-inner {
   height: 130px;
-  background-repeat: none;
+  background-image: url("../../assets/board/board-background.png");
+  background-repeat: no-repeat;
   background-size: cover;
   @apply rounded;
 }
@@ -174,6 +172,7 @@ export default {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 0;
+  background-color: white;
 }
 .modal-close-btn {
   @apply text-xl;
