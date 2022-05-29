@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '../router';
+import _ from 'lodash';
 
 export default createStore({
   state: {
@@ -71,6 +72,11 @@ export default createStore({
       state.assignedProjectBoards = boards
     },
     SET_SECTIONS(state, sections) {
+     
+      sections.forEach(section => {
+        section.jobs=_.orderBy(section.jobs, "order_no")
+      })
+
       state.sections = sections
     },
     SET_USER(state, user){
