@@ -19,8 +19,8 @@
         class="flex-iitial board create-board"
         @click="toggleCreateModal = !toggleCreateModal"
       >
-        <div class="board-inner font-semibold text-xl">
-          <div class="font-normal text-lg">Create New Board</div>
+        <div class="board-inner-create font-semibold text-xl">
+          <div class="font-normal text-lg"><fa icon="plus" class=""></fa> Create New Board</div>
         </div>
       </div>
     </div>

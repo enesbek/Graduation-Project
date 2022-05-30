@@ -74,7 +74,7 @@ export default createStore({
     SET_SECTIONS(state, sections) {
      
       sections.forEach(section => {
-        section.jobs=_.orderBy(section.jobs, "order_no")
+        section.jobs = _.orderBy(section.jobs, "order_no")
       })
 
       state.sections = sections

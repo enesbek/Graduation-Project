@@ -2,9 +2,9 @@
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <div class="text-base mt-3">
       <span v-if="collapsed">
-        <div>PMS</div>
+        <div class=""><img src="./unknown.png" width="40"></div>
       </span>
-      <span v-else>PROJECT MANAGEMENT SYSTEM</span>
+      <span v-else><img src="./logo-title.png" class="w-48"></span>
     </div>
 
     <hr>
