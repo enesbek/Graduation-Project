@@ -318,7 +318,7 @@ export default createStore({
     addUserToProject(store, user_email) {
       let user = JSON.parse(localStorage.getItem('user'));
       let project_id = store.state.routingProject.id
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/Project/assignproject?project_id=${project_id}&user_email=${user_email}`,
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/Project/assignproject?project_id=${project_id}&user_email=${user_email}`,
         {
           params: {
             project_id,
@@ -335,7 +335,7 @@ export default createStore({
     acceptNotification(store, payload){
       let id = payload
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/User/notification/${id}/accept`, 
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/User/notification/${id}/accept`, 
         {
           params: {
             id,
@@ -354,7 +354,7 @@ export default createStore({
     denyNotification(store, payload) {
       let id = payload
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/User/notification/${id}/deny`, 
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/User/notification/${id}/deny`, 
         {
           params: {
             id,
@@ -485,7 +485,7 @@ export default createStore({
       let order_no = store.state.sectionOderIndex[0]
       let section_id = store.state.sectionOderIndex[1]
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/Section/order?order_no=${order_no}&section_id=${section_id}`, {
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/Section/order?order_no=${order_no}&section_id=${section_id}`, {
           params: {
             order_no,
             section_id
@@ -500,7 +500,7 @@ export default createStore({
     },
     checkListToggle(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/JobUtil/togglechecklist/${id}`,{
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/JobUtil/togglechecklist/${id}`,{
           params: {
             id
           }
@@ -516,7 +516,7 @@ export default createStore({
     },
     deleteTaskTag(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/JobUtil/untag/${id}`,{
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/JobUtil/untag/${id}`,{
           params: {
             id
           }
@@ -533,7 +533,7 @@ export default createStore({
     addTeamToProject(store, payload) {
       console.log(payload)
       let user = JSON.parse(localStorage.getItem('user'));
-      axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/Team`,
+      axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/Team`,
         {
           "teamName": payload[0],
           "project_id": this.state.routingProject.id,
@@ -554,7 +554,7 @@ export default createStore({
       if(Object.keys(payload[0])[0] == 'moved'){
         let order_no = (payload[0].moved.newIndex + 1)
         let job_id = (payload[0].moved.element.id)
-        axios.post(`http://clear-hulling-347412.oa.r.appspot.com/api/JobUtil?order_no=${order_no}&job_id=${job_id}`, {
+        axios.post(`https://clear-hulling-347412.oa.r.appspot.com/api/JobUtil?order_no=${order_no}&job_id=${job_id}`, {
             params: {
               order_no,
               job_id
