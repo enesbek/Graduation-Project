@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from "../../router";
 export default {
   data() {
@@ -32,7 +31,11 @@ export default {
   created() {
     this.$store.dispatch("loadProjects");
   },
-  computed: mapState(["projects"]),
+  computed: {
+    projects() {
+      return this.$store.state.projects
+    }
+  },
   methods: {
     gotoProject(project) {
       this.$store.state.routingProject = project;

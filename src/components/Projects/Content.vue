@@ -83,7 +83,6 @@ export default {
       this.createProject(this.newProject);
     }
   },
-  
 };
 </script>
 

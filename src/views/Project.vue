@@ -50,13 +50,15 @@ export default {
       this.selectedTab[index] = true
     }
   },
+  created() {
+    store.commit('changeSidebarState');
+    this.$store.dispatch("loadProject");
+  },
   computed: {
     project(){
-      store.commit('changeSidebarState');
-      this.$store.dispatch("loadProject");
       return this.$store.state.project
     },
-  }
+  },
 };
 </script>
 

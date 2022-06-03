@@ -1,10 +1,8 @@
 <template>
   <div class="boards">
-    <div class="boards-title">
-      <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
-        <fa icon="clipboard"></fa> Boards
-      </p>
-    </div>
+    <p class="text-2xl font-semibold tracking-wide ml-4">
+      <fa icon="clipboard"></fa> Boards
+    </p>
     <div class="boards-area flex">
       <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
         <div
@@ -20,11 +18,35 @@
         @click="toggleCreateModal = !toggleCreateModal"
       >
         <div class="board-inner-create font-semibold text-xl">
-          <div class="font-normal text-lg"><fa icon="plus" class=""></fa> Create New Board</div>
+          <div class="font-normal text-lg"><fa icon="plus" class=""></fa> New Board</div>
         </div>
       </div>
     </div>
-    <!-- Modal Start-->
+    <div class="mt-4">
+      <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
+        <i class="fa-solid fa-laptop-code"></i> Tasks
+      </p>
+    </div>
+    <div class="task-area flex">
+      <div class="flex-intial task" v-for="task in projectTasks" :key="task.id">
+        <div
+          class="task-inner font-semibold text-xl"
+          
+          @click="opentask(task)"
+        >
+          <div class="p-2"></div>
+        </div>
+      </div>
+      <div
+        class="flex-iitial task create-task"
+        @click="toggleCreateTaskModal = !toggleCreateTaskModal"
+      >
+        <div class="task-inner-create font-semibold text-xl">
+          <div class="font-normal text-lg"><fa icon="plus" class="mr-2"></fa>New Task</div>
+        </div>
+      </div>
+    </div>
+    <!--Board Modal Start-->
     <div
       v-if="toggleCreateModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
@@ -83,8 +105,65 @@
         </div>
       </div>
     </div>
+
+    <!-- Task Modal Start --> 
+
+    <div
+      v-if="toggleCreateTaskModal"
+      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    >
+      <div class="create-modal relative mx-auto w-auto max-w-4xl flex">
+        <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
+          <div class="modal-title text-lg">
+            Create Task
+            <button class="modal-close-btn" @click="toggleCreateTaskModal = false">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <hr class="mt-1" />
+          </div>
+          <div class="ml-6">
+            <span class="text-sm font-semibold">Task Title</span><br />
+            <input
+              class="modal-board-title border-2 border-gray-600 rounded pl-2 p-1 mr-6"
+              v-model="newBoard.boardName"
+            /><br />
+            <span class="text-sm">* Title is required</span><br />
+          </div>
+          <div class="ml-6 mb-2 mt-2">
+            <span class="text-sm font-semibold">Task Description</span><br />
+            <textarea
+              class="modal-board-description border-2 border-gray-600 rounded w-64 h-24 pl-2 pt-1"
+              v-model="newBoard.boardDescription"
+            ></textarea
+            ><br />
+            <span class="text-sm">* You can give details about the Task</span
+            ><br />
+          </div>
+          <div class="ml-6 mb-2">
+            <span class="text-sm font-semibold"
+              >Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End
+              Date</span
+            ><br />
+          </div>
+
+          
+          <button
+            class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12"
+            @click="createNewProjectBoard"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal ends-->
     <div
       v-if="toggleCreateModal"
+      class="absolute z-40 inset-0 opacity-25 bg-black"
+    ></div>
+    <div
+      v-if="toggleCreateTaskModal"
       class="absolute z-40 inset-0 opacity-25 bg-black"
     ></div>
 
@@ -97,6 +176,7 @@ import router from "../../router";
 export default {
   data() {
     return {
+      toggleCreateTaskModal: false,
       toggleCreateModal: false,
       newBoard: {
         boardName: null,
@@ -118,13 +198,14 @@ export default {
       router.push('board')
     }
   },
-  mounted() {
-    this.$store.dispatch("loadProjectBoards");
-  },
   computed: {
     projectBoards() {
       this.$store.dispatch("loadProjectBoards");
       return this.$store.state.projectBoards
+    },
+    projectTasks() {
+      this.$store.dispatch("loadProjectTasks");
+      return this.$store.state.projectTasks
     }
   }
 };
@@ -134,19 +215,20 @@ export default {
 .boards {
   margin: auto;
   width: 80%;
-  margin-top: 2em;
+  margin-top: 1em;
   height: 50vh;
 }
-.boards-area {
-}
+
 .board {
-  margin: 1rem;
+  margin: 20px;
+  margin-top: 0px;
   width: 270px;
   height: 130px;
   box-shadow: 5px 10px 8px 10px #888888;
   cursor: pointer;
   @apply rounded;
 }
+
 .board:hover {
   box-shadow: 10px 20px 16px 20px #888888;
 }
@@ -157,10 +239,37 @@ export default {
   background-size: cover;
   @apply rounded;
 }
+
 .create-board {
   background-color: rgb(225, 225, 225);
   @apply text-center rounded;
   padding-top: 45px;
+  cursor: pointer;
+}
+
+.task {
+  margin: 13px;
+  margin-top: 0px;
+  width: 200px;
+  height: 70px;
+  box-shadow: 3px 5px 4px 5px #888888;
+  cursor: pointer;
+  @apply rounded;
+}
+
+.task:hover {
+  box-shadow: 6px 10px 8px 10px #888888;
+}
+
+.task-inner {
+  height: 130px;
+  @apply rounded;
+}
+
+.create-task {
+  background-color: rgb(225, 225, 225);
+  @apply text-center rounded;
+  padding-top: 20px;
   cursor: pointer;
 }
 

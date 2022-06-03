@@ -12,13 +12,18 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <!--
-        <div>
+         <div class="ml-11">
           <p class="tag-title">Members</p>
-          <div class="activity-avatar ml-11 float-left">S</div>
-          <div class="activity-avatar float-left">E</div>
-          <div class="activity-avatar float-left">V</div>
-        </div>-->
+          <div class="modal-members-area">
+            <div v-for="user in task.jobHasUsers" :key="user.id">
+              <div class="activity-avatar mr-1">{{ user.userName[0] }}</div>
+            </div>
+            <div class="modal-add-tag-members" @click="takeJobForUser">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+          </div>
+          
+        </div>
         <p class="tag-title">Labels</p>
         <div class="modal-tag-area">
           <div class="modal-tags" v-for="tag in task.tags" :key="tag.id" @click="deleteTaskTag(tag)">{{ tag.tagName }}</div>
@@ -135,8 +140,10 @@ export default {
         this.$store.dispatch("addNewCheckToTask", this.checkText)
         this.checkText = ""
       }
-      
     }, 
+    takeJobForUser() {
+      this.$store.dispatch('takeJobForUser', this.task.id)
+    },
   },
   computed: {
     task() {
