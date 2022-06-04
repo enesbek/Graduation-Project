@@ -127,9 +127,12 @@ export default {
       router.push('board')
     }
   },
+  created() {
+    this.$store.dispatch("loadAssignedProjectBoards");
+  },
   computed: {
     assignedBoards() {
-      this.$store.dispatch("loadAssignedProjectBoards");
+      console.log("1")
       return this.$store.state.assignedProjectBoards
     }
   }

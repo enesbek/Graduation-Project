@@ -223,7 +223,7 @@ export default createStore({
         }
       )
     },
-    leaveProject() {
+    leaveProject(store) {
       let user = JSON.parse(localStorage.getItem('user'));
       axios.delete(process.env.VUE_APP_API_URL + 'Project/assigned/' + this.state.routingAssignedProject.id, 
         {
@@ -232,13 +232,18 @@ export default createStore({
           }, 
         }
       )
+      .then(response => {
+        if(response.status == 204) {
+          store.dispatch("loadAssignedProjects");
+        }
+      })
       router.push("projects")
     },
-    createProjectBoard({state}, newBoard) {
+    createProjectBoard(store, newBoard) {
       let user = JSON.parse(localStorage.getItem('user'));
       
       axios.post(process.env.VUE_APP_API_URL + 'Board', {
-          "project_id": state.routingProject.id,
+          "project_id": store.state.routingProject.id,
           "board_name": newBoard.boardName,
           "description": newBoard.boardDescription,
           "startDate": newBoard.startDate,
@@ -250,6 +255,12 @@ export default createStore({
           }, 
         }
       )
+      .then(response => {
+        if(response.status == 201){
+          store.dispatch("loadProjectBoards");
+          store.dispatch("loadProjectTasks");
+        }
+      });
     },
     loadProjectBoards({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -348,7 +359,10 @@ export default createStore({
         }
       )
       .then(response => {
-        console.log(response)
+        if(response.status == 200){
+          store.dispatch("loadNotifications");
+          store.dispatch("loadAssignedProjects");
+        }
       });
     },
     denyNotification(store, payload) {
@@ -367,7 +381,10 @@ export default createStore({
         }
       )
       .then(response => {
-        console.log(response)
+        if(response.status == 200){
+          store.dispatch("loadNotifications");
+          store.dispatch("loadAssignedProjects");
+        }
       });
     },
     createNewSection({state}, payload) {
@@ -455,18 +472,6 @@ export default createStore({
         }
       );
     },
-    updateSections(value){
-      //let user = JSON.parse(localStorage.getItem('user'));
-      console.log(value[0] + "order" + value[1])
-        
-      /*axios.patch(process.env.VUE_APP_API_URL + 'Section/order?' + "order_no" , 
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.token
-          }, 
-        }
-      );*/
-    },
     addNewCheckToTask(store, newCheck) {
       let user = JSON.parse(localStorage.getItem('user'));
       axios.post(process.env.VUE_APP_API_URL + 'JobUtil/checklist', {
@@ -500,6 +505,7 @@ export default createStore({
     },
     checkListToggle(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
+      console.log(store.state.routingTask)
       axios.post(`${process.env.VUE_APP_API_URL}JobUtil/togglechecklist/${id}`,{
           params: {
             id
@@ -511,7 +517,9 @@ export default createStore({
           }, 
         }
       ).then(response => {
-        console.log(response.status)
+        if(response.status == 200) {
+          store.dispatch("loadRoutingTask");
+        }
       })
     },
     deleteTaskTag(store, id) {
@@ -527,7 +535,9 @@ export default createStore({
           }, 
         }
       ).then(response => {
-        console.log(response.status)
+        if(response.status == 200) {
+          store.dispatch("loadRoutingTask");
+        }
       })
     },
     addTeamToProject(store, payload) {
@@ -545,7 +555,9 @@ export default createStore({
           }, 
         }
       ).then(response => {
-        console.log(response.data)
+        if(response.status == 201) {
+          store.dispatch("loadProject");
+        }
       })
     },
     updateTaskOrder(store, payload) {
@@ -586,7 +598,11 @@ export default createStore({
             Authorization: 'Bearer ' + user.token
           }, 
         }
-      )
+      ).then(response => {
+        if(response.status == 200) {
+          store.dispatch("loadRoutingTask");
+        }
+      })
     },
     loadProjectTeams({commit}) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -610,6 +626,11 @@ export default createStore({
       axios.delete(process.env.VUE_APP_API_URL + 'Team/' + id, {
         headers: {
           Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        if(response.status == 204) {
+          store.dispatch("loadProject");
         }
       })
     }

@@ -30,9 +30,11 @@ export default {
       boardsimage:  "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95bd34713.png",
     };
   },
+  created() {
+    this.$store.dispatch("loadAssignedProjects");
+  },
   computed: {
     assignedProjects() {
-      this.$store.dispatch("loadAssignedProjects");
       return this.$store.state.assignedProjects
     }
   },

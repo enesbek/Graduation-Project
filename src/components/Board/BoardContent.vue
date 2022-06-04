@@ -108,10 +108,12 @@ export default {
       return _.orderBy(section.jobs, "order_no")
     }
   },
+  created() {
+    this.$store.dispatch("loadSections");
+  },
   computed: {
     sections: {
       get() {
-        this.$store.dispatch("loadSections");
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {

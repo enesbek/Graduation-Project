@@ -127,13 +127,15 @@ export default {
       this.$store.dispatch("denyNotification", notification.id);
     }
   },
+  created() {
+    this.$store.dispatch("loadUser");
+    this.$store.dispatch("loadNotifications");
+  },
   computed: {
     user() {
-      this.$store.dispatch("loadUser");
       return this.$store.state.user
     },
     notifications() {
-      this.$store.dispatch("loadNotifications");
       return this.$store.state.notifications
     }
   }

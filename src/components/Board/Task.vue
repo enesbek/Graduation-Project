@@ -119,15 +119,19 @@ export default {
         this.openAddTagInput = !this.openAddTagInput
         this.newTag = ""
       }
+      
     },
     deleteTaskTag(tag) {
       this.$store.dispatch("deleteTaskTag", tag.id)
+      
     },
     onInputTaskTitle(e) {
       this.$store.dispatch("updateTask", ["jobTitle", e.target.innerText])
+      
     },
     onInputTaskDescription(e) {
       this.$store.dispatch("updateTask", ["jobDescription", e.target.innerText])
+      
     },
     checkChange(id) {
       this.$store.dispatch("checkListToggle", id)
@@ -141,15 +145,16 @@ export default {
         this.$store.dispatch("addNewCheckToTask", this.checkText)
         this.checkText = ""
       }
-      
     }, 
     takeJobForUser() {
       this.$store.dispatch('takeJobForUser', this.task.id)
     },
   },
+  created() {
+    this.$store.dispatch("loadRoutingTask");
+  },
   computed: {
     task() {
-      this.$store.dispatch("loadRoutingTask");
       return this.$store.state.routingTask
     },
   },

@@ -198,13 +198,15 @@ export default {
       router.push('board')
     }
   },
+  created() {
+    this.$store.dispatch("loadProjectBoards");
+    this.$store.dispatch("loadProjectTasks");
+  },
   computed: {
     projectBoards() {
-      this.$store.dispatch("loadProjectBoards");
       return this.$store.state.projectBoards
     },
     projectTasks() {
-      this.$store.dispatch("loadProjectTasks");
       return this.$store.state.projectTasks
     }
   }
