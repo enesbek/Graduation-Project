@@ -53,7 +53,6 @@
 
 .tag-title {
   @apply text-xs font-bold mt-4 mr-1 mb-1 pb-0 opacity-75;
-  margin-left: 45px;
   text-decoration: underline;
 }
 
@@ -77,6 +76,22 @@
 .modal-add-tag:hover {
   @apply bg-gray-500 text-white;
 }
+
+.modal-members-area {
+  @apply flex mb-2;
+}
+
+.modal-add-tag-members {
+  @apply rounded border-2 border-gray-500 font-bold px-2;
+  cursor: pointer;
+  height: 30px;
+  width: 33px;
+}
+
+.modal-add-tag-members:hover {
+  @apply bg-gray-500 text-white;
+}
+
 
 .modal-add-tag-input{
   height: 30px;
@@ -171,10 +186,19 @@
 }
 
 .activity-avatar {
-  background-color: orange;
+  background-color: rgb(49, 49, 209);
   width: 30px;
   height: 30px;
-  @apply rounded-full text-xl text-center text-white font-bold ml-1;
+  @apply rounded-full text-xl text-center text-white font-bold;
+}
+
+.add-member-task{
+  background-color: white;
+  color: rgb(49, 49, 209);
+  border: 1px solid rgb(49, 49, 209);
+  cursor: pointer;
+  width: 30px;
+  @apply rounded;
 }
 
 .activity-area {

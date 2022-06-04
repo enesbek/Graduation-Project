@@ -180,7 +180,7 @@ export default {
     deleteTeamFromProject() {
       if(this.deleteText == "delete") {
         this.deleteText = ""
-        // Delete Team From Backend
+        this.$store.dispatch("deleteTeamFromProject", this.deleteTeamId)
         this.toggleDeleteModal = !this.toggleDeleteModal
       }
       else{
@@ -191,7 +191,7 @@ export default {
   computed: {
     project() {
       return this.$store.state.project
-    }
+    },
   },
 };
 </script>

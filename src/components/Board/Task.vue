@@ -12,7 +12,7 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-         <div class="ml-11">
+        <div class="ml-11">
           <p class="tag-title">Members</p>
           <div class="modal-members-area">
             <div v-for="user in task.jobHasUsers" :key="user.id">
@@ -24,7 +24,8 @@
           </div>
           
         </div>
-        <p class="tag-title">Labels</p>
+        
+        <p class="tag-title ml-11">Labels</p>
         <div class="modal-tag-area">
           <div class="modal-tags" v-for="tag in task.tags" :key="tag.id" @click="deleteTaskTag(tag)">{{ tag.tagName }}</div>
           <input class="modal-add-tag-input" v-if="openAddTagInput" v-model="newTag"/> 
@@ -140,6 +141,7 @@ export default {
         this.$store.dispatch("addNewCheckToTask", this.checkText)
         this.checkText = ""
       }
+      
     }, 
     takeJobForUser() {
       this.$store.dispatch('takeJobForUser', this.task.id)
