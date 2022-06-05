@@ -502,6 +502,7 @@ export default createStore({
           }, 
         }
       )
+      store.dispatch("loadSections");
     },
     checkListToggle(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));

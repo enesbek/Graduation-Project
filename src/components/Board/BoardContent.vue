@@ -76,10 +76,6 @@ export default {
     };
   },
   methods: {
-    orderedSectionJobs(jobs){
-      console.log(jobs)
-      return  _.orderBy(jobs, "order_no")
-    },
     addNewSection() {
       this.$store.dispatch("createNewSection", this.newSection);
       this.newSection = ""  
@@ -104,9 +100,6 @@ export default {
     log2(event, section) {
       this.$store.dispatch("updateTaskOrder", [event, section]);
     },
-    sectionTasks(section) {
-      return _.orderBy(section.jobs, "order_no")
-    }
   },
   created() {
     this.$store.dispatch("loadSections");
@@ -117,9 +110,7 @@ export default {
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {
-        setTimeout(() => {
-          this.$store.dispatch("updateSectionOrder", value)
-        }, 1);
+        this.$store.dispatch("updateSectionOrder", value)
       }
     },
   }

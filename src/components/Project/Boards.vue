@@ -112,7 +112,7 @@
       v-if="toggleCreateTaskModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
     >
-      <div class="create-modal relative mx-auto w-auto max-w-4xl flex">
+      <div class="create-task-modal relative mx-auto w-auto max-w-4xl flex">
         <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
           <div class="modal-title text-lg">
             Create Task
@@ -140,18 +140,35 @@
             ><br />
           </div>
           <div class="ml-6 mb-2">
-            <span class="text-sm font-semibold"
-              >Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End
-              Date</span
-            ><br />
+            <span class="text-sm font-semibold">Tags</span>
+            <div class="flex mt-1">
+              <div class="w-12 mr-2 bg-blue-600 rounded text-white px-2" v-for="tag in newTask.tags" :key="tag.id">
+                {{ tag }}
+              </div>
+              <input class="w-16 border-2 border-black rounded px-1" v-model="tempTags"/>
+              <div class="ml-2 rounded border-2 border-black bg-blue-600 text-white px-2"
+                @click="addTag">Add
+              </div>
+            </div>
+          </div>
+          <div class="ml-6 mb-2 mt-2">
+            <div class="text-sm font-semibold">
+              Receiver User
+            </div>
+            <div v-for="users in routedProject.userAssignedProjects" :key="users.id">
+              <div class="flex mt-1">
+                <div class="check-box ml-0" @click="selectUser(users.id)"><i class="fa-solid fa-check" v-if="newTask.receiverUser == users.id"></i></div>
+                {{users.firstName}} {{users.lastName}}
+              </div>
+            </div>
           </div>
 
           
           <button
-            class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12"
+            class="rounded bg-green-600 font-semibold text-white py-2 w-4/12 mx-auto mb-2"
             @click="createNewProjectBoard"
           >
-            Create
+            CREATE
           </button>
         </div>
       </div>
@@ -186,9 +203,20 @@ export default {
         isFinished: false,
       },
       boards: [],
+      newTask: {
+        jobTitle: "",
+        jobDescription: "",
+        receiverUser: "",
+        tags: [],
+      },
+      tempTags:[],
     };
   },
   methods: {
+    addTag() {
+      this.newTask.tags.push(this.tempTags)
+      this.tempTags = ""
+    },
     createNewProjectBoard() {
       this.toggleCreateModal = false;
       this.$store.dispatch("createProjectBoard", this.newBoard);
@@ -196,6 +224,14 @@ export default {
     gotoBoard(board){
       this.$store.state.routingBoard = board
       router.push('board')
+    },
+    selectUser(id) {
+      if(this.newTask.receiverUser ==  id){
+        this.newTask.receiverUser = ""
+      }
+      else {
+        this.newTask.receiverUser = id
+      }
     }
   },
   created() {
@@ -208,6 +244,9 @@ export default {
     },
     projectTasks() {
       return this.$store.state.projectTasks
+    },
+    routedProject() {
+      return this.$store.state.project
     }
   }
 };
@@ -278,6 +317,7 @@ export default {
 .create-modal {
   height: 37rem;
 }
+
 .modal-title {
   width: 100%;
   text-align: center;
@@ -306,4 +346,5 @@ export default {
 .modal-create-btn {
   margin: auto;
 }
+
 </style>

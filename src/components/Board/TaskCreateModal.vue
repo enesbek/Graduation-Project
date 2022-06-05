@@ -29,7 +29,8 @@
           </div>
           <input class="w-16 border-2 border-black rounded ml-2 px-1" v-model="tempTags"/>
           <div class="ml-2 rounded border-2 border-black bg-blue-600 text-white px-2"
-            @click="addTag">Add</div>
+            @click="addTag">Add
+          </div>
         </div>
         <div class="my-2 bg-green-500 text-white font-semibold text-lg p-2 w-32 text-center rounded mt-4 content-center ml-24 cursor-pointer"
           @click="createNewTask">

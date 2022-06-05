@@ -63,7 +63,7 @@
         </div>
         <div class="mb-4">
           <div class="flex" v-for="checkItem in task.checkLists" :key="checkItem.id">
-            <div class="check-box" @click="checkChange(checkItem.id)"><i class="fa-solid fa-check " v-if="checkItem.isSelected"></i></div>
+            <div class="check-box" @click="checkChange(checkItem.id)"><i class="fa-solid fa-check" v-if="checkItem.isSelected"></i></div>
             <div>{{ checkItem.text }}</div>
           </div>
           <div class="add-new-check-area">
