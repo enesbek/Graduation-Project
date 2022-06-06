@@ -411,7 +411,6 @@ export default createStore({
       let url = process.env.VUE_APP_API_URL + 'Section/' + payload.id
       let index = store.state.sections.indexOf(payload)
       store.state.sections.splice(index, 1)
-      store.dispatch("loadSections");
       axios.delete(url, 
         {
           headers: {
