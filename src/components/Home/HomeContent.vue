@@ -1,6 +1,6 @@
 <template>
   <div class="text-center h-full pt-20 text-3xl">
-    PROJECT TRACKING SYSTEM
+    PROJECT TRACKING SYSTEM V2
     <div class="home-text text-lg mt-20">In our project we are aiming to develop a web based project management 
       system that can be learned easily by different work groups like start-ups, 
       university students and companies and can be used for free.</div>
