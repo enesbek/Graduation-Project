@@ -409,6 +409,7 @@ export default createStore({
     deleteSection(store, payload) {
       let user = JSON.parse(localStorage.getItem('user'));
       let url = process.env.VUE_APP_API_URL + 'Section/' + payload
+      console.log("Request Sended")
       axios.delete(url, 
         {
           headers: {
@@ -420,6 +421,7 @@ export default createStore({
         console.log(response.status)
         store.dispatch("loadSections");
       });
+      console.log("Request Done")
     },
     routingTask({commit}, taskId) {
       commit('SET_ROUTING_TASK_ID', taskId)
