@@ -92,10 +92,11 @@ export default {
       this.createTaskStatus = !this.createTaskStatus;
       this.$store.commit("SET_NEW_TASK_SECTION", sectionId)
     },
-    log(event) {
+    async log(event) {
       let section_id = event.moved.element.id
       let order_no = event.moved.newIndex + 1
-      this.$store.commit("SET_SECTION_ORDER_INDEX", [order_no, section_id])
+      
+      await this.$store.commit("SET_SECTION_ORDER_INDEX", [order_no, section_id])
     },
     log2(event, section) {
       this.$store.dispatch("updateTaskOrder", [event, section]);
@@ -107,7 +108,6 @@ export default {
   computed: {
     sections: {
       get() {
-        console.log("Burası çalışıyor")
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {
