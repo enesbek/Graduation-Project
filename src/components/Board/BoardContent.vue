@@ -81,6 +81,7 @@ export default {
       this.newSection = ""  
     },
     deleteSection(section) {
+      console.log("Request Sended To Vuex")
       this.deleteSectionId = section.id
       this.$store.dispatch("deleteSection", this.deleteSectionId);
     },
