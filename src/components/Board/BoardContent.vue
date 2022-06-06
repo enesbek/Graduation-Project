@@ -82,8 +82,7 @@ export default {
     },
     deleteSection(section) {
       console.log("Request Sended To Vuex")
-      this.deleteSectionId = section.id
-      this.$store.dispatch("deleteSection", this.deleteSectionId);
+      this.$store.dispatch("deleteSection", section);
     },
     openTask(taskId) {
       this.$store.dispatch("routingTask", taskId);
