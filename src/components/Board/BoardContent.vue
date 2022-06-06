@@ -108,6 +108,7 @@ export default {
   computed: {
     sections: {
       get() {
+        console.log("Burası çalışıyor")
         return  _.orderBy(this.$store.state.sections, "order_no")
       },
       set(value) {
