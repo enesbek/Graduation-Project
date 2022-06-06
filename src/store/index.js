@@ -420,8 +420,8 @@ export default createStore({
       .then(response => {
         console.log(response.status)
         store.dispatch("loadSections");
+        console.log("Response come")
       });
-      console.log("Request Done")
     },
     routingTask({commit}, taskId) {
       commit('SET_ROUTING_TASK_ID', taskId)
