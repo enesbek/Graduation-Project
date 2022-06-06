@@ -52,7 +52,7 @@
 import { VueDraggableNext } from "vue-draggable-next";
 import Task from './Task.vue'
 import TaskCreateModal from './TaskCreateModal.vue'
-import _ from 'lodash';
+//import _ from 'lodash';
 export default {
   components: {
     draggable: VueDraggableNext,
@@ -92,11 +92,11 @@ export default {
       this.createTaskStatus = !this.createTaskStatus;
       this.$store.commit("SET_NEW_TASK_SECTION", sectionId)
     },
-    async log(event) {
+    log(event) {
       let section_id = event.moved.element.id
       let order_no = event.moved.newIndex + 1
-      
-      await this.$store.commit("SET_SECTION_ORDER_INDEX", [order_no, section_id])
+      //this.$store.commit("SET_SECTION_ORDER_INDEX", [event])
+      this.$store.dispatch("updateSectionOrder", [section_id, order_no]);
     },
     log2(event, section) {
       this.$store.dispatch("updateTaskOrder", [event, section]);
@@ -106,14 +106,15 @@ export default {
     this.$store.dispatch("loadSections");
   },
   computed: {
+    sections() {
+      return this.$store.state.sections
+    }
+    /*
     sections: {
       get() {
         return  _.orderBy(this.$store.state.sections, "order_no")
-      },
-      set(value) {
-        this.$store.dispatch("updateSectionOrder", value)
       }
-    },
+    },*/
   }
 };
 </script>

@@ -76,7 +76,9 @@ export default createStore({
       state.assignedProjectBoards = boards
     },
     SET_SECTIONS(state, sections) {
-     
+      sections = _.orderBy(sections, "order_no")
+      state.sections = sections
+      console.log(state.sections)
       sections.forEach(section => {
         section.jobs = _.orderBy(section.jobs, "order_no")
       })
@@ -502,33 +504,27 @@ export default createStore({
         }
       );
     },
-    updateSectionOrder(store) {
-      let order_no
-      let section_id
-      setTimeout(() => {
-        order_no = store.state.sectionOderIndex[0]
-        section_id = store.state.sectionOderIndex[1]
-        console.log("tiemout order: " +order_no)
-        console.log("section: " +section_id)
-        let user = JSON.parse(localStorage.getItem('user'));
-        axios.post(`${process.env.VUE_APP_API_URL}Section/order?order_no=${order_no}&section_id=${section_id}`, {
-            params: {
-              order_no,
-              section_id
-            }
-          },
-          {
-            headers: {
-              Authorization: 'Bearer ' + user.token
-            }, 
+    updateSectionOrder(store, payload) {
+      let order_no = (payload[1])
+      let section_id = (payload[0])
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(`${process.env.VUE_APP_API_URL}Section/order?order_no=${order_no}&section_id=${section_id}`, {
+          params: {
+            order_no,
+            section_id
           }
-        )
-        .then(
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(() => {
+          
           store.dispatch("loadSections")
-        )
-      }, 1);
-
-      
+        }
+      )
     },
     checkListToggle(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -588,7 +584,6 @@ export default createStore({
       })
     },
     updateTaskOrder(store, payload) {
-      console.log("Burasıı")
       let user = JSON.parse(localStorage.getItem('user'));
       if(Object.keys(payload[0])[0] == 'moved'){
         let order_no = (payload[0].moved.newIndex + 1)
