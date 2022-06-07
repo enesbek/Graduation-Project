@@ -49,10 +49,9 @@
 </template>
 
 <script>
-import { VueDraggableNext } from "vue-draggable-next";
+import { VueDraggableNext } from "vue-draggable-next"
 import Task from './Task.vue'
 import TaskCreateModal from './TaskCreateModal.vue'
-//import _ from 'lodash';
 export default {
   components: {
     draggable: VueDraggableNext,

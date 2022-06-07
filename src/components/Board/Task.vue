@@ -88,6 +88,9 @@
             </div>
           </div>
         </div>
+        <div class="delete-task-btn" @click="deleteTask(task.id)">
+          DELETE
+        </div>
       </div>
     </div>
   </div>
@@ -95,6 +98,29 @@
     v-if="toggleTaskModal"
     class="absolute z-40 inset-0 opacity-25 bg-black"
   ></div>
+  <div
+      v-if="toggleTaskConfirmModal"
+      class="fixed inset-0 flex justify-center items-center z-50"
+    >
+      <div class="delete-modal relative mx-auto max-w-4xl">
+        <div class="bg-white w-full shadow-2xl max-w-2xl rounded">
+          <div class="modal-title ml-10">Are you sure?</div>
+          <p class="modal-type">
+            Please type <span class="font-semibold italic">delete</span> to
+            confirm.
+          </p>
+          <input class="modal-input" v-model="deleteTaskText" /><br />
+          <button class="modal-btn" @click="deleteTaskConfirm">Delete</button>
+          <button class="modal-btn-close" @click="toggleTaskConfirmModal = false">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="toggleTaskConfirmModal"
+      class="absolute z-40 inset-0 opacity-25 bg-black"
+    ></div>
 </template>
 
 <script>
@@ -107,6 +133,9 @@ export default {
       check: false,
       newCheck: false,
       checkText: "",
+      deleteTaskId: null,
+      toggleTaskConfirmModal: false,
+      deleteTaskText: null,
     };
   },
   methods: {
@@ -119,19 +148,15 @@ export default {
         this.openAddTagInput = !this.openAddTagInput
         this.newTag = ""
       }
-      
     },
     deleteTaskTag(tag) {
       this.$store.dispatch("deleteTaskTag", tag.id)
-      
     },
     onInputTaskTitle(e) {
       this.$store.dispatch("updateTask", ["jobTitle", e.target.innerText])
-      
     },
     onInputTaskDescription(e) {
       this.$store.dispatch("updateTask", ["jobDescription", e.target.innerText])
-      
     },
     checkChange(id) {
       this.$store.dispatch("checkListToggle", id)
@@ -149,6 +174,17 @@ export default {
     takeJobForUser() {
       this.$store.dispatch('takeJobForUser', this.task.id)
     },
+    deleteTask(id) {
+      this.deleteTaskId = id
+      this.toggleTaskModal = false
+      this.toggleTaskConfirmModal = true
+    },
+    deleteTaskConfirm() {
+      if(this.deleteTaskText == 'delete'){
+        this.toggleTaskConfirmModal = false
+        this.$store.dispatch("deleteTask", this.deleteTaskId)
+      }
+    }
   },
   created() {
     this.$store.dispatch("loadRoutingTask");

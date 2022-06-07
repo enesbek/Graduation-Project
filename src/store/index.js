@@ -468,7 +468,11 @@ export default createStore({
             Authorization: 'Bearer ' + user.token
           }, 
         }
-      );
+      )
+      .then(response => {
+        if(response.status == 200)
+          store.dispatch("loadRoutingTask")
+      })
     },
     updateTask(store, payload) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -499,7 +503,12 @@ export default createStore({
             Authorization: 'Bearer ' + user.token
           }, 
         }
-      );
+      )
+      .then(response => {
+        if(response.status == 200)
+          store.dispatch("loadRoutingTask")
+        }
+      )
     },
     updateSectionOrder(store, payload) {
       let order_no = (payload[1])
@@ -678,6 +687,19 @@ export default createStore({
       .then(response => {
         if(response.status == 204) {
           store.dispatch("loadProject");
+        }
+      })
+    },
+    deleteTask(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.delete(process.env.VUE_APP_API_URL + 'Job/' + payload, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        if(response.status == 204) {
+          store.dispatch("loadSections")
         }
       })
     }

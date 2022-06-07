@@ -3,6 +3,7 @@
   width: 250px;
   box-shadow: 1px 1px 1px 1px #888888;
   font-weight: 500;
+  margin-bottom: 20px;
   @apply bg-white m-2 p-1 rounded ;
 }
 
@@ -243,6 +244,15 @@
   cursor: pointer;
   width: 10px;
   text-align: center;
+}
+
+.delete-task-btn{
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: red;
+  cursor: pointer;
+  @apply px-6 py-2 text-white text-xl font-semibold rounded;
 }
 
 /* SCROLLBAR */
