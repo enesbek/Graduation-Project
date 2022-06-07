@@ -7,8 +7,8 @@
           <h3 class="text-base pt-1 px-3 rounded">{{ section.sectionName }}
             <i class="fa-solid fa-trash-can section-settings" @click="deleteSection(section)"></i>
           </h3>
-          <draggable v-if="!section.jobs.length" v-model="section.jobs" group="tasks"></draggable>
-          <draggable v-model="section.jobs" animation="100" group="tasks" @change="log2">
+          <draggable v-if="!section.jobs.length" v-model="section.jobs" group="tasks" @change="log3(section)"></draggable>
+          <draggable v-model="section.jobs" animation="100" group="tasks" @change="log2($event, section)">
           <div v-for="task in section.jobs" :key="task.id">
             <div @click="openTask(task.id)" class="task-container">
               <span v-for="tag in task.tags" :key="tag.name" class="tags">
@@ -95,12 +95,14 @@ export default {
     log(event) {
       let section_id = event.moved.element.id
       let order_no = event.moved.newIndex + 1
-      //this.$store.commit("SET_SECTION_ORDER_INDEX", [event])
       this.$store.dispatch("updateSectionOrder", [section_id, order_no]);
     },
     log2(event, section) {
       this.$store.dispatch("updateTaskOrder", [event, section]);
     },
+    log3(section) {
+      this.$store.dispatch("updateTaskOrder", ["empty section", section])
+    }
   },
   created() {
     this.$store.dispatch("loadSections");

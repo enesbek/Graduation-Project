@@ -77,12 +77,9 @@ export default createStore({
     },
     SET_SECTIONS(state, sections) {
       sections = _.orderBy(sections, "order_no")
-      state.sections = sections
-      console.log(state.sections)
       sections.forEach(section => {
         section.jobs = _.orderBy(section.jobs, "order_no")
       })
-
       state.sections = sections
     },
     SET_USER(state, user){
@@ -521,7 +518,6 @@ export default createStore({
         }
       )
       .then(() => {
-          
           store.dispatch("loadSections")
         }
       )
@@ -602,9 +598,38 @@ export default createStore({
         )
       }
       else{
-        console.log("taskın sectionı değişti")
-        console.log(payload[0])
-        console.log(payload[1])
+        if(Object.keys(payload[0])[0] == 'added'){
+          let job_id = payload[0].added.element.id
+          let new_section_id = payload[1].id
+          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}`, {
+              params: {
+                job_id,
+                new_section_id
+              }
+            },
+            {
+              headers: {
+                Authorization: 'Bearer ' + user.token
+              }, 
+            }
+          )
+        }
+        else if(payload[0] == 'empty section'){
+          let job_id = payload[1].jobs[0].id
+          let new_section_id = payload[1].id
+          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}`, {
+              params: {
+                job_id,
+                new_section_id
+              }
+            },
+            {
+              headers: {
+                Authorization: 'Bearer ' + user.token
+              }, 
+            }
+          )
+        }
       }
       
     },
