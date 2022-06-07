@@ -88,28 +88,10 @@
           </button>
           <hr class="mt-1" />
         </div>
-
-        <div calss="board-settings-modal-update">
-          <input placeholder="Board Name" class="board-settings-modal-board-name"/><br>
-          <span class="mx-4 mt-2">
-            Start Date: <input type="date" class="board-settings-modal-dates"/>
-          </span><br>
-          <span class="mx-4 my-2" >
-            End Date: <input type="date" class="board-settings-modal-dates"/>
-          </span><br>
         
-          <button
-            class="board-settings-modal-add-btn"
-            @click="adduserToBoard"
-          >
-            Update Board
-          </button>
-        </div>
-        
-
         <button
-          class="board-settings-modal-add-btn"
-          @click="adduserToBoard"
+          class="board-settings-modal-delete-btn"
+          @click="deleteBoard(board.id)"
         >
           DELETE BOARD
         </button>
@@ -118,6 +100,29 @@
   </div>
   <div v-if="openSettingsModal" class="absolute z-40 inset-0 opacity-25 bg-black">
   </div>
+  <div
+      v-if="toggleBoardConfirmModal"
+      class="fixed inset-0 flex justify-center items-center z-50"
+    >
+      <div class="delete-modal relative mx-auto max-w-4xl">
+        <div class="bg-white w-full shadow-2xl max-w-2xl rounded">
+          <div class="modal-title ml-10">Are you sure?</div>
+          <p class="modal-type">
+            Please type <span class="font-semibold italic">delete</span> to
+            confirm.
+          </p>
+          <input class="modal-input" v-model="deleteBoardText" /><br />
+          <button class="modal-btn" @click="deleteBoardConfirm">Delete</button>
+          <button class="modal-btn-close" @click="toggleBoardConfirmModal = false">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="toggleBoardConfirmModal"
+      class="absolute z-40 inset-0 opacity-25 bg-black"
+    ></div>
 </template>
 
 <script>
@@ -129,6 +134,9 @@ export default {
       toggleAddBoardMemberModal: false,
       addUser: "",
       toggleBoardMembersModal: false,
+      toggleBoardConfirmModal: false,
+      deleteBoardId: null,
+      deleteBoardText: null,
     }
   },
   computed: {
@@ -140,12 +148,21 @@ export default {
     },
   },
   methods:{
-    // ToDo: Backend email ile çalışmıyor
     adduserToBoard(){
       this.$store.dispatch("addUserToBoard", this.addUser)
     },
-    deleteBoard(){
-      
+    deleteBoard(id){
+      this.deleteBoardId = id
+      this.openSettingsModal = false
+      this.toggleBoardConfirmModal = true
+    },
+    deleteBoardConfirm() {
+      if(this.deleteBoardText == 'delete'){
+        this.$store.dispatch("deleteBoard", this.deleteBoardId)
+      }
+      else{
+        this.deleteBoardText = ""
+      }
     }
   }
 }
@@ -192,6 +209,17 @@ export default {
 .board-settings-modal-close-btn {
   @apply text-lg mr-2 ml-4;
   float: right;
+}
+
+.board-settings-modal-delete-btn{
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: red;
+  cursor: pointer;
+  @apply px-6 py-2 text-white text-xl font-semibold rounded;
 }
 
 .add-new-member-modal {

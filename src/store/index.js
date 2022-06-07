@@ -702,6 +702,19 @@ export default createStore({
           store.dispatch("loadSections")
         }
       })
+    },
+    deleteBoard(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.delete(process.env.VUE_APP_API_URL + 'Board/' + payload, {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        if(response.status == 204) {
+          router.push('project')
+        }
+      })
     }
   },
   modules: {
