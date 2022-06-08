@@ -632,10 +632,12 @@ export default createStore({
         if(Object.keys(payload[0])[0] == 'added'){
           let job_id = payload[0].added.element.id
           let new_section_id = payload[1].id
-          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}`, {
+          let new_order_no = payload[0].added.newIndex + 1 
+          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}&new_order_no=${new_order_no}`, {
               params: {
                 job_id,
-                new_section_id
+                new_section_id,
+                new_order_no
               }
             },
             {
@@ -648,10 +650,12 @@ export default createStore({
         else if(payload[0] == 'empty section'){
           let job_id = payload[1].jobs[0].id
           let new_section_id = payload[1].id
-          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}`, {
+          let new_order_no = 1
+          axios.post(`${process.env.VUE_APP_API_URL}JobUtil/changesection?job_id=${job_id}&new_section_id=${new_section_id}&new_order_no=${new_order_no}`, {
               params: {
                 job_id,
-                new_section_id
+                new_section_id,
+                new_order_no
               }
             },
             {
