@@ -1,0 +1,281 @@
+.task-container {
+  min-height: 70px;
+  width: 250px;
+  box-shadow: 1px 1px 1px 1px #888888;
+  font-weight: 500;
+  margin-bottom: 20px;
+  @apply bg-white m-2 p-1 rounded ;
+}
+
+.addButton {
+  background-color: rgb(68, 219, 131);
+  @apply ml-10 mt-3 text-white rounded pt-3 pb-3 pl-10 pr-10 mb-2;
+}
+
+.tags {
+  background-color: rgb(44, 89, 200);
+  @apply px-1 pb-1 mr-1 rounded text-white font-bold;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.task-modal {
+  width: 600px;
+  margin-top: 3%;
+  margin-top: 3%;
+  height: 90vh;
+}
+
+.modal-top {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.modal-title {
+  display: inline-block;
+  @apply p-1 font-semibold text-2xl;
+  width: 470px;
+}
+
+.modal-close-btn {
+  width: 40px;
+  height: 40px;
+  @apply text-xl text-center rounded-full;
+  background-color: rgb(220, 220, 220);
+
+  float: right;
+}
+
+.modal-tag-area {
+  @apply flex mb-2;
+  margin-left: 45px;
+}
+
+.tag-title {
+  @apply text-xs font-bold mt-4 mr-1 mb-1 pb-0 opacity-75;
+  text-decoration: underline;
+}
+
+.modal-tags {
+  @apply m-0 p-0 text-white mr-2 font-semibold rounded px-2 mb-4 pb-7 text-lg;
+  background-color: orange;
+  height: 20px;
+  cursor: pointer;
+}
+
+.modal-tags:hover {
+  opacity: 0.5;
+}
+
+.modal-add-tag {
+  @apply rounded border-2 border-gray-500 font-bold px-2;
+  cursor: pointer;
+  height: 30px;
+}
+
+.modal-add-tag:hover {
+  @apply bg-gray-500 text-white;
+}
+
+.modal-members-area {
+  @apply flex mb-2;
+}
+
+.modal-add-tag-members {
+  @apply rounded border-2 border-gray-500 font-bold px-2;
+  cursor: pointer;
+  height: 30px;
+  width: 33px;
+}
+
+.modal-add-tag-members:hover {
+  @apply bg-gray-500 text-white;
+}
+
+
+.modal-add-tag-input{
+  height: 30px;
+  width: 100px;
+  @apply rounded px-1 mr-2 border-2 border-black;
+}
+
+.modal-description-area {
+  @apply flex;
+}
+
+.modal-description {
+  @apply font-semibold text-xl;
+  margin-left: 15px;
+}
+
+.modal-description-text {
+  margin-left: 38px;
+  width: 500px;
+  @apply mt-2 p-2 mb-8;
+}
+
+.modal-attachment-area {
+  @apply flex;
+}
+
+.modal-attachments {
+  margin-left: 45px;
+  width: 500px;
+  @apply mb-4 flex mt-4;
+  background-color: rgb(230, 230, 230);
+}
+
+.attachment-img {
+  width: 100px;
+  height: 80px;
+}
+
+.attachment-title {
+  margin-left: 20px;
+  @apply text-base font-semibold pt-2;
+}
+
+.attachment-btns {
+  @apply mt-4 mb-0 text-base;
+}
+
+.attachment-btn {
+  text-decoration: underline;
+  margin-left: 0;
+  @apply mr-4 opacity-75;
+}
+
+.add-attachment {
+  margin-left: 45px;
+  width: 160px;
+  background-color: rgb(220, 220, 220);
+  @apply px-4 py-2 mb-8;
+  cursor: pointer;
+}
+
+.check-box{
+  width: 20px;
+  height: 20px;
+  @apply border-2 border-gray-500 mr-2 rounded;
+  line-height: 10px;
+  cursor: pointer;
+  margin-left: 45px; 
+}
+
+.add-new-check-area{
+  margin-left: 45px; 
+  @apply mt-2;
+}
+
+.add-new-check-input{
+  width: 500px;
+  @apply border-2 border-gray-500 rounded px-1;
+}
+
+.add-new-check-btn{
+  width: 45px;
+  @apply rounded bg-blue-700 py-1 px-2 text-white mt-2;
+}
+
+.modal-activity-area {
+  @apply flex mb-2;
+}
+
+.activities {
+  @apply mb-1 ml-10 flex;
+}
+
+.activity-avatar {
+  background-color: rgb(49, 49, 209);
+  width: 30px;
+  height: 30px;
+  @apply rounded-full text-xl text-center text-white font-bold;
+}
+
+.add-member-task{
+  background-color: white;
+  color: rgb(49, 49, 209);
+  border: 1px solid rgb(49, 49, 209);
+  cursor: pointer;
+  width: 30px;
+  @apply rounded;
+}
+
+.activity-area {
+  @apply px-1 ml-2;
+}
+
+.activity-user {
+  @apply font-semibold mr-2 text-base;
+  float: left;
+  line-height: 0.9;
+}
+
+.activity-time {
+  @apply text-xs opacity-75 font-semibold;
+  text-align: bottom;
+}
+
+.acitivity {
+  width: 500px;
+  @apply bg-white p-2 mt-1;
+}
+
+.add-section-input{
+  @apply rounded mt-2 h-6 px-2;
+}
+
+.add-section-btn{
+  background-color: rgb(68, 219, 131);
+  width: 100px;
+  margin-left: 85px; 
+  cursor: pointer;
+  @apply text-center mt-2 p-2 rounded font-semibold text-white;
+}
+
+.add-section-btn:hover{
+  background-color: rgb(50, 180, 104);
+}
+
+.section-settings{
+  float: right;
+  margin-top: 5px;
+  cursor: pointer;
+  width: 10px;
+  text-align: center;
+}
+
+.delete-task-btn{
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: red;
+  cursor: pointer;
+  @apply px-6 py-2 text-white text-xl font-semibold rounded;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+  @apply mb-2;
+  opacity: 0.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0.2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  opacity: 0.2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  opacity: 0.2;
+}

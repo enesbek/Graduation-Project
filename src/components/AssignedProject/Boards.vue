@@ -27,6 +27,25 @@
         </div>
       </div>
     </div>
+    <div class="mt-4">
+      <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
+        <i class="fa-solid fa-laptop-code"></i> Tasks
+      </p>
+    </div>
+    <div class="project-task-area">
+      <div v-for="task in projectTasks" :key="task.id">
+        <div class="flex-intial task" v-if="this.user.id == task.receiverUserId">
+          <div
+            class="task-inner font-semibold text-xl"
+            @click="opentask(task)"
+          >
+            <div class="p-2">{{task.jobTitle}}</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <Task v-if="taskStatus"/>
     <!-- Modal Start-->
     <div
       v-if="toggleCreateModal"
@@ -102,7 +121,11 @@
 
 <script>
 import router from "../../router";
+import Task from './Task.vue';
 export default {
+  components: {
+    Task,
+  },
   data() {
     return {
       toggleCreateModal: false,
@@ -114,27 +137,41 @@ export default {
         isFinished: false,
       },
       boards: [],
+      taskStatus: false,
     };
   },
   methods: {
+    opentask(task){
+      this.$store.dispatch("routingTask", task.id);
+      this.taskStatus = !this.taskStatus;
+    },
     createNewProjectBoard() {
       this.toggleCreateModal = false;
       this.$store.dispatch("createProjectBoard", this.newBoard);
     },
     gotoBoard(board){
       this.$store.state.routingBoard = board
-      console.log(board)
       router.push('board')
     }
   },
   created() {
     this.$store.dispatch("loadAssignedProjectBoards");
+    this.$store.dispatch("loadAssignedProjectTasks")
+    this.$store.dispatch("loadUser");
   },
   computed: {
     assignedBoards() {
-      console.log("1")
       return this.$store.state.assignedProjectBoards
-    }
+    },
+    assignedProject() {
+      return this.$store.state.routingAssignedProject
+    },
+    projectTasks() {
+      return this.$store.state.projectTasks
+    },
+    user() {
+      return this.$store.state.user
+    },
   }
 };
 </script>
@@ -169,6 +206,36 @@ export default {
   background-color: rgb(225, 225, 225);
   @apply text-center rounded;
   padding-top: 45px;
+  cursor: pointer;
+}
+
+.project-task-area{
+  @apply grid grid-cols-4;
+}
+
+.task {
+  margin: 13px;
+  margin-top: 0px;
+  width: 200px;
+  height: 70px;
+  box-shadow: 3px 5px 4px 5px #888888;
+  cursor: pointer;
+  @apply rounded;
+}
+
+.task:hover {
+  box-shadow: 6px 10px 8px 10px #888888;
+}
+
+.task-inner {
+  height: 130px;
+  @apply rounded;
+}
+
+.create-task {
+  background-color: rgb(225, 225, 225);
+  @apply text-center rounded;
+  padding-top: 20px;
   cursor: pointer;
 }
 

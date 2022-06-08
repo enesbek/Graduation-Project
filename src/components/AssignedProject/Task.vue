@@ -16,32 +16,9 @@
           <div>
             {{task.startDate}} /
           </div>
-          <div @click="editTaskDate = !editTaskDate" class="ml-2">
+          <div class="ml-2">
             {{task.endDate}}
           </div>
-          <div class="flex ml-2" v-if="editTaskDate">
-            <input
-              type="date"
-              class="dates border-2 border-gray-600 rounded"
-              v-model="newTaskEndDate"
-            />
-            <div class="text-sm bg-blue-700 text-white rounded p-1 px-2 mx-2" @click="changeTaskEndDate">
-              Save
-            </div>
-          </div>
-          
-        </div>
-        <div class="ml-11">
-          <p class="tag-title">Members</p>
-          <div class="modal-members-area">
-            <div v-for="user in task.jobHasUsers" :key="user.id">
-              <div class="activity-avatar mr-1">{{ user.userName[0] }}</div>
-            </div>
-            <div class="modal-add-tag-members" @click="takeJobForUser">
-              <i class="fa-solid fa-plus"></i>
-            </div>
-          </div>
-          
         </div>
         
         <p class="tag-title ml-11">Labels</p>
@@ -155,8 +132,6 @@ export default {
       deleteTaskId: null,
       toggleTaskConfirmModal: false,
       deleteTaskText: null,
-      editTaskDate: false,
-      newTaskEndDate: null,
     };
   },
   methods: {
@@ -205,10 +180,6 @@ export default {
         this.toggleTaskConfirmModal = false
         this.$store.dispatch("deleteTask", this.deleteTaskId)
       }
-    },
-    changeTaskEndDate() {
-      this.editTaskDate = false
-      this.$store.dispatch("updateTask", ["endDate", this.newTaskEndDate])
     }
   },
   created() {

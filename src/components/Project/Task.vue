@@ -31,18 +31,6 @@
           </div>
           
         </div>
-        <div class="ml-11">
-          <p class="tag-title">Members</p>
-          <div class="modal-members-area">
-            <div v-for="user in task.jobHasUsers" :key="user.id">
-              <div class="activity-avatar mr-1">{{ user.userName[0] }}</div>
-            </div>
-            <div class="modal-add-tag-members" @click="takeJobForUser">
-              <i class="fa-solid fa-plus"></i>
-            </div>
-          </div>
-          
-        </div>
         
         <p class="tag-title ml-11">Labels</p>
         <div class="modal-tag-area">

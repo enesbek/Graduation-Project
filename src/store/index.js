@@ -489,7 +489,10 @@ export default createStore({
             Authorization: 'Bearer ' + user.token
           }, 
         }
-      );
+      )
+      .then(() => {
+        store.dispatch("loadRoutingTask");
+      })
     },
     addNewCheckToTask(store, newCheck) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -741,6 +744,60 @@ export default createStore({
           router.push('project')
         }
       })
+    },
+    loadAssignedProjectTasks(store) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      console.log(store.state.routingAssignedProject.id)
+      axios.get(process.env.VUE_APP_API_URL + 'Project/' + store.state.routingAssignedProject.id + '/jobs', {
+        headers: {
+          Authorization: 'Bearer '+user.token
+        }
+      })
+      .then(response => {
+        store.commit('SET_PROJECT_TASKS', response.data)
+      })
+    },
+    createProjectTask(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'Job/addprojectjob', {
+          "jobTitle": payload.jobTitle,
+          "jobDescription": payload.jobDescription,
+          "receiverUserId": payload.receiverUser,
+          "project_id": store.state.routingProject.id,
+          "tags": payload.tags
+        }, 
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        }
+      )
+      .then(() => {
+        store.dispatch("loadProjectBoards");
+        store.dispatch("loadProjectTasks");
+      })
+    },
+    addUsersToBoard(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let board_id = store.state.routingBoard.id
+      console.log(payload[1])
+      for(let i = 0; i < payload.length; i++) {
+        let user_id = payload[i]
+        axios.post(`${process.env.VUE_APP_API_URL}Board/adduser?user_id=${user_id}&board_id=${board_id}`,
+          {
+            params: {
+              user_id,
+              board_id
+            }
+          },
+          {
+            headers: {
+              Authorization: 'Bearer ' + user.token
+            }, 
+          },
+        )
+        .then(response => console.log(response))
+      }
     }
   },
   modules: {

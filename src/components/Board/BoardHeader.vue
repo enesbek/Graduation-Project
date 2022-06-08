@@ -9,23 +9,33 @@
   </div>
   <!-- Add Board Members Modal-->
   <div v-if="toggleAddBoardMemberModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
-    <div class="add-new-member-modal relative mx-auto w-auto max-w-4xl flex text-center">
+    <div class="board-members-modal relative mx-auto w-auto max-w-4xl flex text-center">
       <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
         <div class="text-lg font-semibold">
-          Add New Member
-          <button class="add-new-member-modal-close-btn" @click="toggleAddBoardMemberModal = false">
+          Users List From Project
+          <button class="board-members-modal-close-btn" @click="toggleAddBoardMemberModal = false">
             <i class="fa-solid fa-xmark" mr-2></i>
           </button>
           <hr class="mt-1" />
         </div>
-        <div class="italic">Email</div>
-        <input class="add-new-member-modal-input" v-model="addUser"/>
+        <div v-for="user in project.userAssignedProjects" :key="user.id">
+          <table id="addTeamMemberTable">
+            <tr v-bind:style="boardUsersArray.includes(user.id) ? {'background-color': '#04AA6D'} : {} ">
+              <td class="w-24">{{user.firstName}}</td>
+              <td class="w-24">{{user.lastName}}</td>
+              <td class="w-36">{{user.email}}</td>
+              <td class="addTeamMemberTable-add-btn" @click="addUserToArray(user.id)">
+                <div class="text-center">Add</div>
+              </td>
+            </tr>
+          </table>
+        </div>
         <button
-          class="add-new-member-modal-add-btn"
-          @click="adduserToBoard"
-        >
-          Add
-        </button>
+            class="add-new-member-modal-add-btn"
+            @click="addUsersToBoard"
+          >
+            Add to Board
+          </button>
       </div>
     </div>
   </div>
@@ -57,13 +67,6 @@
             <td>{{user.lastName}}</td>
             <td>{{user.email}}</td>
           </tr>
-          <tfoot>
-            <tr>
-              <td colspan="4" class="text-center cursor-pointer" @click="toggleAddMemberModal = !toggleAddMemberModal">
-                <i class="fa-solid fa-plus"></i>
-              </td>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>
@@ -137,6 +140,7 @@ export default {
       toggleBoardConfirmModal: false,
       deleteBoardId: null,
       deleteBoardText: null,
+      boardUsersArray: [], 
     }
   },
   computed: {
@@ -144,7 +148,7 @@ export default {
       return this.$store.state.routingBoard
     },
     project(){
-      return this.$store.state.routingProject
+      return this.$store.state.project
     },
   },
   methods:{
@@ -163,6 +167,20 @@ export default {
       else{
         this.deleteBoardText = ""
       }
+    },
+    addUserToArray(id) {
+      if(this.boardUsersArray.includes(id)){
+        let index = this.boardUsersArray.indexOf(id)
+        this.boardUsersArray.splice(index, 1)
+      }
+      else {
+        this.boardUsersArray.push(id)
+      }
+    },
+    addUsersToBoard() {
+      this.$store.dispatch("addUsersToBoard", this.boardUsersArray)
+      this.boardUsersArray = []
+      this.toggleAddBoardMemberModal = false
     }
   }
 }

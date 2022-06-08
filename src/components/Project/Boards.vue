@@ -3,7 +3,15 @@
     <p class="text-2xl font-semibold tracking-wide ml-4">
       <fa icon="clipboard"></fa> Boards
     </p>
-    <div class="boards-area flex">
+    <div class="grid grid-cols-3">
+      <div
+        class="flex-iitial board create-board mb-4"
+        @click="toggleCreateModal = !toggleCreateModal"
+      >
+        <div class="board-inner-create font-semibold text-xl">
+          <div class="font-normal text-lg"><fa icon="plus" class=""></fa> New Board</div>
+        </div>
+      </div>
       <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
         <div
           class="board-inner font-semibold text-xl"
@@ -13,39 +21,31 @@
           <div class="p-2">{{ board.board_name }}</div>
         </div>
       </div>
-      <div
-        class="flex-iitial board create-board"
-        @click="toggleCreateModal = !toggleCreateModal"
-      >
-        <div class="board-inner-create font-semibold text-xl">
-          <div class="font-normal text-lg"><fa icon="plus" class=""></fa> New Board</div>
-        </div>
-      </div>
     </div>
     <div class="mt-4">
       <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
         <i class="fa-solid fa-laptop-code"></i> Tasks
       </p>
     </div>
-    <div class="task-area flex">
-      <div class="flex-intial task" v-for="task in projectTasks" :key="task.id">
-        <div
-          class="task-inner font-semibold text-xl"
-          
-          @click="opentask(task)"
-        >
-          <div class="p-2"></div>
-        </div>
-      </div>
+    <div class="project-task-area">
       <div
-        class="flex-iitial task create-task"
+        class="task create-task"
         @click="toggleCreateTaskModal = !toggleCreateTaskModal"
       >
         <div class="task-inner-create font-semibold text-xl">
           <div class="font-normal text-lg"><fa icon="plus" class="mr-2"></fa>New Task</div>
         </div>
       </div>
+      <div class="task mb-4" v-for="task in projectTasks" :key="task.id">
+        <div
+          class="task-inner"
+          @click="opentask(task)"
+        >
+          <div class="p-2">{{task.jobTitle}}</div>
+        </div>
+      </div> 
     </div>
+    <Task v-if="taskStatus"/>
     <!--Board Modal Start-->
     <div
       v-if="toggleCreateModal"
@@ -125,7 +125,7 @@
             <span class="text-sm font-semibold">Task Title</span><br />
             <input
               class="modal-board-title border-2 border-gray-600 rounded pl-2 p-1 mr-6"
-              v-model="newBoard.boardName"
+              v-model="newTask.jobTitle"
             /><br />
             <span class="text-sm">* Title is required</span><br />
           </div>
@@ -133,7 +133,7 @@
             <span class="text-sm font-semibold">Task Description</span><br />
             <textarea
               class="modal-board-description border-2 border-gray-600 rounded w-64 h-24 pl-2 pt-1"
-              v-model="newBoard.boardDescription"
+              v-model="newTask.jobDescription"
             ></textarea
             ><br />
             <span class="text-sm">* You can give details about the Task</span
@@ -166,7 +166,7 @@
           
           <button
             class="rounded bg-green-600 font-semibold text-white py-2 w-4/12 mx-auto mb-2"
-            @click="createNewProjectBoard"
+            @click="createProjectTask"
           >
             CREATE
           </button>
@@ -190,7 +190,12 @@
 
 <script>
 import router from "../../router";
+import Task from './Task.vue';
+
 export default {
+  components: {
+    Task,
+  },
   data() {
     return {
       toggleCreateTaskModal: false,
@@ -210,9 +215,14 @@ export default {
         tags: [],
       },
       tempTags:[],
+      taskStatus: false,
     };
   },
   methods: {
+    opentask(task){
+      this.$store.dispatch("routingTask", task.id);
+      this.taskStatus = !this.taskStatus;
+    },
     addTag() {
       this.newTask.tags.push(this.tempTags)
       this.tempTags = ""
@@ -232,11 +242,23 @@ export default {
       else {
         this.newTask.receiverUser = id
       }
-    }
+    },
+    createProjectTask() {
+      this.$store.dispatch("createProjectTask", this.newTask)
+      this.newTask = {
+        jobTitle: "",
+        jobDescription: "",
+        receiverUser: "",
+        tags: [],
+      }
+      this.toggleCreateTaskModal = false
+    },
   },
   created() {
     this.$store.dispatch("loadProjectBoards");
     this.$store.dispatch("loadProjectTasks");
+    this.$store.dispatch("loadUser");
+    this.projectTasksArray = this.$store.state.projectTasks
   },
   computed: {
     projectBoards() {
@@ -247,7 +269,7 @@ export default {
     },
     routedProject() {
       return this.$store.state.project
-    }
+    },
   }
 };
 </script>
@@ -286,6 +308,10 @@ export default {
   @apply text-center rounded;
   padding-top: 45px;
   cursor: pointer;
+}
+
+.project-task-area{
+  @apply grid grid-cols-4;
 }
 
 .task {
