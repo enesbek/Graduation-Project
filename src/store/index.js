@@ -796,7 +796,7 @@ export default createStore({
             }, 
           },
         )
-        .then(response => console.log(response))
+        .then(() => store.dispatch("loadProjectBoards"))
       }
     }
   },
