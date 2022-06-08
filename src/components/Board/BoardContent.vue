@@ -110,12 +110,6 @@ export default {
     sections() {
       return this.$store.state.sections
     }
-    /*
-    sections: {
-      get() {
-        return  _.orderBy(this.$store.state.sections, "order_no")
-      }
-    },*/
   }
 };
 </script>

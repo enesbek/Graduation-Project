@@ -514,6 +514,23 @@ export default createStore({
       let order_no = (payload[1])
       let section_id = (payload[0])
       let user = JSON.parse(localStorage.getItem('user'));
+      let oldOrder
+      store.state.sections.forEach(section =>  {
+        if(section.id == section_id){
+          oldOrder = section.order_no 
+        }
+      })
+      store.state.sections.forEach(section =>  {
+        if(section.order_no == order_no){
+          section.order_no = oldOrder
+        }
+      })
+      store.state.sections.forEach(section =>  {
+        if(section.id == section_id){
+          section.order_no = order_no
+        }
+      })
+      store.state.sections = _.orderBy(store.state.sections, "order_no")
       axios.post(`${process.env.VUE_APP_API_URL}Section/order?order_no=${order_no}&section_id=${section_id}`, {
           params: {
             order_no,
