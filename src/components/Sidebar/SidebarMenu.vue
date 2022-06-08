@@ -11,7 +11,6 @@
     <SidebarLink to="/dashboard" icon="fas fa-home" class="text-xl m-1">DASHBOARD</SidebarLink><hr>
     <SidebarLink to="/projects" icon="fas fa-poll-h" class="text-xl m-2">PROJECTS</SidebarLink><hr>
     <SidebarLink to="/boards" icon="fas fa-clipboard" class="text-xl m-2">BOARDS</SidebarLink><hr>
-    <SidebarLink to="/dashboard" icon="fas fa-calendar-week" class="text-xl m-2">AGENDA</SidebarLink><hr>
     <div class="profileMenuBtn" @click="showProfileMenu"><i class="fas fa-user icon-user"/>
       <span v-if="collapsed">
         <div></div>
