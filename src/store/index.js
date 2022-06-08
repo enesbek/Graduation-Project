@@ -512,24 +512,29 @@ export default createStore({
     },
     updateSectionOrder(store, payload) {
       let order_no = (payload[1])
-      let section_id = (payload[0])
-      let user = JSON.parse(localStorage.getItem('user'));
-      let oldOrder
+      let changedSection = (payload[0])
+      let section_id = changedSection.id
+      if(changedSection.order_no < order_no){
+        store.state.sections.forEach(section => {
+          if(section.order_no > changedSection.order_no && section.order_no <= order_no){
+            section.order_no = section.order_no - 1
+            console.log("asdasd")
+          }
+        })
+      }
+      else{
+        store.state.sections.forEach(section => {
+          if(section.order_no >= order_no && section.order_no < changedSection.order_no){
+            section.order_no += 1
+          }
+        })
+      }
       store.state.sections.forEach(section =>  {
-        if(section.id == section_id){
-          oldOrder = section.order_no 
-        }
-      })
-      store.state.sections.forEach(section =>  {
-        if(section.order_no == order_no){
-          section.order_no = oldOrder
-        }
-      })
-      store.state.sections.forEach(section =>  {
-        if(section.id == section_id){
+        if(section.id == changedSection.id){
           section.order_no = order_no
         }
       })
+      let user = JSON.parse(localStorage.getItem('user'));
       store.state.sections = _.orderBy(store.state.sections, "order_no")
       axios.post(`${process.env.VUE_APP_API_URL}Section/order?order_no=${order_no}&section_id=${section_id}`, {
           params: {

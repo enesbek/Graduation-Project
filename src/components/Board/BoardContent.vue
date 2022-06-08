@@ -92,9 +92,9 @@ export default {
       this.$store.commit("SET_NEW_TASK_SECTION", sectionId)
     },
     log(event) {
-      let section_id = event.moved.element.id
+      let section = event.moved.element
       let order_no = event.moved.newIndex + 1
-      this.$store.dispatch("updateSectionOrder", [section_id, order_no]);
+      this.$store.dispatch("updateSectionOrder", [section, order_no]);
     },
     log2(event, section) {
       this.$store.dispatch("updateTaskOrder", [event, section]);
