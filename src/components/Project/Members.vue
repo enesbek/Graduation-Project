@@ -1,42 +1,56 @@
 <template>
-  <div class="members-container flex">
-    {{project.team}}
-    <table id="membersTable">
-      <tr>
-        <th>User Name</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>E-mail</th>
-      </tr>
-      <tr v-for="user in project.userAssignedProjects" :key="user.id">
-        <td>{{user.userName}}</td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.email}}</td>
-      </tr>
-      <tfoot>
-        <tr>
-          <td colspan="4" class="text-center cursor-pointer" @click="toggleAddMemberModal = !toggleAddMemberModal">
-            <i class="fa-solid fa-plus"></i>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+  <div class="members-container grid grid-cols-2 pt-2">
     <div>
-      <div class="mr-20">
-        <table id="teamsTable">
-          <tr v-for="team in project.teams" :key="team.id">
-            <td>{{team.teamName}}</td>
-            <td class="project-team-delete-btn" @click="openConfirmModal(team.id)">Delete</td>
+      Users
+      <table id="membersTable">
+        <tr>
+          <th>User Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>E-mail</th>
+        </tr>
+        <tr v-for="user in project.userAssignedProjects" :key="user.id">
+          <td>{{user.userName}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-center cursor-pointer" @click="toggleAddMemberModal = !toggleAddMemberModal">
+              <i class="fa-solid fa-plus"></i>
+            </td>
           </tr>
-          <tfoot>
-            <tr>
-              <td colspan="4" class="text-center cursor-pointer" @click="toggleAddTeamModal = !toggleAddTeamModal">
-                <i class="fa-solid fa-plus"></i>
-              </td>
+        </tfoot>
+      </table>
+    </div>
+    
+    <div>
+      <div>
+        <div v-if="teams.length>0">Users Of Teams</div>
+        <div v-for="team in teams" :key="team.id">
+          <table id="teamsTable">
+            <th class="text-center" colspan="3">
+              {{team.teamName}}
+            </th>
+            <tr v-for="user in team.users" :key="user.id">
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
+              
             </tr>
-          </tfoot>
-        </table>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="text-center cursor-pointer text-red-500 font-semibold" @click="openConfirmModal(team.id)">
+                  DELETE TEAM
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="bg-blue-700 px-4 py-2 w-48 text-white font-semibold rounded mt-4 ml-56 mb-10" @click="toggleAddTeamModal = !toggleAddTeamModal">
+          Create New Team
+        </div>
       </div>
     </div>
     
@@ -188,9 +202,15 @@ export default {
       }
     }
   },
+  created() {
+    this.$store.dispatch("loadProjectTeams")
+  },
   computed: {
     project() {
       return this.$store.state.project
+    },
+    teams() {
+      return this.$store.state.projectTeams
     },
   },
 };
@@ -211,14 +231,14 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  margin-left: 50px;
   margin-top: 20px;
 }
 
 #membersTable td, #membersTable th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 6px;
   text-align: left;
 }
 
@@ -238,8 +258,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 400px;
-  margin-left: 20px;
-  margin-right: auto;
+  margin: auto;
   margin-top: 20px;
 }
 
@@ -254,10 +273,9 @@ export default {
 #teamsTable tr:hover {background-color: #ddd;}
 
 #teamsTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 8px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #237fd0;
   color: white;
 }
 

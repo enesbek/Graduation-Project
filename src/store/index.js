@@ -33,6 +33,7 @@ export default createStore({
       ]
     },
     sectionOderIndex: [],
+    projectTeams: null,
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -99,6 +100,9 @@ export default createStore({
     },
     SET_SECTION_ORDER_INDEX(state, payload){
       state.sectionOderIndex = payload
+    },
+    SET_PROJECT_TEAMS(state, teams) {
+      state.projectTeams = teams
     }
   },
   actions: {
@@ -609,7 +613,7 @@ export default createStore({
         }
       ).then(response => {
         if(response.status == 201) {
-          store.dispatch("loadProject");
+          router.push("projects")
         }
       })
     },
@@ -703,7 +707,6 @@ export default createStore({
           storeTeams[i] = response.data
         })
       }
-      console.log(typeof storeTeams)
       commit('SET_PROJECT_TEAMS', storeTeams)   
     },
     deleteTeamFromProject(store, id) {
@@ -713,10 +716,8 @@ export default createStore({
           Authorization: 'Bearer '+user.token
         }
       })
-      .then(response => {
-        if(response.status == 204) {
-          store.dispatch("loadProject");
-        }
+      .then(() => {
+        router.push("projects")
       })
     },
     deleteTask(store, payload) {
@@ -798,6 +799,23 @@ export default createStore({
         )
         .then(() => store.dispatch("loadProjectBoards"))
       }
+    },
+    addTeamToBoard(store, team_id) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let board_id = store.state.routingBoard.id
+      axios.post(`${process.env.VUE_APP_API_URL}Team/add?team_id=${team_id}&board_id=${board_id}`,
+        {
+          params: {
+            team_id,
+            board_id
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
     }
   },
   modules: {

@@ -18,6 +18,19 @@
           </button>
           <hr class="mt-1" />
         </div>
+        Team List From Project
+        <div v-for="team in project.teams" :key="team.id" class="mb-6">
+          <table id="addTeamMemberTable">
+            <tr>
+              <td class="w-24">{{team.teamName}}</td>
+              <td class="addTeamMemberTable-add-btn" >
+                <div class="text-center" @click="addTeamsToBoard(team.id)">Add To Board</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        Users List From Project
         <div v-for="user in project.userAssignedProjects" :key="user.id">
           <table id="addTeamMemberTable">
             <tr v-bind:style="boardUsersArray.includes(user.id) ? {'background-color': '#04AA6D'} : {} ">
@@ -34,7 +47,7 @@
             class="add-new-member-modal-add-btn"
             @click="addUsersToBoard"
           >
-            Add to Board
+            Add Users to Board
           </button>
       </div>
     </div>
@@ -181,6 +194,9 @@ export default {
       this.$store.dispatch("addUsersToBoard", this.boardUsersArray)
       this.boardUsersArray = []
       this.toggleAddBoardMemberModal = false
+    },
+    addTeamsToBoard(id) {
+      this.$store.dispatch("addTeamToBoard", id)
     }
   }
 }
