@@ -1,21 +1,17 @@
 <template>
   <div class="your-boards">
     <div class="title font-bold text-2xl mt-2">Your Boards</div>
-      <div class="boards-area col-span-1">
-        <div class="board" v-for="board in boards" :key="board.id">
-          <div
-            class="board-inner font-semibold text-lg flex"
-            :style="{
-              background: 'url(' + image + ')',
-              'background-size': 'cover',
-            }"
-          >
-          <div class="p-2 text-white w-64" @click="gotoBoard">{{ board.boardName }}</div>
-          </div>
-        </div>
-        <div class="create-board text-xl font-semibold" @click="toggleCreateModal = !toggleCreateModal">
+      <div class="boards-area col-span-1 ml-4">
+        <div class="create-your-board font-semibold" @click="toggleCreateModal = !toggleCreateModal">
           Create New Board
-          <br /><span class="text-4xl font-semibold">+</span>
+          <br /><span class="text-xl font-semibold">+</span>
+        </div>
+        <div class="board" v-for="board in yourTempBoards" :key="board.id">
+          <div class="board-inner font-semibold text-lg mt-2" @click="gotoBoard(board)">
+              <div class="p-2">{{ board.board_name }}</div>
+              <div class="ml-2 mt-3 text-sm">Start: {{board.startDate}}</div>
+              <div class="ml-2 text-sm">End: &nbsp;{{board.endDate}}</div>
+            </div>
         </div>
       </div>
     
@@ -71,14 +67,8 @@
               v-model="newBoard.endDate"
             />
           </div>
-          <div class="ml-6 mt-2">
-            <span class="text-sm font-semibold">Add people to board</span><br />
-            <input
-              class="modal-board-title border-2 border-gray-600 rounded pl-2 p-1"
-            /><br />
-          </div>
           <button
-            class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12"
+            class="modal-create-btn rounded bg-gray-300 px-6 py-2 w-3/12 mb-4 mt-2"
             @click="createNewBoard"
           >
             Create
@@ -95,9 +85,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import store from "../../store";
-import { mapActions } from "vuex";
 import router from '../../router';
 export default {
   data() {
@@ -105,37 +92,44 @@ export default {
       toggleCreateModal: false,
       newBoard: {
         boardName: null,
-        boardDiscription: null,
+        boardDescription: null,
         startDate: null,
-        endDate: null,
-        isFinished: false,
+        endDate: null
       },
-      image: "https://i.pinimg.com/originals/c0/f3/bc/c0f3bcefc6ea726308b54c559d8ad84e.jpg",
-      boards: [
-        {
-          boardName: "Android",
-          image:
-            "https://i.pinimg.com/originals/c0/f3/bc/c0f3bcefc6ea726308b54c559d8ad84e.jpg",
-        },
-      ],
     };
   },
-  setup() {
-    store.commit("changeSidebarState");
-    const modalActive = ref(true);
-    return { modalActive };
-  },
   methods: {
-    ...mapActions(["createBoard"]),
-    //temp
-    createNewBoard() {
-      this.toggleCreateModal = false;
-      this.boards.push(this.newBoard);
-    },
-    gotoBoard() {
+    gotoBoard(board) {
+      this.$store.state.routingBoard = board
       router.push('board')
     },
+    createNewBoard() {
+      this.$store.dispatch("createNewYourBoard", this.newBoard)
+      this.newBoard = {
+        boardName: null,
+        boardDescription: null,
+        startDate: null,
+        endDate: null,
+      }
+      this.toggleCreateModal = false
+    }
   },
+  created() {
+    this.$store.commit("changeSidebarState");
+    this.$store.dispatch("loadYourBoards");
+  },
+  computed: {
+    yourTempBoards() {
+      this.$store.state.yourBoards.forEach(board => {
+        board.startDate = board.startDate.slice(0,10)
+        board.endDate = board.endDate.slice(0,10)
+        if(board.endDate == "9999-12-31") {
+          board.endDate = "---"
+        }
+      })
+      return this.$store.state.yourBoards
+    }
+  }
 };
 </script>
 
@@ -151,43 +145,47 @@ export default {
   @apply font-semibold;
 }
 .board {
+  margin: 20px;
+  margin-left: 35px;
+  margin-top: 0px;
   width: 270px;
   height: 100px;
-  margin:auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  box-shadow: 3px 5px 4px 5px #888888;
+  cursor: pointer;
+  @apply rounded;
+}
+
+.board:hover {
+  box-shadow: 5px 10px 8px 10px #888888;
 }
 .board-inner {
   height: 100px;
-  background-repeat: none;
+  background-image: url("../../assets/board/board-background.png");
+  background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 5px;
-  cursor: pointer;
+  @apply rounded;
 }
 .board-settings{
   cursor: pointer;
 }
-.create-board {
+.create-your-board {
   margin: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 270px;
-  height: 100px;
+  height: 80px;
   @apply bg-gray-300 text-center rounded;
   text-align: center;
   padding-top: 5%;
 
 }
 
-.create-board:hover {
+.create-your-board:hover {
   background-color: #034d5e;
-  @apply text-white text-xl;
+  @apply text-white;
   cursor: pointer;
 }
 
-.create-modal {
-  height: 40rem;
-}
 .modal-title {
   width: 100%;
   text-align: center;

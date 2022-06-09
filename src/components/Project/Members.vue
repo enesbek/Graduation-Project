@@ -1,7 +1,7 @@
 <template>
   <div class="members-container grid grid-cols-2 pt-2">
     <div>
-      Users
+      <div class="font-semibold">Users</div>
       <table id="membersTable">
         <tr>
           <th>User Name</th>
@@ -27,7 +27,7 @@
     
     <div>
       <div>
-        <div v-if="teams.length>0">Users Of Teams</div>
+        <div v-if="teams.length>0" class="font-semibold">Users of Teams</div>
         <div v-for="team in teams" :key="team.id">
           <table id="teamsTable">
             <th class="text-center" colspan="3">

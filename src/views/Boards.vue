@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen">
-    <ProjectsBoards class="projects-boards bg-gray-200 ml-10 mt-4"/>
-    <YourBoards class="your-boards bg-gray-320 ml-10 mt-4"/>
-    <AssignedBoards class="assigned-boards bg-gray-320 ml-10 mt-4"/>
+    <ProjectsBoards class="projects-boards bg-gray-200 ml-10 mt-4 rounded"/>
+    <YourBoards class="your-boards bg-gray-320 ml-10 mt-4 rounded"/>
+    <AssignedBoards class="projects-boards bg-gray-200 ml-10 mt-4 rounded"/>
   </div>
 </template>
 

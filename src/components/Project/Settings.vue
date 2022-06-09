@@ -88,10 +88,10 @@ export default {
       this.$store.dispatch("updateProject", ["projectDescription",this.update_description]);
     },
     updateStartDate() {
-      this.$store.dispatch("updateProject", ["projectStartDate", this.update_start_date]);
+      this.$store.dispatch("updateProject", ["startDate", this.update_start_date]);
     },
     updateEndDate() {
-      this.$store.dispatch("updateProject", ["projectEndDate",this.update_end_date]);
+      this.$store.dispatch("updateProject", ["endDate",this.update_end_date]);
     },
   },
 };

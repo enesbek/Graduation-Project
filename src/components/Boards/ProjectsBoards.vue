@@ -3,27 +3,19 @@
     <div class="title font-bold text-2xl mt-2 mb-2">Project's Boards</div>
     <div class="boards-content">
       <div class="boards-projects">
-        <div class="project col-span-1"
+        <div class="project col-span-1 rounded"
           v-for="project in projects"
           :key="project.id"
         >
           <div>
-            <div class="font-semibold pl-4 pt-2 text-xl">{{ project.projectName }}</div>
-            <div class="boards-area col-span-1">
-              <div class="board" v-for="board in boards" :key="board.id" @click="gotoBoard">
-                <div
-                  class="board-inner font-semibold text-lg"
-                  :style="{
-                    background: 'url(' + image2 + ')',
-                    'background-size': 'cover',
-                  }"
-                >
-                  <div class="p-2 text-white">Board1</div>
+            <div class="font-semibold py-2 text-xl text-center">{{ project.projectName }}</div>
+            <div class="boards-area col-span-1 ml-4">
+              <div class="board" v-for="board in project.boards" :key="board.id" @click="gotoBoard">
+                <div class="board-inner font-semibold text-lg mt-2" @click="gotoBoard(board)">
+                  <div class="p-2">{{ board.board_name }}</div>
+                  <div class="ml-2 mt-3 text-sm">Start: {{board.startDate}}</div>
+                  <div class="ml-2 text-sm">End: &nbsp;{{board.endDate}}</div>
                 </div>
-              </div>
-              <div class="create-board text-xl font-semibold">
-                Create New Board
-                <br /><span class="text-4xl font-semibold">+</span>
               </div>
             </div>
           </div>
@@ -35,7 +27,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import router from "../../router";
 
 export default {
@@ -56,9 +47,22 @@ export default {
   mounted() {
     this.$store.dispatch("loadProjects");
   },
-  computed: mapState(["projects"]),
+  computed: {
+    projects() {
+      this.$store.state.projects.forEach(project => {
+        project.boards.forEach(board => {
+          board.startDate = board.startDate.slice(0,10)
+          board.endDate = board.endDate.slice(0,10)
+          if(board.endDate == "9999-12-31")
+            board.endDate = "---"
+        })
+      })
+      return this.$store.state.projects
+    }
+  },
   methods: {
-    gotoBoard() {
+    gotoBoard(board) {
+      this.$store.state.routingBoard = board
       router.push('board')
     },
   },
@@ -81,33 +85,40 @@ export default {
   overflow: auto;
   margin-bottom: 20px;
 }
-.boards-projects {
-}
+
 .project {
   @apply mx-2 pb-4;
   background-color: white;
   margin-bottom: -1rem;
 }
+
 .boards {
   margin: auto;
   width: 70%;
   margin-top: 5em;
   height: 50vh;
 }
-.boards-area {
-}
+
 .board {
-  margin: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 20px;
+  margin-top: 0px;
   width: 270px;
   height: 100px;
+  box-shadow: 3px 5px 4px 5px #888888;
+  cursor: pointer;
+  @apply rounded;
 }
+
+.board:hover {
+  box-shadow: 5px 10px 8px 10px #888888;
+}
+
 .board-inner {
   height: 100px;
-  background-repeat: none;
+  background-image: url("../../assets/board/board-background.png");
+  background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 5px;
+  @apply rounded;
 }
 
 .create-board {

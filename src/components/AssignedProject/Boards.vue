@@ -5,8 +5,16 @@
         <fa icon="clipboard"></fa> Boards
       </p>
     </div>
-    <div class="boards-area flex">
-      <div class="flex-intial board" v-for="board in assignedBoards" :key="board.id">
+    <div class="grid grid-cols-3">
+      <div
+        class="board create-board"
+        @click="toggleCreateModal = !toggleCreateModal"
+      >
+        <div class="board-inner font-semibold text-xl">
+          <div class="font-normal text-lg">Create New Board</div>
+        </div>
+      </div>
+      <div class="board" v-for="board in assignedBoards" :key="board.id">
         <div
           class="board-inner font-semibold text-xl"
           :style="{
@@ -16,16 +24,11 @@
           @click="gotoBoard(board)"
         >
           <div class="p-2">{{ board.board_name }}</div>
+          <div class="ml-2 mt-8 text-sm">Start: {{board.startDate}}</div>
+          <div class="ml-2 text-sm">End: &nbsp;{{board.endDate}}</div>
         </div>
       </div>
-      <div
-        class="flex-iitial board create-board"
-        @click="toggleCreateModal = !toggleCreateModal"
-      >
-        <div class="board-inner font-semibold text-xl">
-          <div class="font-normal text-lg">Create New Board</div>
-        </div>
-      </div>
+      
     </div>
     <div class="mt-4">
       <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
@@ -39,7 +42,8 @@
             class="task-inner font-semibold text-xl"
             @click="opentask(task)"
           >
-            <div class="p-2">{{task.jobTitle}}</div>
+            <div class="p-2 font-semibold">{{task.jobTitle}}</div>
+            <div class="p-2 text-sm">End: {{task.endDate}}</div>
           </div>
         </div>
       </div>
@@ -161,12 +165,20 @@ export default {
   },
   computed: {
     assignedBoards() {
+      this.$store.state.assignedProjectBoards.forEach(board => {
+        board.startDate = board.startDate.slice(0,10)
+        board.endDate = board.endDate.slice(0,10)
+      })
       return this.$store.state.assignedProjectBoards
     },
     assignedProject() {
       return this.$store.state.routingAssignedProject
     },
     projectTasks() {
+      this.$store.state.projectTasks.forEach(task => {
+        task.startDate = task.startDate.slice(0,10)
+        task.endDate = task.endDate.slice(0,10)
+      })
       return this.$store.state.projectTasks
     },
     user() {
@@ -183,8 +195,7 @@ export default {
   margin-top: 2em;
   height: 50vh;
 }
-.boards-area {
-}
+
 .board {
   margin: 1rem;
   width: 270px;

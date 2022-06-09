@@ -15,35 +15,40 @@
       <div class="flex-intial board" v-for="board in projectBoards" :key="board.id">
         <div
           class="board-inner font-semibold text-xl"
-          
           @click="gotoBoard(board)"
         >
           <div class="p-2">{{ board.board_name }}</div>
+          <div class="ml-2 mt-8 text-sm">Start: {{board.startDate}}</div>
+          <div class="ml-2 text-sm">End: &nbsp;{{board.endDate}}</div>
         </div>
       </div>
     </div>
-    <div class="mt-4">
-      <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
-        <i class="fa-solid fa-laptop-code"></i> Tasks
-      </p>
-    </div>
-    <div class="project-task-area">
-      <div
-        class="task create-task"
-        @click="toggleCreateTaskModal = !toggleCreateTaskModal"
-      >
-        <div class="task-inner-create font-semibold text-xl">
-          <div class="font-normal text-lg"><fa icon="plus" class="mr-2"></fa>New Task</div>
-        </div>
+    <hr/>
+    <div class="project-tasks">
+      <div class="">
+        <p class="text-2xl font-semibold tracking-wide ml-4 mt-2">
+          <i class="fa-solid fa-laptop-code"></i> Tasks
+        </p>
       </div>
-      <div class="task mb-4" v-for="task in projectTasks" :key="task.id">
+      <div class="project-task-area">
         <div
-          class="task-inner"
-          @click="opentask(task)"
+          class="task create-task"
+          @click="toggleCreateTaskModal = !toggleCreateTaskModal"
         >
-          <div class="p-2">{{task.jobTitle}}</div>
+          <div class="task-inner-create font-semibold text-xl">
+            <div class="font-normal text-lg"><fa icon="plus" class="mr-2"></fa>New Task</div>
+          </div>
         </div>
-      </div> 
+        <div class="task mb-4" v-for="task in projectTasks" :key="task.id">
+          <div
+            class="task-inner"
+            @click="opentask(task)"
+          >
+            <div class="p-2 font-semibold">{{task.jobTitle}}</div>
+            <div class="p-2 text-sm">End: {{task.endDate}}</div>
+          </div>
+        </div> 
+      </div>
     </div>
     <Task v-if="taskStatus"/>
     <!--Board Modal Start-->
@@ -262,9 +267,17 @@ export default {
   },
   computed: {
     projectBoards() {
+      this.$store.state.projectBoards.forEach(board => {
+        board.startDate = board.startDate.slice(0,10)
+        board.endDate = board.endDate.slice(0,10)
+      })
       return this.$store.state.projectBoards
     },
     projectTasks() {
+      this.$store.state.projectTasks.forEach(task => {
+        task.startDate = task.startDate.slice(0,10)
+        task.endDate = task.endDate.slice(0,10)
+      })
       return this.$store.state.projectTasks
     },
     routedProject() {
@@ -295,6 +308,7 @@ export default {
 .board:hover {
   box-shadow: 10px 20px 16px 20px #888888;
 }
+
 .board-inner {
   height: 130px;
   background-image: url("../../assets/board/board-background.png");

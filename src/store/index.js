@@ -34,6 +34,7 @@ export default createStore({
     },
     sectionOderIndex: [],
     projectTeams: null,
+    yourBoards: [],
   },  
   mutations: {
     changeSidebarState: (state) => {
@@ -103,6 +104,9 @@ export default createStore({
     },
     SET_PROJECT_TEAMS(state, teams) {
       state.projectTeams = teams
+    },
+    SET_YOUR_BOARDS(state, boards) {
+      state.yourBoards = boards
     }
   },
   actions: {
@@ -496,6 +500,7 @@ export default createStore({
       )
       .then(() => {
         store.dispatch("loadRoutingTask");
+        store.dispatch("loadProjectTasks");
       })
     },
     addNewCheckToTask(store, newCheck) {
@@ -613,6 +618,7 @@ export default createStore({
         }
       ).then(response => {
         if(response.status == 201) {
+          //store.dispatch("loadProject");
           router.push("projects")
         }
       })
@@ -858,6 +864,48 @@ export default createStore({
         if(response.status == 200)
           router.push("/")
       })
+    },
+    async loadYourBoards({commit}) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let tempBoards = []
+      await axios.get(`${process.env.VUE_APP_API_URL}Board`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
+      .then(response => {
+        response.data.forEach(board => {
+          if(board.project_id == 0) {
+            board.startDate = board.startDate.slice(0,10)
+            board.endDate = board.endDate.slice(0,10)
+            tempBoards.push(board)
+          }
+        })
+      })
+      commit("SET_YOUR_BOARDS",tempBoards)
+    },
+    createNewYourBoard(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      axios.post(process.env.VUE_APP_API_URL + 'Board/standalone', {
+        "project_id": 0,
+        "board_name": payload.boardName,
+        "description": payload.boardDescription,
+        "startDate": payload.startDate,
+        "endDate": payload.endDate,
+      }, 
+      {
+        headers: {
+          Authorization: 'Bearer ' + user.token
+        }, 
+      }
+    )
+    .then(response => {
+      if(response.status == 201){
+        store.dispatch("loadYourBoards");
+      }
+    });
     }
   },
   modules: {
