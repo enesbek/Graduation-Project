@@ -32,7 +32,7 @@
       </div>
       <hr>
       <div class="profile-menu-inner">
-        <div class="profile-settings">
+        <div class="profile-settings" @click="showSettingsModal">
           Settings
         </div>
         <div class="profile-notifications" @click="showNotificationModal">
@@ -43,12 +43,11 @@
         </div>
       </div>
     </div>
-
     <span class="collapse-icon" :class="{ 'rotate-180': collapsed}" @click="toggleSidebar">
       <i class="fas fa-angle-double-left"></i>
     </span>
 
-    <!-- Modal Start --> 
+    <!-- Notification Modal Start --> 
     <div
       v-if="toggleNotificationModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
@@ -87,6 +86,55 @@
       class="absolute z-40 inset-0 opacity-25 bg-black"
     ></div>
     <!-- Modal End -->
+
+    <!-- Settings Modal Start --> 
+    <div
+      v-if="toggleSettingsModal"
+      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    >
+      <div class="notifications-modal relative flex">
+        <div class="bg-white w-full shadow-2xl max-w-2xl flex flex-col rounded">
+          <div class="modal-title text-lg">
+            Settings
+            <button class="modal-close-btns" @click="toggleSettingsModal = false">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <hr class="mt-1" />
+          </div>
+          <div class="text-center mb-2">
+            {{user.firstName}} {{user.lastName}}
+          </div>
+          <div class="ml-4 mb-6" >
+            <div>
+              Username: <input v-model="changedUserNameText"  :placeholder="[[user.userName]]" class="border-2 border-gray-600 rounded px-1 w-36"/>
+              <button @click="changeUserName" class="bg-blue-600 text-white text-sm font-semibold px-2 py-1 ml-2 rounded">Save</button> 
+            </div>
+            <hr/>
+            <div class="mt-2">
+              <div class="flex">
+                <div class="w-28">Old Password:</div><input type="password" class="border-2 border-gray-600 rounded px-1 w-36" v-model="userOldPassword"/>
+              </div>
+              <div class="flex mt-2">
+                <div class="w-28">New Password:</div><input type="password" class="border-2 border-gray-600 rounded px-1 w-36" v-model="userNewPassword"/>
+              </div>
+              <div class="flex mt-2"> 
+                <div class="w-28">Confirm New:</div><input type="password" class="border-2 border-gray-600 rounded px-1 w-36" v-model="userConfirmedPassword"/>
+              </div>
+              <div class="mt-3">
+                <span class="bg-green-600 text-white rounded px-4 py-2 ml-10 mt-8" @click="changePassword">
+                  Change Password
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="toggleSettingsModal"
+      class="absolute z-40 inset-0 opacity-25 bg-black"
+    ></div>
+    <!-- Settings Modal End -->
   </div>
 </template>
 
@@ -97,8 +145,13 @@ export default {
   components: { SidebarLink },
   data() {
     return {
+      changedUserNameText: "",
       openMenu: false,
       toggleNotificationModal: false,
+      toggleSettingsModal: false,
+      userOldPassword: "",
+      userNewPassword: "",
+      userConfirmedPassword: "",
     }
   },
   setup() {
@@ -107,12 +160,23 @@ export default {
     }
   },
   methods:{
+    changeUserName() {
+      if(this.changedUserNameText != "" && this.user.userName != this.changedUserNameText){
+        this.$store.dispatch("userChangeUserName", this.changedUserNameText)
+      }
+      this.toggleSettingsModal = false
+      this.changedUserNameText = ""
+    },
     showProfileMenu(){
       this.openMenu = !this.openMenu
     },
     showNotificationModal(){
       this.openMenu = false
       this.toggleNotificationModal = !this.toggleNotificationModal
+    },
+    showSettingsModal(){
+      this.openMenu = false
+      this.toggleSettingsModal = !this.toggleSettingsModal
     },
     userLogout(){
       setTimeout(() => {
@@ -124,6 +188,18 @@ export default {
     },
     denyNotification(notification) {
       this.$store.dispatch("denyNotification", notification.id);
+    },
+    changePassword() {
+      if(this.userNewPassword == this.userConfirmedPassword 
+        && this.userNewPassword.length >= 8 
+        && this.userOldPassword.length >= 8
+        && this.userOldPassword != this.userNewPassword){
+        this.$store.dispatch("changeUserPassword", [this.userOldPassword, this.userNewPassword])
+      }
+      this.userNewPassword = ""
+      this.userOldPassword = ""
+      this.userConfirmedPassword = ""
+      this.toggleSettingsModal = false
     }
   },
   created() {
@@ -193,7 +269,7 @@ export default {
 }
 .profileMenu {
   width: 400px;
-  height: 300px;
+  height: 180px;
   background-color: white;
   color: black;
   margin-left: 150px;

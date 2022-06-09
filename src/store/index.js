@@ -816,6 +816,48 @@ export default createStore({
           }, 
         },
       )
+    },
+    userChangeUserName(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let userName = payload
+      axios.patch(`${process.env.VUE_APP_API_URL}User/username?userName=${userName}`,
+        {
+          params: {
+            userName
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
+      .then(() => {
+        router("projects")
+        window.location.reload();
+      })
+    },
+    changeUserPassword(store, payload) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let current_password = payload[0]
+      let new_password = payload[1]
+      axios.patch(`${process.env.VUE_APP_API_URL}User/password?current_password=${current_password}&new_password=${new_password}`,
+        {
+          params: {
+            current_password,
+            new_password
+          }
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token
+          }, 
+        },
+      )
+      .then(response => {
+        if(response.status == 200)
+          router.push("/")
+      })
     }
   },
   modules: {
