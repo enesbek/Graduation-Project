@@ -699,10 +699,10 @@ export default createStore({
         }
       })
     },
-    loadProjectTeams({commit}) {
+    loadProjectTeams(store) {
       let user = JSON.parse(localStorage.getItem('user'));
       let teams = this.state.project.teams
-      let storeTeams = []
+      store.state.projectTeams = []
       for(let i = 0; i < teams.length; i++) {
         axios.get(process.env.VUE_APP_API_URL + 'Team/' + teams[i].id, {
           headers: {
@@ -710,10 +710,9 @@ export default createStore({
           }
         })
         .then(response => {
-          storeTeams[i] = response.data
+          store.state.projectTeams.push(response.data)
         })
-      }
-      commit('SET_PROJECT_TEAMS', storeTeams)   
+      }  
     },
     deleteTeamFromProject(store, id) {
       let user = JSON.parse(localStorage.getItem('user'));
@@ -723,7 +722,7 @@ export default createStore({
         }
       })
       .then(() => {
-        router.push("projects")
+        store.state.projectTeams = store.state.projectTeams.filter(x => id == x.id)
       })
     },
     deleteTask(store, payload) {
